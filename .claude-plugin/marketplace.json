@@ -1,0 +1,15 @@
+{
+  "name": "tacascer-ai-plugins",
+  "owner": {
+    "name": "tacascer"
+  },
+  "description": "Independent agent workflow plugins for Codex and Claude Code.",
+  "plugins": [
+    {
+      "name": "testing-principles",
+      "source": "./plugins/testing-principles",
+      "version": "0.1.0",
+      "description": "Write, classify, and audit tests using Khorikov's testing principles."
+    }
+  ]
+}

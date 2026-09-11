@@ -1,0 +1,24 @@
+{
+  "name": "testing-principles",
+  "version": "0.1.0",
+  "description": "Write, classify, and audit tests using Khorikov's testing principles.",
+  "author": {
+    "name": "tacascer"
+  },
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Testing Principles",
+    "shortDescription": "Author and audit tests with durable testing principles.",
+    "longDescription": "Guidance for authoring, classifying, and auditing tests using Khorikov's testing principles.",
+    "developerName": "tacascer",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Audit my tests using testing principles."
+    ]
+  }
+}
