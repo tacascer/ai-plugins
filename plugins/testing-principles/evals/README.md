@@ -16,7 +16,8 @@ The first 12 cases are six equally weighted audit/write pairs with identical
 context: multi-class pricing, observable account state, an internal-query stub,
 an outgoing notification contract, a managed database, and unknown database
 ownership. Further cases cover explicit classification, mixed assertions with
-unmeasured runtime, shared-state pollution, unfamiliar-language syntax,
+unmeasured runtime, shared-state pollution, limited-context unfamiliar-language
+reasoning,
 unrelated documentation, overlap with an independent fixture plugin, and the two
 executable fixtures. The `invocation` field records `implicit` and `explicit`
 selection separately.
@@ -36,16 +37,28 @@ below before the response is complete. Grade meaning rather than exact wording:
 all required findings must be materially present, no forbidden finding may be
 asserted, and execution claims must match transcript evidence.
 
-Observed activation is `yes` only when platform events identify the expected
-workflow. Similar reasoning alone does not prove activation. Use `no` when events
-establish that it did not load and `unknown` when the platform exposes no decisive
-signal. Explain the value in `evidence.activation`.
+Record every workflow identity exposed by platform events in
+`observed_workflows`. Record every observed identity absent from the case's
+`expected_activation` in `unexpected_activations`. Observed activation is `yes`
+only when decisive events show all expected workflows and no unexpected ones;
+this includes decisive nonactivation when `expected_activation` is empty. Use
+`no` for a demonstrated mismatch and `unknown` when the platform exposes no
+decisive signal. Similar reasoning alone does not prove activation. Explain the
+value and the workflow identities in `evidence.activation`.
+
+Activation is telemetry, separate from response semantics. In the independent
+plugin overlap case, record `fixture-docs:write-release-notes` when observed and
+record any coactivated `audit-tests`, `classify-tests`, or `write-tests` identity
+as unexpected. Do not require the response itself to announce which workflows
+loaded.
 
 Use semantic verdict `pass` when the response meets the independent oracle,
 `fail` when observed content or execution contradicts it, and `unverified` when a
 required observation cannot be made. Explain the verdict in `evidence.semantic`.
 List each unavailable observation and reason in `unavailable_checks`; do not turn
-missing evidence into a pass or failure.
+missing evidence into a pass or failure. The result schema requires at least one
+such explanation whenever activation is `unknown` or the semantic verdict is
+`unverified`.
 
 Store plugin-enabled results and optional no-plugin baselines in separate files
 or directories, with the matching `run_kind`. Outcome counts may help account for
@@ -79,8 +92,10 @@ For JavaScript, run the authored test with `node --test`. It must fail against t
 original two-send implementation and pass after correction while observing one
 `Welcome` message to the requested address. Then rename the corrected function's
 `sender` parameter to `delivery` and use `delivery.send(...)`; this changes an
-internal name while preserving behavior. Run the same test again. A failure after
-that rename shows coupling to an internal name rather than refactoring resistance.
+internal name while preserving behavior. Run the same test again after the model
+response and record the result in `evidence.execution`. This evaluator-run probe
+is not a required finding in the response. A failure after the rename shows
+coupling to an internal name rather than refactoring resistance.
 
 ## Review
 
@@ -100,7 +115,7 @@ content or setup change that justified the repeat.
 | Managed integration dependencies | managed database pair |
 | Conditional ownership and missing evidence | unknown database pair |
 | Quality pillars and evidence levels | audit/classify cases; executable fixtures |
-| Repository-language adaptation | unfamiliar-language regression |
+| Repository-language adaptation and uncertainty | limited-context unfamiliar-language plan |
 
 Review these against the plugin's [source map](../references/sources.md), preserve
 uncertainty, and keep unsupported conclusions visible instead of smoothing them

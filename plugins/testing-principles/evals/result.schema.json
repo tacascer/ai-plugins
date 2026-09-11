@@ -12,6 +12,8 @@
     "model",
     "timestamp",
     "observed_activation",
+    "observed_workflows",
+    "unexpected_activations",
     "evidence",
     "semantic_verdict",
     "findings",
@@ -27,6 +29,16 @@
     "observed_activation": {
       "type": "string",
       "enum": ["yes", "no", "unknown"]
+    },
+    "observed_workflows": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "unexpected_activations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
     },
     "evidence": {
       "type": "object",
@@ -52,5 +64,28 @@
       "items": { "type": "string", "minLength": 1 },
       "uniqueItems": true
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "observed_activation": { "const": "unknown" }
+            }
+          },
+          {
+            "properties": {
+              "semantic_verdict": { "const": "unverified" }
+            }
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "unavailable_checks": { "minItems": 1 }
+        }
+      }
+    }
+  ]
 }

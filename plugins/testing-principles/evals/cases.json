@@ -153,11 +153,11 @@
     "id": "write-unfamiliar-language-regression",
     "mode": "write",
     "invocation": "implicit",
-    "prompt": "Add the smallest regression test for this parser defect and explain verification.",
-    "context": "This is a Gleam repository. Nearby parser tests use gleeunit table cases with literal source and expected syntax nodes; the documented command is `gleam test`. The parser accepts unterminated `[1, 2` instead of returning the repository's parse error. The runtime is unavailable and no installation was requested.",
+    "prompt": "Propose a focused regression-test plan for this parser defect and identify the repository facts needed before writing idiomatic test code.",
+    "context": "This is a Gleam repository. The parser accepts the unterminated input `[1, 2` instead of returning a parse error. No parser module or function signature, error representation, nearby test source, helper API, or test command is supplied. The Gleam runtime is unavailable and no installation was requested.",
     "expected_activation": ["write-tests"],
-    "required_findings": ["Follow nearby Gleam and gleeunit syntax", "Use the malformed input and a hand-derived parse-error expectation", "Assert the parser's observable result", "Record execution unverified"],
-    "forbidden_findings": ["Switch languages or frameworks", "Install Gleam globally", "Claim the regression failed or passed"]
+    "required_findings": ["Plan a regression test around the malformed input and observable parse-error result", "Request the parser entry point and signature error representation nearby test conventions helper APIs and repository test command", "State that idiomatic test code cannot be safely authored from the supplied context", "Record execution as unverified"],
+    "forbidden_findings": ["Invent Gleam test syntax module names helper calls or error constructors", "Install Gleam globally", "Claim the regression test failed or passed"]
   },
   {
     "id": "unrelated-documentation-edit",
@@ -166,8 +166,8 @@
     "prompt": "Rewrite this release-note paragraph so it is concise and user-facing.",
     "context": "Draft: We made internal adjustments to navigation wording so users can locate billing history more easily. No code, test, classification, or coverage work is requested.",
     "expected_activation": [],
-    "required_findings": ["Return a concise user-facing release note", "Keep testing workflows inactive"],
-    "forbidden_findings": ["Classify tests", "Recommend test doubles", "Launch a test audit"]
+    "required_findings": ["Return a concise user-facing release note"],
+    "forbidden_findings": ["Add unrequested test-classification analysis", "Recommend test doubles", "Add an unrequested test audit"]
   },
   {
     "id": "unrelated-explicit-fixture-plugin",
@@ -176,8 +176,8 @@
     "prompt": "Explicitly invoke fixture-docs:write-release-notes and produce one release-note bullet.",
     "context": "Both fixture-docs and testing-principles are installed. The change renames Billing History to Payment History. The disposable fixture skill applies only to release-note editing. No testing task is requested.",
     "expected_activation": ["fixture-docs:write-release-notes"],
-    "required_findings": ["Use the requested fixture-docs workflow", "Keep testing-principles workflows inactive"],
-    "forbidden_findings": ["Activate audit-tests", "Activate classify-tests", "Activate write-tests"]
+    "required_findings": ["Produce one release-note bullet that accurately describes the label rename"],
+    "forbidden_findings": ["Add unrequested testing advice", "Claim source code or tests were changed"]
   },
   {
     "id": "write-explicit-python-cart-fixture",
@@ -196,7 +196,7 @@
     "prompt": "Explicitly invoke write-tests, follow the fixture README, and test and fix the duplicate welcome notification in the disposable workspace.",
     "context": "The workspace is copied from evals/fixtures/js-notifier and contains a deliberately defective notifier.mjs. Evaluator refactor instructions are withheld from this model-visible context.",
     "expected_activation": ["write-tests"],
-    "required_findings": ["Use Node's built-in runner to assert one welcome message to the address", "Treat message count as external contract", "Show failure before and pass after correction", "The test survives an internal parameter rename"],
-    "forbidden_findings": ["Reject the contractual count assertion", "Assert function text or internal names", "Claim refactor survival without running it"]
+    "required_findings": ["Use Node's built-in runner to assert one welcome message to the address", "Treat message count as external contract", "Show failure before and pass after correction"],
+    "forbidden_findings": ["Reject the contractual count assertion", "Assert function text or internal names"]
   }
 ]
