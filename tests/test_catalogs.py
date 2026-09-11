@@ -169,7 +169,14 @@ class CatalogTests(unittest.TestCase):
                     render_catalogs(root)
 
     def test_manifest_version_must_be_strict_semver(self) -> None:
-        invalid_versions = ("banana", "latest", "1.2", "01.2.3", "1.2.3-01")
+        invalid_versions = (
+            "banana",
+            "latest",
+            "1.2",
+            "01.2.3",
+            "1.2.3-01",
+            "1٢.3.4",
+        )
         for invalid_version in invalid_versions:
             with self.subTest(version=invalid_version), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
