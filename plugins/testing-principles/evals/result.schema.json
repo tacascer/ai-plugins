@@ -28,15 +28,18 @@
     "timestamp": { "type": "string", "format": "date-time" },
     "observed_activation": {
       "type": "string",
+      "description": "Literal telemetry: yes when at least one workflow was decisively observed, no when decisive telemetry showed none, and unknown when telemetry was insufficient.",
       "enum": ["yes", "no", "unknown"]
     },
     "observed_workflows": {
       "type": "array",
+      "description": "Exact identities of workflows decisively observed, independent of whether they were expected.",
       "items": { "type": "string", "minLength": 1 },
       "uniqueItems": true
     },
     "unexpected_activations": {
       "type": "array",
+      "description": "Observed workflow identities absent from the case's expected_activation list.",
       "items": { "type": "string", "minLength": 1 },
       "uniqueItems": true
     },
@@ -45,7 +48,11 @@
       "additionalProperties": false,
       "required": ["activation", "semantic"],
       "properties": {
-        "activation": { "type": "string", "minLength": 1 },
+        "activation": {
+          "type": "string",
+          "description": "Explanation of the literal activation observation and recorded workflow identities.",
+          "minLength": 1
+        },
         "semantic": { "type": "string", "minLength": 1 },
         "execution": { "type": "string", "minLength": 1 }
       }
@@ -84,6 +91,24 @@
       "then": {
         "properties": {
           "unavailable_checks": { "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observed_activation": { "const": "yes" }
+        }
+      },
+      "then": {
+        "properties": {
+          "observed_workflows": { "minItems": 1 }
+        }
+      },
+      "else": {
+        "properties": {
+          "observed_workflows": { "maxItems": 0 },
+          "unexpected_activations": { "maxItems": 0 }
         }
       }
     }

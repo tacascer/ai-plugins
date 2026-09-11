@@ -39,12 +39,21 @@ asserted, and execution claims must match transcript evidence.
 
 Record every workflow identity exposed by platform events in
 `observed_workflows`. Record every observed identity absent from the case's
-`expected_activation` in `unexpected_activations`. Observed activation is `yes`
-only when decisive events show all expected workflows and no unexpected ones;
-this includes decisive nonactivation when `expected_activation` is empty. Use
-`no` for a demonstrated mismatch and `unknown` when the platform exposes no
-decisive signal. Similar reasoning alone does not prove activation. Explain the
-value and the workflow identities in `evidence.activation`.
+`expected_activation` in `unexpected_activations`. `observed_activation` records
+literal telemetry: use `yes` when at least one workflow is decisively observed,
+`no` when decisive telemetry shows that no workflow activated, and `unknown` when
+telemetry is insufficient. Similar reasoning alone does not prove activation. If
+`expected_activation` is empty and decisive telemetry observes no workflows,
+`observed_activation` is `no` and both workflow arrays are empty.
+
+Determine expected-set matching separately by comparing `expected_activation`
+with `observed_workflows` and checking `unexpected_activations`. For example, the
+independent plugin overlap case can record `observed_activation` as `yes`, both
+`fixture-docs:write-release-notes` and `write-tests` in `observed_workflows`, and
+`write-tests` in `unexpected_activations`. The expected-set check then fails even
+though activation was literally observed. Explain the literal observation and
+workflow identities in `evidence.activation`; no additional activation verdict
+field is needed.
 
 Activation is telemetry, separate from response semantics. In the independent
 plugin overlap case, record `fixture-docs:write-release-notes` when observed and
