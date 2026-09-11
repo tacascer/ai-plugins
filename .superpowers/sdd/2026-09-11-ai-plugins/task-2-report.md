@@ -101,3 +101,17 @@ The exact descriptions match the approved brief, each frontmatter block has `---
 ## Deferred evaluation and concerns
 
 No live model baseline or forward evaluation was run. The task brief assigns behavioral and activation evaluation to Task 5 and explicitly avoids duplicate live evaluations here. Structural and manual checks are complete; model compliance, automatic activation, and platform load behavior remain intentionally unverified until Task 5.
+
+## Review fix
+
+Review found that `classify-tests` described five independent dimensions but its procedure enumerated only four and did not load the shared quality rubric. The procedure now reads `quality.md` and explicitly assesses protection against regressions, resistance to refactoring, feedback speed, and maintainability. It distinguishes demonstrated evidence from inferred or unresolved findings and treats speed as measured only when backed by execution evidence.
+
+Focused verification after the change:
+
+```text
+$ .venv/bin/python /home/tacascer/.codex/skills/.system/skill-creator/scripts/quick_validate.py plugins/testing-principles/skills/classify-tests
+Skill is valid!
+
+$ <local Markdown link check for classify-tests/SKILL.md>
+validated 5 local links
+```
