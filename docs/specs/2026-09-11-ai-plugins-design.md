@@ -1,7 +1,7 @@
 # AI Plugins collection and testing-principles design
 
 Date: 2026-09-11
-Status: Approved conversational design, expanded for written review
+Status: Written specification approved by the user on 2026-09-11
 Repository: https://github.com/tacascer/ai-plugins
 
 ## Purpose
