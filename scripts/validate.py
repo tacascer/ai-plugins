@@ -16,7 +16,7 @@ from scripts.catalogs import render_catalogs, sync_catalogs
 
 INLINE_LINK_PATTERN = re.compile(r"\[[^\]\n]+\]\(([^)\n]+)\)")
 REFERENCE_DEFINITION_PATTERN = re.compile(
-    r"^[ \t]{0,3}\[[^\]\n]+\]:[ \t]*(\S+)", re.MULTILINE
+    r"^[ \t]{0,3}\[[^\]\n]+\]:[ \t]*(?:\n[ \t]+)?(\S+)", re.MULTILINE
 )
 
 
@@ -180,9 +180,16 @@ def _validate_markdown(document_path: Path, plugin_root: Path, root: Path) -> li
             and not destination.startswith("#")
             and not _is_remote_https(destination)
         ):
-            errors.append(
-                f"{label}: reference-style local link is not supported: {destination}"
+            error = _validate_local_destination(
+                destination, document_path, plugin_root, root
             )
+            if error is not None:
+                errors.append(error)
+            else:
+                errors.append(
+                    f"{label}: reference-style local link is not supported: "
+                    f"{destination}"
+                )
     return errors
 
 

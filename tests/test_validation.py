@@ -246,6 +246,31 @@ class ValidationTests(unittest.TestCase):
 
             self.assert_error_contains(errors, "reference-style local link")
 
+    def test_multiline_reference_style_local_targets_are_reported(self) -> None:
+        cases = (
+            ("references/quality.md", "reference-style local link"),
+            ("references/missing.md", "missing linked resource"),
+            ("/tmp/resource.md", "absolute local link"),
+            ("../../outside.md", "escapes plugin directory"),
+        )
+        for destination, expected in cases:
+            with (
+                self.subTest(destination=destination),
+                tempfile.TemporaryDirectory() as directory,
+            ):
+                root = self.copy_repository(directory)
+                readme = root / "plugins/testing-principles/README.md"
+                readme.write_text(
+                    readme.read_text(encoding="utf-8")
+                    + f"\n[guide]:\n  {destination}\n",
+                    encoding="utf-8",
+                )
+
+                errors = validate_repository(root)
+
+                self.assert_error_contains(errors, expected)
+                self.assert_error_contains(errors, destination)
+
     def test_skill_name_must_match_its_directory(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
