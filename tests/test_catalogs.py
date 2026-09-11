@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -165,6 +167,76 @@ class CatalogTests(unittest.TestCase):
 
                 with self.assertRaisesRegex(ValueError, message):
                     render_catalogs(root)
+
+    def test_manifest_version_must_be_strict_semver(self) -> None:
+        invalid_versions = ("banana", "latest", "1.2", "01.2.3", "1.2.3-01")
+        for invalid_version in invalid_versions:
+            with self.subTest(version=invalid_version), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                self.write_plugin(
+                    root,
+                    "alpha",
+                    codex_version=invalid_version,
+                    claude_version=invalid_version,
+                )
+                self.write_inventory(
+                    root, [{"name": "alpha", "path": "plugins/alpha"}]
+                )
+
+                with self.assertRaisesRegex(ValueError, "strict SemVer"):
+                    render_catalogs(root)
+
+    def test_valid_prerelease_version_is_preserved(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.write_plugin(
+                root,
+                "alpha",
+                codex_version="1.2.3-alpha.1",
+                claude_version="1.2.3-alpha.1",
+            )
+            self.write_inventory(root, [{"name": "alpha", "path": "plugins/alpha"}])
+
+            catalogs = render_catalogs(root)
+
+            plugin = catalogs[".claude-plugin/marketplace.json"]["plugins"][0]
+            self.assertEqual(plugin["version"], "1.2.3-alpha.1")
+
+    def test_non_utf8_json_raises_value_error(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory_path = root / "catalogs/plugins.json"
+            inventory_path.parent.mkdir(parents=True)
+            inventory_path.write_bytes(b"\xff")
+
+            with self.assertRaisesRegex(ValueError, "invalid UTF-8"):
+                render_catalogs(root)
+
+    def test_non_utf8_json_is_a_concise_cli_error(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory_path = root / "catalogs/plugins.json"
+            inventory_path.parent.mkdir(parents=True)
+            inventory_path.write_bytes(b"\xff")
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "scripts.catalogs",
+                    "--root",
+                    str(root),
+                ],
+                cwd=Path(__file__).resolve().parents[1],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+            self.assertEqual(result.returncode, 1)
+            self.assertEqual(len(result.stderr.splitlines()), 1)
+            self.assertIn("error: invalid UTF-8 in", result.stderr)
+            self.assertNotIn("Traceback", result.stderr)
 
     def test_check_mode_does_not_replace_stale_catalog(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

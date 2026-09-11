@@ -12,6 +12,12 @@ from typing import Any
 
 CATALOG_NAME = "tacascer-ai-plugins"
 PLUGIN_NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+SEMVER_PATTERN = re.compile(
+    r"(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)"
+    r"(?:-(?:0|[1-9]\d*|\d*[A-Za-z-][0-9A-Za-z-]*)"
+    r"(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][0-9A-Za-z-]*))*)?"
+    r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?"
+)
 OUTPUT_PATHS = (
     ".agents/plugins/marketplace.json",
     ".claude-plugin/marketplace.json",
@@ -23,6 +29,8 @@ def _load_json(path: Path) -> Any:
         return json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError as error:
         raise ValueError(f"missing required file: {path}") from error
+    except UnicodeDecodeError as error:
+        raise ValueError(f"invalid UTF-8 in {path}") from error
     except json.JSONDecodeError as error:
         raise ValueError(f"invalid JSON in {path}: {error.msg}") from error
 
@@ -69,6 +77,8 @@ def _load_manifests(root: Path, plugin: dict[str, str]) -> tuple[dict, dict]:
     claude_version = claude.get("version")
     if not isinstance(codex_version, str) or codex_version != claude_version:
         raise ValueError(f"manifest versions must match for plugin: {name}")
+    if not SEMVER_PATTERN.fullmatch(codex_version):
+        raise ValueError(f"manifest version must be strict SemVer for plugin: {name}")
     description = claude.get("description")
     if not isinstance(description, str) or not description:
         raise ValueError(f"Claude manifest description is required: {name}")
