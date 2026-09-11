@@ -1,0 +1,806 @@
+[
+  {
+    "case_id": "audit-multi-class-pricing",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-multi-class-pricing",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "audit-observable-account-state",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-observable-account-state",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "audit-stub-interaction",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-stub-interaction",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "audit-outgoing-notification-contract",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-outgoing-notification-contract",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "audit-managed-database-integration",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-managed-database-integration",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "audit-unknown-database-ownership",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-unknown-database-ownership",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "classify-explicit-output-test",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "classify-mixed-unmeasured-runtime",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "audit-shared-state-pollution",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-unfamiliar-language-regression",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "unrelated-documentation-edit",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "unrelated-explicit-fixture-plugin",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-explicit-python-cart-fixture",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded.",
+      "execution": "Independent evaluator probe only: generated unittest failed on the untouched copy because total(50) was 55, then passed after the evaluator changed > to >=; this is not agent-authored-test evidence."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "write-explicit-js-notifier-fixture",
+    "run_kind": "plugin",
+    "platform": "Codex",
+    "platform_version": "0.154.0",
+    "model": "unobserved",
+    "timestamp": "2026-09-12T00:47:00+01:00",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "Catalog discovery listed the plugin as available, uninstalled, and disabled. No model session loaded it, so activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded.",
+      "execution": "Independent evaluator probe only: generated node:test failed on the untouched duplicate-send copy, passed after the evaluator removed one send, and passed again after sender was renamed to delivery; this is not agent-authored-test evidence."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model activation requires an installed plugin cache entry. Codex 0.154.0 has no supported session-only raw plugin-path override, and installation would mutate user configuration and cache outside this evaluation scope."
+    ]
+  },
+  {
+    "case_id": "audit-multi-class-pricing",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case input was submitted once, but authentication failed before model inference; no semantic response was available to grade."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-multi-class-pricing",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "audit-observable-account-state",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-observable-account-state",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "audit-stub-interaction",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-stub-interaction",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "audit-outgoing-notification-contract",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-outgoing-notification-contract",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "audit-managed-database-integration",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-managed-database-integration",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "audit-unknown-database-ownership",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-unknown-database-ownership",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "classify-explicit-output-test",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "classify-mixed-unmeasured-runtime",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "audit-shared-state-pollution",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-unfamiliar-language-regression",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "unrelated-documentation-edit",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "unrelated-explicit-fixture-plugin",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-explicit-python-cart-fixture",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded.",
+      "execution": "Independent evaluator probe only: generated unittest failed on the untouched copy because total(50) was 55, then passed after the evaluator changed > to >=; this is not agent-authored-test evidence."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  },
+  {
+    "case_id": "write-explicit-js-notifier-fixture",
+    "run_kind": "plugin",
+    "platform": "Claude Code",
+    "platform_version": "2.1.267",
+    "model": "claude-opus-5[1m]",
+    "timestamp": "2026-09-11T23:49:15.394Z",
+    "observed_activation": "unknown",
+    "observed_workflows": [],
+    "unexpected_activations": [],
+    "evidence": {
+      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded.",
+      "execution": "Independent evaluator probe only: generated node:test failed on the untouched duplicate-send copy, passed after the evaluator removed one send, and passed again after sender was renamed to delivery; this is not agent-authored-test evidence."
+    },
+    "semantic_verdict": "unverified",
+    "findings": [],
+    "unavailable_checks": [
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+    ]
+  }
+]

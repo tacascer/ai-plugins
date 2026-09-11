@@ -26,6 +26,10 @@ and use conventional commit messages such as `feat: add release-notes plugin` or
    .venv/bin/python -m scripts.validate
    ```
 
+Add or update the plugin's own evaluation cases when a workflow's selection or
+behavior changes. Keep grader-only expectations out of model-visible prompts and
+store raw local transcripts under ignored `.eval-runs/`.
+
 The repository validator supports inline Markdown links with relative local paths,
 fragment-only links, and `https://` links. Percent-encoded local paths are decoded
 before resolution. Local targets must exist and resolve inside the containing
@@ -38,11 +42,29 @@ arbitrary Markdown correctness are outside this structural check.
 ## Version and catalog changes
 
 Plugins version independently. A release of one plugin changes that plugin's two
-manifest versions together and regenerates the catalog metadata; it does not bump
-unrelated plugins. Keep the manifest identity equal to the plugin directory and
-inventory name.
+manifest `version` fields together:
+
+- `plugins/<name>/.codex-plugin/plugin.json`
+- `plugins/<name>/.claude-plugin/plugin.json`
+
+Then regenerate both catalogs with `.venv/bin/python -m scripts.catalogs`. Do
+not bump unrelated plugins. Keep the manifest identity equal to the plugin
+directory and inventory name.
 
 A change to the catalog format or renderer affects the collection contract. Review
 every generated entry on both platforms, regenerate both files, and run the full
 check set. Native platform validators should supplement these repository checks
 when available.
+
+For the current first plugin, the supplemental Claude packaging checks are:
+
+```bash
+claude plugin validate --strict .
+claude plugin validate --strict plugins/testing-principles
+```
+
+The Codex plugin-creator validator is an environment-provided development tool,
+not a repository dependency. Use it when available, and record its exact path and
+version or source revision in verification evidence. Model activation and
+workflow behavior require fresh model runs; structural validators cannot
+establish either result.

@@ -10,6 +10,26 @@ Testing Principles is a shared Codex and Claude Code plugin for classifying, aud
 
 Classification labels describe a test; they do not grade it. A unit test may be brittle, and an integration test may provide excellent protection against regressions.
 
+Each workflow description is intended to activate its skill automatically for a
+matching request. Live automatic-selection behavior is still awaiting the model
+checks in the collection's initial verification record. Use the qualified skill
+name when selection must be explicit:
+
+| Workflow | Codex | Claude Code |
+| --- | --- | --- |
+| Classify | `$testing-principles:classify-tests` | `/testing-principles:classify-tests` |
+| Audit | `$testing-principles:audit-tests` | `/testing-principles:audit-tests` |
+| Write | `$testing-principles:write-tests` | `/testing-principles:write-tests` |
+
+For local Claude development, load this directory for one session:
+
+```bash
+claude --plugin-dir /absolute/path/to/ai-plugins/plugins/testing-principles
+```
+
+Collection installation commands and their publication status are documented in
+the repository-level README.
+
 ## Curriculum
 
 Start with [the framework](references/framework.md), then read the reference relevant to the task:
@@ -27,3 +47,13 @@ Original contrast examples cover [behavior and boundaries](examples/behavior-bou
 Recommendations favor meaningful behavior, isolation between tests, and assertions that survive behavior-preserving refactoring. Dependency treatment follows ownership and observability: use real managed dependencies in integration tests when practical, and use mocks for externally visible effects at unmanaged boundaries. When the boundary or ownership is unknown, report the conditional result and the fact needed to resolve it.
 
 The material is original guidance informed by the sources listed in [sources and provenance](references/sources.md). The plugin is not affiliated with or endorsed by the book's author or publisher.
+
+## Evaluation
+
+The [evaluation guide](evals/README.md) defines balanced semantic cases,
+activation telemetry, hidden grader expectations, and two deliberately defective
+executable fixtures. The initial verification record is stored at
+`docs/verification/2026-09-11-initial.md` in the collection repository. It
+separates structural and discovery evidence from model activation, reasoning,
+and agent-authored executable-test evidence. Do not infer behavioral validation
+from a passing manifest check.
