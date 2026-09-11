@@ -1,0 +1,107 @@
+# Testing Principles evaluations
+
+These evaluations check workflow selection and semantic application of the shared
+testing curriculum. They are behavioral probes, not platform certification or a
+numerical test-conformance score.
+
+## Artifacts and balance
+
+- [cases.json](cases.json) contains model inputs and grader-only expectations.
+- [result.schema.json](result.schema.json) defines one recorded observation.
+- [python-cart](fixtures/python-cart/README.md) and
+  [js-notifier](fixtures/js-notifier/README.md) are deliberately defective,
+  executable fixtures.
+
+The first 12 cases are six equally weighted audit/write pairs with identical
+context: multi-class pricing, observable account state, an internal-query stub,
+an outgoing notification contract, a managed database, and unknown database
+ownership. Further cases cover explicit classification, mixed assertions with
+unmeasured runtime, shared-state pollution, unfamiliar-language syntax,
+unrelated documentation, overlap with an independent fixture plugin, and the two
+executable fixtures. The `invocation` field records `implicit` and `explicit`
+selection separately.
+
+## Keep the oracle hidden
+
+Never send a whole case object or this guide to the model. Construct a reasoning
+case's model input from only `prompt` and `context`. Keep `expected_activation`,
+`required_findings`, and `forbidden_findings` in the grader process. For an
+explicit case, translate the generic invocation phrase into the platform's
+supported explicit syntax, preserve the rest of the prompt, and capture the exact
+submitted input in the transcript.
+
+For an executable case, expose only its copied fixture source, its fixture README,
+and the case's `prompt` and `context`. Do not expose the oracle or refactor probe
+below before the response is complete. Grade meaning rather than exact wording:
+all required findings must be materially present, no forbidden finding may be
+asserted, and execution claims must match transcript evidence.
+
+Observed activation is `yes` only when platform events identify the expected
+workflow. Similar reasoning alone does not prove activation. Use `no` when events
+establish that it did not load and `unknown` when the platform exposes no decisive
+signal. Explain the value in `evidence.activation`.
+
+Use semantic verdict `pass` when the response meets the independent oracle,
+`fail` when observed content or execution contradicts it, and `unverified` when a
+required observation cannot be made. Explain the verdict in `evidence.semantic`.
+List each unavailable observation and reason in `unavailable_checks`; do not turn
+missing evidence into a pass or failure.
+
+Store plugin-enabled results and optional no-plugin baselines in separate files
+or directories, with the matching `run_kind`. Outcome counts may help account for
+completed cases, but they are never a conformance score or reliability estimate.
+
+## Disposable fixture runs
+
+Run fixtures only in ignored `.eval-runs/` workspaces, for example
+`.eval-runs/<platform>/<case-id>/<timestamp>/workspace`. Copy the fixture directory
+into `workspace`, confirm the copy retains the deliberate defect, and allow edits
+only in that copy. Capture the submitted input, activation events when available,
+diff, commands, exit codes, and test output. Do not commit `.eval-runs/`.
+
+Check for the existing runtime first. If it is absent, do not install it globally.
+Leave the fixture unchanged, record the executable portion as `unverified`, and
+name the missing runtime in `unavailable_checks`.
+
+For Python, run the authored standard-library `unittest` against the original
+defect first. The grader-only oracle is:
+
+- `total(49) == 54`
+- `total(50) == 50`
+- `total(51) == 51`
+
+The boundary test must fail with the original `subtotal > 50` implementation.
+After correction, the relevant test and all three oracle examples must pass. A
+test written only after correction, or one that never failed for the original,
+does not demonstrate regression protection.
+
+For JavaScript, run the authored test with `node --test`. It must fail against the
+original two-send implementation and pass after correction while observing one
+`Welcome` message to the requested address. Then rename the corrected function's
+`sender` parameter to `delivery` and use `delivery.send(...)`; this changes an
+internal name while preserving behavior. Run the same test again. A failure after
+that rename shows coupling to an internal name rather than refactoring resistance.
+
+## Review
+
+Run each initial case once per platform and configured model. Compare the captured
+response with its independently authored required and forbidden findings and
+create one record conforming to `result.schema.json`. An `audit-tests`
+cross-review can add evidence for authored tests, but workflow agreement does not
+replace the oracle. Repeat a failed or ambiguous case only after recording the
+content or setup change that justified the repeat.
+
+| Source-mapped principle | Cases |
+| --- | --- |
+| Cohesive behavior and isolation | multi-class pricing; shared-state pollution |
+| Output, state, communication, and mixed styles | pricing; account; notification; mixed assertions |
+| Stub input and internal coupling | stub interaction |
+| Observable unmanaged effects | notification pair; JavaScript fixture |
+| Managed integration dependencies | managed database pair |
+| Conditional ownership and missing evidence | unknown database pair |
+| Quality pillars and evidence levels | audit/classify cases; executable fixtures |
+| Repository-language adaptation | unfamiliar-language regression |
+
+Review these against the plugin's [source map](../references/sources.md), preserve
+uncertainty, and keep unsupported conclusions visible instead of smoothing them
+into a score.

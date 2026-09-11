@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Testing Principles evaluation result",
+  "description": "One semantic evaluation observation. Store baselines separately from plugin-enabled observations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "run_kind",
+    "platform",
+    "platform_version",
+    "model",
+    "timestamp",
+    "observed_activation",
+    "evidence",
+    "semantic_verdict",
+    "findings",
+    "unavailable_checks"
+  ],
+  "properties": {
+    "case_id": { "type": "string", "minLength": 1 },
+    "run_kind": { "type": "string", "enum": ["plugin", "baseline"] },
+    "platform": { "type": "string", "minLength": 1 },
+    "platform_version": { "type": "string", "minLength": 1 },
+    "model": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "observed_activation": {
+      "type": "string",
+      "enum": ["yes", "no", "unknown"]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["activation", "semantic"],
+      "properties": {
+        "activation": { "type": "string", "minLength": 1 },
+        "semantic": { "type": "string", "minLength": 1 },
+        "execution": { "type": "string", "minLength": 1 }
+      }
+    },
+    "semantic_verdict": {
+      "type": "string",
+      "enum": ["pass", "fail", "unverified"]
+    },
+    "findings": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "unavailable_checks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  }
+}
