@@ -412,13 +412,14 @@
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
+      "activation": "This case's session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted. The original attempt allowed only Skill; the corrected Read/add-dir setup was not rerun.",
       "semantic": "The case input was submitted once, but authentication failed before model inference; no semantic response was available to grade."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -426,19 +427,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -446,19 +448,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -466,19 +469,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -486,19 +490,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -506,19 +511,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -526,19 +532,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -546,19 +553,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -566,19 +574,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -586,19 +595,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -606,19 +616,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -626,19 +637,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -646,19 +658,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -666,19 +679,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -686,19 +700,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -706,19 +721,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -726,19 +742,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -746,19 +763,20 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded."
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -766,20 +784,21 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded.",
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init.",
       "execution": "Independent evaluator probe only: generated unittest failed on the untouched copy because total(50) was 55, then passed after the evaluator changed > to >=; this is not agent-authored-test evidence."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -787,20 +806,21 @@
     "run_kind": "plugin",
     "platform": "Claude Code",
     "platform_version": "2.1.267",
-    "model": "claude-opus-5[1m]",
-    "timestamp": "2026-09-11T23:49:15.394Z",
+    "model": "not observed for this case; shared init reported claude-opus-5[1m]",
+    "timestamp": "2026-09-12T00:59:06+01:00",
     "observed_activation": "unknown",
     "observed_workflows": [],
     "unexpected_activations": [],
     "evidence": {
-      "activation": "The session init listed testing-principles and its three skills, but authentication failed before inference. Discovery is observed; activation is unknown because no Skill tool event was emitted.",
-      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded.",
+      "activation": "No case-specific session or workflow event exists. Shared platform evidence from the sole attempted Claude case listed testing-principles and its three skills, establishing discovery only; it is not attributed to this case. Activation is unknown.",
+      "semantic": "The case was not submitted after the platform-level blocker was confirmed; no semantic response was graded. The timestamp is the corrected-record time and the model field names shared platform-init provenance, not a per-case init.",
       "execution": "Independent evaluator probe only: generated node:test failed on the untouched duplicate-send copy, passed after the evaluator removed one send, and passed again after sender was renamed to delivery; this is not agent-authored-test evidence."
     },
     "semantic_verdict": "unverified",
     "findings": [],
     "unavailable_checks": [
-      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists."
+      "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
+      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
     ]
   }
 ]
