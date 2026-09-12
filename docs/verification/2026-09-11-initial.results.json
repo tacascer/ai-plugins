@@ -419,7 +419,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -440,7 +440,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -461,7 +461,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -482,7 +482,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -503,7 +503,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -524,7 +524,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -545,7 +545,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -566,7 +566,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -587,7 +587,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -608,7 +608,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -629,7 +629,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -650,7 +650,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -671,7 +671,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -692,7 +692,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -713,7 +713,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -734,7 +734,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -755,7 +755,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -776,7 +776,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -798,7 +798,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   },
   {
@@ -820,7 +820,7 @@
     "findings": [],
     "unavailable_checks": [
       "Model inference was unavailable because the existing OAuth session expired and could not be refreshed; no case response or Skill tool event exists.",
-      "The corrected rerun configuration grants Skill and Read, adds the oracle-free runtime plugin directory, and grants fixture edits/execution only to executable cases. It was dry-checked but not run while authentication remained unavailable."
+      "The corrected rerun configuration creates a unique invocation root, grants Skill and Read, adds the oracle-free runtime plugin directory, and limits pre-approved fixture commands to python3 -m unittest or node --test for their matching executable case. It was dry-checked but not run while authentication remained unavailable."
     ]
   }
 ]
