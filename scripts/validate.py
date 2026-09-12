@@ -18,6 +18,9 @@ INLINE_LINK_PATTERN = re.compile(r"\[[^\]\n]+\]\(([^)\n]+)\)")
 REFERENCE_DEFINITION_PATTERN = re.compile(
     r"^[ \t]{0,3}\[[^\]\n]+\]:[ \t]*(?:\n[ \t]+)?(\S+)", re.MULTILINE
 )
+QUALIFIED_WORKFLOW_PATTERN = re.compile(
+    r"^[a-z0-9]+(?:-[a-z0-9]+)*:[a-z0-9]+(?:-[a-z0-9]+)*$"
+)
 
 
 def _display_path(path: Path, root: Path) -> str:
@@ -193,6 +196,98 @@ def _validate_markdown(document_path: Path, plugin_root: Path, root: Path) -> li
     return errors
 
 
+def _validate_bundle_containment(plugin_root: Path, root: Path) -> list[str]:
+    label = _display_path(plugin_root, root)
+    try:
+        resolved_plugin = plugin_root.resolve()
+    except (OSError, RuntimeError) as error:
+        return [f"{label}: could not resolve plugin directory: {error}"]
+    if not _is_within(resolved_plugin, root):
+        return [f"{label}: plugin directory escapes collection root through a symlink"]
+
+    errors: list[str] = []
+    pending = [plugin_root]
+    while pending:
+        directory = pending.pop()
+        try:
+            entries = list(directory.iterdir())
+        except (FileNotFoundError, NotADirectoryError):
+            continue
+        except OSError as error:
+            errors.append(
+                f"{_display_path(directory, root)}: could not inspect plugin directory: "
+                f"{error}"
+            )
+            continue
+        for entry in entries:
+            if entry.is_symlink():
+                try:
+                    resolved_target = entry.resolve()
+                except (OSError, RuntimeError) as error:
+                    errors.append(
+                        f"{_display_path(entry, root)}: could not resolve symlink: {error}"
+                    )
+                    continue
+                if not _is_within(resolved_target, resolved_plugin):
+                    errors.append(
+                        f"{_display_path(entry, root)}: symlink target escapes plugin "
+                        "directory"
+                    )
+                continue
+            if entry.is_dir():
+                pending.append(entry)
+    return errors
+
+
+def _inventory_plugin_roots(root: Path) -> list[Path]:
+    inventory_path = root / "catalogs/plugins.json"
+    try:
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, UnicodeDecodeError, json.JSONDecodeError):
+        return []
+    if not isinstance(inventory, list):
+        return []
+    return [
+        root / entry["path"]
+        for entry in inventory
+        if isinstance(entry, dict) and isinstance(entry.get("path"), str)
+    ]
+
+
+def _validate_eval_activation_identities(
+    plugin_root: Path, root: Path
+) -> list[str]:
+    cases_path = plugin_root / "evals/cases.json"
+    if not cases_path.is_file():
+        return []
+    try:
+        cases = json.loads(cases_path.read_text(encoding="utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return []
+    if not isinstance(cases, list):
+        return []
+
+    errors: list[str] = []
+    for index, case in enumerate(cases):
+        if not isinstance(case, dict):
+            continue
+        expected = case.get("expected_activation")
+        if not isinstance(expected, list):
+            continue
+        case_id = case.get("id", f"case at index {index}")
+        for identity in expected:
+            if (
+                not isinstance(identity, str)
+                or QUALIFIED_WORKFLOW_PATTERN.fullmatch(identity) is None
+            ):
+                errors.append(
+                    f"{_display_path(cases_path, root)}: {case_id}: "
+                    "expected_activation identity must be plugin-qualified: "
+                    f"{identity!r}"
+                )
+    return errors
+
+
 def _validate_plugin(plugin_root: Path, root: Path) -> list[str]:
     errors = _validate_manifest_metadata(plugin_root, root)
     skills_root = plugin_root / "skills"
@@ -210,12 +305,18 @@ def _validate_plugin(plugin_root: Path, root: Path) -> list[str]:
             )
     for document_path in sorted(plugin_root.rglob("*.md")):
         errors.extend(_validate_markdown(document_path, plugin_root, root))
+    errors.extend(_validate_eval_activation_identities(plugin_root, root))
     return errors
 
 
 def validate_repository(root: Path) -> list[str]:
     """Return path-specific errors for repository plugin packaging."""
     root = root.resolve()
+    containment_errors: list[str] = []
+    for plugin_root in _inventory_plugin_roots(root):
+        containment_errors.extend(_validate_bundle_containment(plugin_root, root))
+    if containment_errors:
+        return containment_errors
     try:
         catalogs = render_catalogs(root)
     except ValueError as error:

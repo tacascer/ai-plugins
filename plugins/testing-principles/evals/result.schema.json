@@ -33,14 +33,20 @@
     },
     "observed_workflows": {
       "type": "array",
-      "description": "Exact identities of workflows decisively observed, independent of whether they were expected.",
-      "items": { "type": "string", "minLength": 1 },
+      "description": "Exact plugin-qualified identities of workflows decisively observed, independent of whether they were expected.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*:[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
       "uniqueItems": true
     },
     "unexpected_activations": {
       "type": "array",
-      "description": "Observed workflow identities absent from the case's expected_activation list.",
-      "items": { "type": "string", "minLength": 1 },
+      "description": "Observed plugin-qualified workflow identities absent from the case's expected_activation list.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*:[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
       "uniqueItems": true
     },
     "evidence": {

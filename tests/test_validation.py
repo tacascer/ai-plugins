@@ -121,7 +121,66 @@ class ValidationTests(unittest.TestCase):
             errors = validate_repository(root)
 
             self.assert_error_contains(errors, "escapes plugin directory")
-            self.assert_error_contains(errors, "escaped%20resource.md")
+            self.assert_error_contains(errors, "references/escaped resource.md")
+
+    def test_plugin_root_symlink_escape_is_reported_without_traversal(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = self.copy_repository(directory)
+            plugin_root = root / "plugins/testing-principles"
+            outside = Path(directory) / "outside-plugin"
+            shutil.copytree(plugin_root, outside)
+            shutil.rmtree(plugin_root)
+            plugin_root.symlink_to(outside, target_is_directory=True)
+
+            errors = validate_repository(root)
+
+            self.assert_error_contains(errors, "plugin directory escapes collection root")
+
+    def test_bundle_symlink_escapes_are_reported(self) -> None:
+        cases = (
+            (".codex-plugin/plugin.json", False),
+            ("helpers/escaped.sh", False),
+            ("references", True),
+        )
+        for relative_path, is_directory in cases:
+            with (
+                self.subTest(relative_path=relative_path),
+                tempfile.TemporaryDirectory() as directory,
+            ):
+                root = self.copy_repository(directory)
+                plugin_root = root / "plugins/testing-principles"
+                link = plugin_root / relative_path
+                outside = root / ("outside-dir" if is_directory else "outside-file")
+                if is_directory:
+                    outside.mkdir()
+                    shutil.rmtree(link)
+                else:
+                    contents = (
+                        link.read_text(encoding="utf-8")
+                        if relative_path.endswith(".json")
+                        else "outside\n"
+                    )
+                    outside.write_text(contents, encoding="utf-8")
+                    link.parent.mkdir(parents=True, exist_ok=True)
+                    if link.exists():
+                        link.unlink()
+                link.symlink_to(outside, target_is_directory=is_directory)
+
+                errors = validate_repository(root)
+
+                self.assert_error_contains(errors, "symlink target escapes plugin directory")
+                self.assert_error_contains(errors, relative_path)
+
+    def test_internal_bundle_symlink_is_valid(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = self.copy_repository(directory)
+            helpers = root / "plugins/testing-principles/helpers"
+            helpers.mkdir()
+            target = helpers / "real.sh"
+            target.write_text("#!/bin/sh\n", encoding="utf-8")
+            (helpers / "alias.sh").symlink_to(target)
+
+            self.assertEqual(validate_repository(root), [])
 
     def test_missing_frontmatter_field_is_reported(self) -> None:
         for field in ("name", "description"):
@@ -284,6 +343,23 @@ class ValidationTests(unittest.TestCase):
             errors = validate_repository(root)
 
             self.assert_error_contains(errors, "skill name must match directory")
+
+    def test_expected_activation_requires_plugin_qualified_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = self.copy_repository(directory)
+            cases_path = root / "plugins/testing-principles/evals/cases.json"
+            cases = self.read_json(cases_path)
+            self.assertIsInstance(cases, list)
+            cases[0]["expected_activation"] = ["audit-tests"]
+            self.write_json(cases_path, cases)
+
+            errors = validate_repository(root)
+
+            self.assert_error_contains(
+                errors,
+                "expected_activation identity must be plugin-qualified",
+            )
+            self.assert_error_contains(errors, "audit-multi-class-pricing")
 
     def test_cli_prints_path_specific_errors_and_exits_one(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

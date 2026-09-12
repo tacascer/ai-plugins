@@ -38,8 +38,10 @@ all required findings must be materially present, no forbidden finding may be
 asserted, and execution claims must match transcript evidence.
 
 Record every workflow identity exposed by platform events in
-`observed_workflows`. Record every observed identity absent from the case's
-`expected_activation` in `unexpected_activations`. `observed_activation` records
+`observed_workflows`, using the plugin-qualified
+`plugin-name:workflow-name` form. Record every observed identity absent from the
+case's `expected_activation` in `unexpected_activations`.
+`observed_activation` records
 literal telemetry: use `yes` when at least one workflow is decisively observed,
 `no` when decisive telemetry shows that no workflow activated, and `unknown` when
 telemetry is insufficient. Similar reasoning alone does not prove activation. If
@@ -49,17 +51,19 @@ telemetry is insufficient. Similar reasoning alone does not prove activation. If
 Determine expected-set matching separately by comparing `expected_activation`
 with `observed_workflows` and checking `unexpected_activations`. For example, the
 independent plugin overlap case can record `observed_activation` as `yes`, both
-`fixture-docs:write-release-notes` and `write-tests` in `observed_workflows`, and
-`write-tests` in `unexpected_activations`. The expected-set check then fails even
+`fixture-docs:write-release-notes` and `testing-principles:write-tests` in
+`observed_workflows`, and `testing-principles:write-tests` in
+`unexpected_activations`. The expected-set check then fails even
 though activation was literally observed. Explain the literal observation and
 workflow identities in `evidence.activation`; no additional activation verdict
 field is needed.
 
 Activation is telemetry, separate from response semantics. In the independent
 plugin overlap case, record `fixture-docs:write-release-notes` when observed and
-record any coactivated `audit-tests`, `classify-tests`, or `write-tests` identity
-as unexpected. Do not require the response itself to announce which workflows
-loaded.
+record any coactivated `testing-principles:audit-tests`,
+`testing-principles:classify-tests`, or `testing-principles:write-tests`
+identity as unexpected. Do not require the response itself to announce which
+workflows loaded.
 
 Use semantic verdict `pass` when the response meets the independent oracle,
 `fail` when observed content or execution contradicts it, and `unverified` when a

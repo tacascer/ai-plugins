@@ -5,7 +5,7 @@
     "invocation": "implicit",
     "prompt": "Review this pricing test and recommend any changes.",
     "context": "PriceQuote coordinates CatalogPrice, CustomerDiscount, and CurrencyRounding. The client-visible rule is that base price 100 with a 10 percent eligible discount produces 90. All collaborators run in process and are fresh per test. The test calls PriceQuote.quote and asserts 90. Runtime is not supplied.",
-    "expected_activation": ["audit-tests"],
+    "expected_activation": ["testing-principles:audit-tests"],
     "required_findings": ["Several classes can implement one cohesive unit of behavior", "The returned quote is observable output", "Fresh in-process collaborators do not require mocking", "Execution speed is unverified"],
     "forbidden_findings": ["One class is required per unit test", "Every collaborator must be mocked", "The test was measured fast"]
   },
@@ -15,7 +15,7 @@
     "invocation": "implicit",
     "prompt": "Write a focused test for the eligible-customer pricing rule.",
     "context": "PriceQuote coordinates CatalogPrice, CustomerDiscount, and CurrencyRounding. The client-visible rule is that base price 100 with a 10 percent eligible discount produces 90. All collaborators run in process and are fresh per test. The test calls PriceQuote.quote and asserts 90. Runtime is not supplied.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Exercise the cohesive behavior through PriceQuote", "Assert the observable result 90", "Use fresh collaborators without mock-per-class isolation", "Do not report a pass without execution"],
     "forbidden_findings": ["Write one test per implementation class", "Verify the exact internal call sequence", "Claim the authored test passed without running it"]
   },
@@ -25,7 +25,7 @@
     "invocation": "implicit",
     "prompt": "Audit these withdrawal assertions for value and refactoring resistance.",
     "context": "Account.withdraw changes available_balance, which customers and monthly statements use, and rebuilds _ledger_cache, which is private to Account. The test withdraws 25 from 100, then asserts available_balance is 75 and _ledger_cache contains a particular entry. Runtime is not supplied.",
-    "expected_activation": ["audit-tests"],
+    "expected_activation": ["testing-principles:audit-tests"],
     "required_findings": ["Both assertions are state-based", "Available balance is observable domain state", "The cache assertion couples to an implementation detail", "Retain the balance assertion and remove or replace the cache assertion"],
     "forbidden_findings": ["All state-based tests are brittle", "A public getter is always an implementation detail", "The cache is observable because a test can access it"]
   },
@@ -35,7 +35,7 @@
     "invocation": "implicit",
     "prompt": "Write a test for the successful withdrawal behavior.",
     "context": "Account.withdraw changes available_balance, which customers and monthly statements use, and rebuilds _ledger_cache, which is private to Account. The test withdraws 25 from 100, then asserts available_balance is 75 and _ledger_cache contains a particular entry. Runtime is not supplied.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Assert available_balance is 75", "Use a state-based assertion at the Account boundary", "Do not assert the private cache", "Report the test as not run without execution"],
     "forbidden_findings": ["Assert the cache to increase coverage", "Replace the balance assertion with an internal interaction", "Claim demonstrated refactoring survival"]
   },
@@ -45,7 +45,7 @@
     "invocation": "implicit",
     "prompt": "Review this test for brittleness.",
     "context": "Checkout asks Catalog for a price, then returns a total. Catalog is an internal query interface. The test supplies price 10, checks total 10, and asserts Catalog.lookup was called exactly once. Lookup call count is not part of the public contract. Runtime is not supplied.",
-    "expected_activation": ["audit-tests"],
+    "expected_activation": ["testing-principles:audit-tests"],
     "required_findings": ["The supplied lookup result acts as a stub", "Exact lookup count couples the test to an internal query", "Retain the observable total assertion", "Execution speed is unverified"],
     "forbidden_findings": ["All mocks must be deleted", "One class is required per unit test", "The test was measured fast"]
   },
@@ -55,7 +55,7 @@
     "invocation": "implicit",
     "prompt": "Improve this checkout test while preserving useful coverage.",
     "context": "Checkout asks Catalog for a price, then returns a total. Catalog is an internal query interface. The test supplies price 10, checks total 10, and asserts Catalog.lookup was called exactly once. Lookup call count is not part of the public contract. Runtime is not supplied.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Keep deterministic input through a Catalog stub", "Assert the observable total 10", "Remove exact lookup-count verification", "Run the test or report execution unavailable"],
     "forbidden_findings": ["Remove the substitute because a mocking library created it", "Retain call count as proof of total", "Claim the revised test passed without running it"]
   },
@@ -65,7 +65,7 @@
     "invocation": "implicit",
     "prompt": "Review this notification test's double and call-count assertion.",
     "context": "Registration promises a newly registered user exactly one welcome message through an independently operated mail provider. The provider and recipient observe every send. The test registers a user with a sender spy and asserts one welcome send to the new address. Runtime is not supplied.",
-    "expected_activation": ["audit-tests"],
+    "expected_activation": ["testing-principles:audit-tests"],
     "required_findings": ["The send crosses an unmanaged externally observed boundary", "The spy serves a mock role", "Exactly one send is an observable requirement", "Retain address payload and count assertions"],
     "forbidden_findings": ["All interaction assertions are implementation details", "Call counts are always brittle", "Use the real production mail provider"]
   },
@@ -75,7 +75,7 @@
     "invocation": "implicit",
     "prompt": "Write a focused test for the welcome-notification contract.",
     "context": "Registration promises a newly registered user exactly one welcome message through an independently operated mail provider. The provider and recipient observe every send. The test registers a user with a sender spy and asserts one welcome send to the new address. Runtime is not supplied.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Use a spy or mock at the external mail boundary", "Assert exactly one welcome send to the address", "Treat the outgoing interaction as observable behavior", "Avoid unrelated internal-step assertions"],
     "forbidden_findings": ["Only returned values may be asserted", "Do not verify the contractual count", "Mock every internal collaborator"]
   },
@@ -85,7 +85,7 @@
     "invocation": "implicit",
     "prompt": "Audit this transfer integration test's database treatment.",
     "context": "The Accounts application exclusively owns its database schema; no other application reads it directly, and external access goes through Accounts. The transfer test calls the application API, uses a real temporary database with fresh isolated data, and asserts resulting source and destination balances. Runtime is not supplied.",
-    "expected_activation": ["audit-tests"],
+    "expected_activation": ["testing-principles:audit-tests"],
     "required_findings": ["The database is out of process and managed", "The API and real-database path is integration scope", "A real managed database is appropriate when practical", "Data isolation is supported but speed is unverified"],
     "forbidden_findings": ["All databases must be mocked", "Out of process means unmanaged", "Temporary means measured fast"]
   },
@@ -95,7 +95,7 @@
     "invocation": "implicit",
     "prompt": "Design the transfer test at the application boundary.",
     "context": "The Accounts application exclusively owns its database schema; no other application reads it directly, and external access goes through Accounts. The transfer test calls the application API, uses a real temporary database with fresh isolated data, and asserts resulting source and destination balances. Runtime is not supplied.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Choose an integration test through the Accounts API", "Use the real managed database when practical", "Isolate each test's data", "Assert balances instead of SQL or repository calls"],
     "forbidden_findings": ["Mock the database solely because it is out of process", "Verify exact persistence calls", "Describe runtime as measured fast"]
   },
@@ -105,7 +105,7 @@
     "invocation": "implicit",
     "prompt": "Review this database-write test's interaction assertion.",
     "context": "OrderCompletion writes a completed order row to a database. The test substitutes the repository and verifies the exact insert payload. Materials do not say who owns the schema, whether another service or report reads it directly, or whether access is hidden behind OrderCompletion. Runtime and fixture lifecycle are not supplied.",
-    "expected_activation": ["audit-tests"],
+    "expected_activation": ["testing-principles:audit-tests"],
     "required_findings": ["Ownership and external observers are unknown", "Exclusive hidden ownership would make it managed and favor a real integration path", "Direct external consumers could make the write an observable contract", "Request ownership consumers and compatibility promises"],
     "forbidden_findings": ["A database is always managed", "A database is always unmanaged", "The repository verification is definitely correct or brittle"]
   },
@@ -115,7 +115,7 @@
     "invocation": "implicit",
     "prompt": "Plan the appropriate test for the completed-order database write.",
     "context": "OrderCompletion writes a completed order row to a database. The test substitutes the repository and verifies the exact insert payload. Materials do not say who owns the schema, whether another service or report reads it directly, or whether access is hidden behind OrderCompletion. Runtime and fixture lifecycle are not supplied.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Keep the recommendation conditional", "Use a real database path if ownership is exclusive and hidden", "Verify the write contract if independent consumers rely on it", "Identify ownership consumers promises and isolation as missing facts"],
     "forbidden_findings": ["Choose a mock unconditionally", "Choose a real database unconditionally", "Invent an external consumer"]
   },
@@ -125,7 +125,7 @@
     "invocation": "explicit",
     "prompt": "Explicitly invoke classify-tests and classify this test across every required dimension.",
     "context": "InvoiceTax calculates amount due from a subtotal and jurisdiction table. The test constructs fresh in-process objects, calls amount_due for 100, and asserts 108, which is shown to the customer. No command, duration, or hidden-state evidence is supplied.",
-    "expected_activation": ["classify-tests"],
+    "expected_activation": ["testing-principles:classify-tests"],
     "required_findings": ["The assertion is output-based and observable", "Known dependencies are private and in process", "Unit scope is conditional because speed and hidden shared state are unverified", "Assess quality pillars separately"],
     "forbidden_findings": ["A returned value proves unit scope", "One assertion guarantees maintainability", "The test ran quickly"]
   },
@@ -135,7 +135,7 @@
     "invocation": "implicit",
     "prompt": "What kind of test is this, and what can we conclude about its quality?",
     "context": "A checkout test posts to the API, checks a returned receipt, reads a test-specific row from the application's exclusively owned database, and verifies one request to an external payment provider. Database data is unique and cleaned afterward. No duration or observed refactor is supplied.",
-    "expected_activation": ["classify-tests"],
+    "expected_activation": ["testing-principles:classify-tests"],
     "required_findings": ["Assertions are mixed output state and communication", "The API and real database path supports integration scope", "The database is managed while payment is unmanaged", "Speed and refactor survival are unverified"],
     "forbidden_findings": ["Mixed assertions cause integration scope", "A payment mock causes unit scope", "Cleanup proves fast execution"]
   },
@@ -145,7 +145,7 @@
     "invocation": "implicit",
     "prompt": "Find the reliability problem and recommend a focused correction.",
     "context": "Two balance tests reuse one mutable module-level Account. One withdraws 20 and expects 80; another deposits 10 and expects 110. There is no reset. Each passes alone from 100, but the second fails after the first. Assertions inspect client-visible balance. Durations are absent.",
-    "expected_activation": ["audit-tests"],
+    "expected_activation": ["testing-principles:audit-tests"],
     "required_findings": ["The Account is shared mutable test state", "Order dependence demonstrates failed isolation", "Create a fresh Account or reliable reset per test", "Retain the meaningful balance assertions", "Speed is unverified"],
     "forbidden_findings": ["Delete the balance assertions", "Parallel execution is the only fix", "Sharing a class definition is the problem"]
   },
@@ -155,7 +155,7 @@
     "invocation": "implicit",
     "prompt": "Propose a focused regression-test plan for this parser defect and identify the repository facts needed before writing idiomatic test code.",
     "context": "This is a Gleam repository. The parser accepts the unterminated input `[1, 2` instead of returning a parse error. No parser module or function signature, error representation, nearby test source, helper API, or test command is supplied. The Gleam runtime is unavailable and no installation was requested.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Plan a regression test around the malformed input and observable parse-error result", "Request the parser entry point and signature error representation nearby test conventions helper APIs and repository test command", "State that idiomatic test code cannot be safely authored from the supplied context", "Record execution as unverified"],
     "forbidden_findings": ["Invent Gleam test syntax module names helper calls or error constructors", "Install Gleam globally", "Claim the regression test failed or passed"]
   },
@@ -185,7 +185,7 @@
     "invocation": "explicit",
     "prompt": "Explicitly invoke write-tests, follow the fixture README, and test and fix the shipping boundary in the disposable workspace.",
     "context": "The workspace is copied from evals/fixtures/python-cart and contains a deliberately defective cart.py. Expected evaluator examples are not part of this model-visible context.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Write an idiomatic unittest for the free-shipping threshold", "Show failure on the original and pass after correction", "Preserve totals 54 at 49, 50 at 50, and 51 at 51"],
     "forbidden_findings": ["Assert source text or its comparison operator", "Claim results without captured execution", "Expose the oracle before the run"]
   },
@@ -195,7 +195,7 @@
     "invocation": "explicit",
     "prompt": "Explicitly invoke write-tests, follow the fixture README, and test and fix the duplicate welcome notification in the disposable workspace.",
     "context": "The workspace is copied from evals/fixtures/js-notifier and contains a deliberately defective notifier.mjs. Evaluator refactor instructions are withheld from this model-visible context.",
-    "expected_activation": ["write-tests"],
+    "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Use Node's built-in runner to assert one welcome message to the address", "Treat message count as external contract", "Show failure before and pass after correction"],
     "forbidden_findings": ["Reject the contractual count assertion", "Assert function text or internal names"]
   }
