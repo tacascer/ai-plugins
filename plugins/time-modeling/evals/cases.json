@@ -1,0 +1,320 @@
+[
+  {
+    "id": "design-recorded-instant",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the temporal model and conversion/update policy for this system.",
+    "context": "The server obtains an instant directly from its clock when a job finishes and stores it in UTC. Only elapsed durations and chronological ordering are required. No user-entered local date/time is converted.",
+    "expected_activation": [
+      "time-modeling:design-time-models"
+    ],
+    "required_findings": [
+      "UTC fits the recorded-instant requirement",
+      "Local date/time and a zone are not required by the supplied requirements"
+    ],
+    "forbidden_findings": [
+      "Every timestamp requires local time and a zone",
+      "UTC storage is inherently defective",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "audit-recorded-instant",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this temporal model and identify any concrete risks and corrections.",
+    "context": "The server obtains an instant directly from its clock when a job finishes and stores it in UTC. Only elapsed durations and chronological ordering are required. No user-entered local date/time is converted.",
+    "expected_activation": [
+      "time-modeling:audit-time-models"
+    ],
+    "required_findings": [
+      "UTC fits the recorded-instant requirement",
+      "Local date/time and a zone are not required by the supplied requirements"
+    ],
+    "forbidden_findings": [
+      "Every timestamp requires local time and a zone",
+      "UTC storage is inherently defective",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "design-local-commitment",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the temporal model and conversion/update policy for this system.",
+    "context": "A clinic promises an appointment at 09:00 on a future date in the organizer-selected named time zone. Registration currently converts the entry to UTC and discards both the entered local date/time and zone. The appointment must continue to start at 09:00 there if time-zone rules change.",
+    "expected_activation": [
+      "time-modeling:design-time-models"
+    ],
+    "required_findings": [
+      "Preserve the entered local date/time and named zone as source information",
+      "A cached UTC instant is derived data and needs an update policy",
+      "The current schema loses information needed to preserve the appointment promise"
+    ],
+    "forbidden_findings": [
+      "UTC alone preserves the appointment promise after rule changes",
+      "The offset at registration replaces the named zone",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "audit-local-commitment",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this temporal model and identify any concrete risks and corrections.",
+    "context": "A clinic promises an appointment at 09:00 on a future date in the organizer-selected named time zone. Registration currently converts the entry to UTC and discards both the entered local date/time and zone. The appointment must continue to start at 09:00 there if time-zone rules change.",
+    "expected_activation": [
+      "time-modeling:audit-time-models"
+    ],
+    "required_findings": [
+      "Preserve the entered local date/time and named zone as source information",
+      "A cached UTC instant is derived data and needs an update policy",
+      "The current schema loses information needed to preserve the appointment promise"
+    ],
+    "forbidden_findings": [
+      "UTC alone preserves the appointment promise after rule changes",
+      "The offset at registration replaces the named zone",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "design-rule-update",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the temporal model and conversion/update policy for this system.",
+    "context": "This is a synthetic rule-change fixture, not a historical claim. An appointment record has local_start=2032-06-15T09:00, zone=Test/Venue, cached_utc=2032-06-15T07:00Z. Old rules used +02:00 on that date; replacement rules use +01:00. Both rule sets map the selected local value to exactly one instant. The product promises venue-local 09:00. Reminders currently use cached_utc, which an update job never refreshes.",
+    "expected_activation": [
+      "time-modeling:design-time-models"
+    ],
+    "required_findings": [
+      "Keep local_start at 09:00 and derive UTC 08:00Z from the replacement rules",
+      "Refresh or invalidate dependent reminders as well as the cached UTC value",
+      "The preserved local value avoids requiring old rules to reconstruct it"
+    ],
+    "forbidden_findings": [
+      "Change the source local time to preserve cached UTC 07:00Z",
+      "Old rules are necessary even though the source local value is retained",
+      "This synthetic policy change happened in a real jurisdiction",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "audit-rule-update",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this temporal model and identify any concrete risks and corrections.",
+    "context": "This is a synthetic rule-change fixture, not a historical claim. An appointment record has local_start=2032-06-15T09:00, zone=Test/Venue, cached_utc=2032-06-15T07:00Z. Old rules used +02:00 on that date; replacement rules use +01:00. Both rule sets map the selected local value to exactly one instant. The product promises venue-local 09:00. Reminders currently use cached_utc, which an update job never refreshes.",
+    "expected_activation": [
+      "time-modeling:audit-time-models"
+    ],
+    "required_findings": [
+      "Keep local_start at 09:00 and derive UTC 08:00Z from the replacement rules",
+      "Refresh or invalidate dependent reminders as well as the cached UTC value",
+      "The preserved local value avoids requiring old rules to reconstruct it"
+    ],
+    "forbidden_findings": [
+      "Change the source local time to preserve cached UTC 07:00Z",
+      "Old rules are necessary even though the source local value is retained",
+      "This synthetic policy change happened in a real jurisdiction",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "design-gap-overlap",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the temporal model and conversion/update policy for this system.",
+    "context": "A synthetic local-to-instant mapper returns zero candidates for appointment A and two for B. Both appointments promise a selected local date/time in a named zone. The current application blindly takes the first candidate, or shifts the value if none exists, without a documented product policy. A tzdb update can also make a previously unique appointment ambiguous. No real-world transition dates are implied.",
+    "expected_activation": [
+      "time-modeling:design-time-models"
+    ],
+    "required_findings": [
+      "Define an explicit product policy for both missing and ambiguous local times",
+      "Re-evaluate affected records when rules change, not only at initial entry",
+      "Do not silently choose an occurrence or shift the appointment without an agreed policy"
+    ],
+    "forbidden_findings": [
+      "Every local date/time maps to exactly one instant",
+      "Lenient conversion is universally correct",
+      "Reject all ambiguous times as the only valid product policy",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "audit-gap-overlap",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this temporal model and identify any concrete risks and corrections.",
+    "context": "A synthetic local-to-instant mapper returns zero candidates for appointment A and two for B. Both appointments promise a selected local date/time in a named zone. The current application blindly takes the first candidate, or shifts the value if none exists, without a documented product policy. A tzdb update can also make a previously unique appointment ambiguous. No real-world transition dates are implied.",
+    "expected_activation": [
+      "time-modeling:audit-time-models"
+    ],
+    "required_findings": [
+      "Define an explicit product policy for both missing and ambiguous local times",
+      "Re-evaluate affected records when rules change, not only at initial entry",
+      "Do not silently choose an occurrence or shift the appointment without an agreed policy"
+    ],
+    "forbidden_findings": [
+      "Every local date/time maps to exactly one instant",
+      "Lenient conversion is universally correct",
+      "Reject all ambiguous times as the only valid product policy",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "design-recurrence",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the temporal model and conversion/update policy for this system.",
+    "context": "A team meets every Monday at 09:00 in the organizer-selected named zone, with participants in other zones. The first occurrence is stored in UTC; all following occurrences are produced by adding exactly 168 hours. The coordinating zone changes offset during the series and participants may change offsets on different dates.",
+    "expected_activation": [
+      "time-modeling:design-time-models"
+    ],
+    "required_findings": [
+      "Retain the recurrence rule and coordinating zone",
+      "Resolve individual occurrences and attendee views with their applicable rules",
+      "Adding 168 elapsed hours is not sufficient to preserve this local-time recurrence"
+    ],
+    "forbidden_findings": [
+      "A single fixed UTC offset covers the whole recurring series",
+      "The recurrence must be anchored to each attendee zone simultaneously",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "audit-recurrence",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this temporal model and identify any concrete risks and corrections.",
+    "context": "A team meets every Monday at 09:00 in the organizer-selected named zone, with participants in other zones. The first occurrence is stored in UTC; all following occurrences are produced by adding exactly 168 hours. The coordinating zone changes offset during the series and participants may change offsets on different dates.",
+    "expected_activation": [
+      "time-modeling:audit-time-models"
+    ],
+    "required_findings": [
+      "Retain the recurrence rule and coordinating zone",
+      "Resolve individual occurrences and attendee views with their applicable rules",
+      "Adding 168 elapsed hours is not sufficient to preserve this local-time recurrence"
+    ],
+    "forbidden_findings": [
+      "A single fixed UTC offset covers the whole recurring series",
+      "The recurrence must be anchored to each attendee zone simultaneously",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "design-missing-requirements",
+    "mode": "design",
+    "invocation": "explicit",
+    "prompt": "Use time-modeling:design-time-models. Design the temporal model and conversion/update policy for this system.",
+    "context": "The only artifact is a schema field starts_at containing a UTC value. No requirements, input source, time-zone library, database type definition, or conversion code is available.",
+    "expected_activation": [
+      "time-modeling:design-time-models"
+    ],
+    "required_findings": [
+      "Explain conditional alternatives for an instant versus a local-time commitment",
+      "Identify the intended invariant or input semantics as missing information",
+      "Avoid a confirmed defect finding from this schema alone"
+    ],
+    "forbidden_findings": [
+      "Declare UTC storage incorrect without further evidence",
+      "Invent library or database semantics",
+      "Claim the conversion behavior was executed and verified",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "audit-missing-requirements",
+    "mode": "audit",
+    "invocation": "explicit",
+    "prompt": "Use time-modeling:audit-time-models. Audit this temporal model and identify any concrete risks and corrections.",
+    "context": "The only artifact is a schema field starts_at containing a UTC value. No requirements, input source, time-zone library, database type definition, or conversion code is available.",
+    "expected_activation": [
+      "time-modeling:audit-time-models"
+    ],
+    "required_findings": [
+      "Explain conditional alternatives for an instant versus a local-time commitment",
+      "Identify the intended invariant or input semantics as missing information",
+      "Avoid a confirmed defect finding from this schema alone"
+    ],
+    "forbidden_findings": [
+      "Declare UTC storage incorrect without further evidence",
+      "Invent library or database semantics",
+      "Claim the conversion behavior was executed and verified",
+      "Claim tests passed without execution evidence"
+    ]
+  },
+  {
+    "id": "audit-offset-only",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Review whether this stored appointment supports future time-zone rule changes.",
+    "context": "A venue appointment stores 2032-06-15T09:00+02:00. The venue is expected to keep the appointment at local 09:00 even if its rules change. No named zone or venue location is retained.",
+    "expected_activation": [
+      "time-modeling:audit-time-models"
+    ],
+    "required_findings": [
+      "A numeric offset does not identify the zone whose future rules apply",
+      "The local component remains available if the storage type preserves it, but a zone or source location is missing",
+      "Verify storage semantics instead of assuming the database preserves the supplied offset"
+    ],
+    "forbidden_findings": [
+      "The numeric offset is a time-zone identity",
+      "Every database offset timestamp retains the original offset",
+      "Discard the local component and store only UTC"
+    ]
+  },
+  {
+    "id": "design-location-intent",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the appointment time model for this venue booking system.",
+    "context": "The appointment must occur at 09:00 at its physical venue. The address is authoritative; its location-to-zone assignment may change before the event. A cached zone ID is currently determined at booking time. No geographic service is selected.",
+    "expected_activation": [
+      "time-modeling:design-time-models"
+    ],
+    "required_findings": [
+      "Preserve the venue location and source local date/time",
+      "Treat the location-to-zone assignment as potentially derived and reviewable",
+      "Recompute dependent conversions if the applicable zone changes without prescribing an unspecified service"
+    ],
+    "forbidden_findings": [
+      "Zone identity can never change for a venue",
+      "Require a geographic service for every timestamp in every application"
+    ]
+  },
+  {
+    "id": "audit-recent-past",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this recent-past date/time import.",
+    "context": "A device supplied yesterday's local date/time and named zone. The importer used a stale rules database, stored only the computed UTC value, and discarded the source input and conversion provenance. Correct conversion is important, but no trustworthy original instant was supplied.",
+    "expected_activation": [
+      "time-modeling:audit-time-models"
+    ],
+    "required_findings": [
+      "Recent-past conversion can be incorrect when the rules used were stale",
+      "Discarding source input impairs later correction",
+      "Do not invent a corrected instant or claim certainty without the missing source/provenance"
+    ],
+    "forbidden_findings": [
+      "Past values are necessarily correct",
+      "A directly observed instant and a UTC value converted from local input have identical provenance",
+      "Reconstruct the original local value reliably using only the newest rules"
+    ]
+  },
+  {
+    "id": "unrelated-release-notes",
+    "mode": "none",
+    "invocation": "implicit",
+    "prompt": "Write a short release note for the CSV export feature.",
+    "context": "Version 1.4 adds CSV export and fixes button spacing. Released at 2032-02-12T10:00:00Z. No temporal-model review or conversion change is requested.",
+    "expected_activation": [],
+    "required_findings": [
+      "Write release-note prose relevant to the requested feature"
+    ],
+    "forbidden_findings": [
+      "Start an unsolicited time-model audit",
+      "Recommend a temporal schema migration"
+    ]
+  }
+]

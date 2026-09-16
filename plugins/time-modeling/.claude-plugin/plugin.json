@@ -1,0 +1,10 @@
+{
+  "name": "time-modeling",
+  "version": "0.1.0",
+  "description": "Design and audit temporal data models while preserving time intent.",
+  "author": {
+    "name": "tacascer"
+  },
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/"
+}

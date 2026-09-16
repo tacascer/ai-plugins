@@ -10,6 +10,12 @@
       "source": "./plugins/testing-principles",
       "version": "0.1.0",
       "description": "Write, classify, and audit tests using Khorikov's testing principles."
+    },
+    {
+      "name": "time-modeling",
+      "source": "./plugins/time-modeling",
+      "version": "0.1.0",
+      "description": "Design and audit temporal data models while preserving time intent."
     }
   ]
 }

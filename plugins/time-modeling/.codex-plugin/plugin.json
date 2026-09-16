@@ -1,0 +1,23 @@
+{
+  "name": "time-modeling",
+  "version": "0.1.0",
+  "description": "Design and audit temporal data models while preserving time intent.",
+  "author": {
+    "name": "tacascer"
+  },
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Time Modeling",
+    "shortDescription": "Design and audit temporal data models.",
+    "longDescription": "Language-agnostic guidance for designing and reviewing temporal storage, scheduling, and conversions based on intended time semantics.",
+    "developerName": "tacascer",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Audit my date/time model for lost intent and rule-change risks."
+    ]
+  }
+}

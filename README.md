@@ -1,9 +1,13 @@
 # AI Plugins
 
 This repository contains independently installable agent plugins for Codex and
-Claude Code. The first plugin, `testing-principles`, provides shared workflows for
-writing, classifying, and auditing tests. Each plugin keeps its manifests, skills,
-references, examples, and documentation together under `plugins/<name>/`.
+Claude Code. Available packages are:
+
+- [Testing Principles](plugins/testing-principles/README.md): write, classify, and audit tests.
+- [Time Modeling](plugins/time-modeling/README.md): design and audit temporal data models.
+
+Each plugin keeps its manifests, skills, references, examples, and documentation
+together under `plugins/<name>/`.
 
 The platform-neutral inventory is `catalogs/plugins.json`. The inventory drives
 the committed Codex and Claude marketplace catalogs; `scripts/catalogs.py`
@@ -32,7 +36,7 @@ Codex 0.154.0 can inspect the local catalog without installing it:
 ```bash
 codex \
   -c 'marketplaces.tacascer-ai-plugins={source_type="local",source="/absolute/path/to/ai-plugins"}' \
-  plugin list --marketplace tacascer-ai-plugins --available
+  plugin list --json --marketplace tacascer-ai-plugins --available
 ```
 
 Codex does not expose a session-only raw plugin-directory loader in that version.
@@ -73,9 +77,15 @@ $testing-principles:classify-tests classify these tests
 /testing-principles:classify-tests classify these tests
 ```
 
-Replace `classify-tests` with `audit-tests` or `write-tests` as needed. Start
-a fresh session after installing or updating a plugin so the platform reloads its
-skills. See the [initial verification record](docs/verification/2026-09-11-initial.md)
+Replace `classify-tests` with `audit-tests` or `write-tests` as needed. For Time
+Modeling, use `$time-modeling:design-time-models` or
+`$time-modeling:audit-time-models` in Codex, and the corresponding `/` forms in
+Claude Code. Load or install the selected plugin using its own directory or
+package name in the commands above.
+
+Start a fresh session after installing or updating a plugin so the platform
+reloads its skills. See the [Testing Principles verification record](docs/verification/2026-09-11-initial.md)
+and [Time Modeling verification record](plugins/time-modeling/docs/verification/2026-09-17-initial.md)
 for the exact checks, versions, and outstanding model-behavior validation.
 
 ## Local development
