@@ -51,3 +51,7 @@ case. Repository checks validate supported structure, links, inventory, and
 generated catalogs. Live workflow activation and semantic model behavior remain
 unverified because no approved supported loader and authenticated inference path
 are available in this environment.
+
+See the [initial verification record](docs/verification/2026-09-17-initial.md)
+for executed structural checks, supplemental platform evidence, and the model
+validation limitation.

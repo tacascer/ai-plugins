@@ -36,3 +36,7 @@ For every attempted case, record:
 | Unavailable checks | Missing evidence and why it could not be obtained |
 
 Keep credentials and account identifiers out of records. Raw transcripts remain in `.eval-runs/`. Author review of the 16 cases against the guidance is an artifact consistency check, not a model evaluation.
+
+The [initial verification record](../docs/verification/2026-09-17-initial.md)
+records the current artifact and structural evidence. Live activation and
+semantic behavior are unverified in this environment.
