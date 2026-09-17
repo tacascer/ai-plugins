@@ -1,12 +1,12 @@
 # Testing Principles
 
-Testing Principles is a shared Codex and Claude Code plugin for classifying, auditing, and writing tests. It applies a language-agnostic curriculum based on Vladimir Khorikov's *Unit Testing: Principles, Practices, and Patterns* while preserving repository conventions and reporting missing evidence plainly.
+Testing Principles is a shared Codex and Claude Code plugin for classifying and auditing tests, designing production test seams, and writing tests. It applies a language-agnostic curriculum based on Vladimir Khorikov's *Unit Testing: Principles, Practices, and Patterns* while preserving repository conventions and reporting missing evidence plainly.
 
 ## Workflows
 
 - `classify-tests` explains a test's scope, assertion style, dependencies, boundary, and quality dimensions.
 - `audit-tests` reviews existing tests and reports material findings with evidence and uncertainty.
-- `write-tests` creates or changes idiomatic tests, including regression tests that demonstrate a known failure.
+- `write-tests` designs production code for testability and creates or changes idiomatic tests, including regression tests that demonstrate a known failure. It favors minimal seams and checks that production wiring exercises the tested behavior.
 
 Classification labels describe a test; they do not grade it. A unit test may be brittle, and an integration test may provide excellent protection against regressions.
 
@@ -37,10 +37,11 @@ Start with [the framework](references/framework.md), then read the reference rel
 - [classification](references/classification.md)
 - [quality](references/quality.md)
 - [dependencies and test doubles](references/dependencies.md)
+- [designing production test seams](references/test-seams.md)
 - [reporting](references/reporting.md)
 - [sources and provenance](references/sources.md)
 
-Original contrast examples cover [behavior and boundaries](examples/behavior-boundaries.md), [test doubles](examples/test-doubles.md), and [integration boundaries](examples/integration-boundaries.md). No particular language, test framework, mocking library, database, or coverage tool is required.
+Original contrast examples cover [behavior and boundaries](examples/behavior-boundaries.md), [test doubles](examples/test-doubles.md), [integration boundaries](examples/integration-boundaries.md), and [production test seams](examples/test-seams.md). No particular language, test framework, mocking library, database, or coverage tool is required.
 
 ## Interpretation
 

@@ -198,5 +198,94 @@
     "expected_activation": ["testing-principles:write-tests"],
     "required_findings": ["Use Node's built-in runner to assert one welcome message to the address", "Treat message count as external contract", "Show failure before and pass after correction"],
     "forbidden_findings": ["Reject the contractual count assertion", "Assert function text or internal names"]
+  },
+  {
+    "id": "write-production-seams-before-tests",
+    "mode": "write",
+    "invocation": "implicit",
+    "prompt": "Design production code for test seams before any tests exist. Propose the production changes and verification approach; do not implement yet.",
+    "context": "finalize(id) constructs SqlInvoices and MailClient internally, loads an invoice, computes its preferred-customer discount inline, saves the total, and sends one receipt. The database is exclusively application-owned; mail is independently operated. Preserve finalize(id). A failed save must propagate and prevent sending. A teammate proposes interfaces for every helper and tests only of injected objects.",
+    "required_findings": [
+      "Identify internal I/O construction and mixed decisions/effects as testability obstacles",
+      "Propose cohesive deterministic pricing logic and minimal boundary injection without one interface per helper",
+      "Preserve finalize(id) and route production through the same tested logic",
+      "Preserve save-failure propagation and prevention of receipt sending",
+      "Propose a production-entrypoint integration check using real managed persistence and observed external receipt behavior",
+      "Keep the response design-only"
+    ],
+    "forbidden_findings": [
+      "Require interfaces for every helper",
+      "Claim injected-object tests alone verify production composition",
+      "Replace all persistence evidence with repository-call assertions",
+      "Claim proposed tests were executed"
+    ],
+    "expected_activation": [
+      "testing-principles:write-tests"
+    ]
+  },
+  {
+    "id": "write-no-new-seam-needed",
+    "mode": "write",
+    "invocation": "implicit",
+    "prompt": "Write a focused checkout test and decide whether production needs more test seams.",
+    "context": "Checkout already takes basket data and uses real deterministic DiscountPolicy and MoneyRules objects with no I/O or hidden input. Preferred customers get ten percent off. One proposal introduces an interface for every helper and verifies internal calls. No runtime or source files are supplied.",
+    "required_findings": [
+      "Keep the existing production design because inputs are already controllable",
+      "Exercise real collaborators together and assert customer-visible total",
+      "Reject interfaces and mocks added solely to isolate each helper",
+      "Report execution as unverified"
+    ],
+    "forbidden_findings": [
+      "Introduce a seam for each class",
+      "Verify internal helper calls as the pricing outcome",
+      "Claim the tests passed"
+    ],
+    "expected_activation": [
+      "testing-principles:write-tests"
+    ]
+  },
+  {
+    "id": "write-legacy-seam-baseline-gap",
+    "mode": "write",
+    "invocation": "implicit",
+    "prompt": "Refactor this hard-to-test receipt flow for testability and describe how to verify behavior preservation.",
+    "context": "The flow constructs an external client internally and has no existing safe test path. Live credentials and the provider are unavailable. Production edits are authorized. Its documented behavior is to save first, propagate a save failure without sending, and otherwise emit one receipt. The repository supports passing a sender callable. No executable source is supplied.",
+    "required_findings": [
+      "Explain that a safe pre-change execution baseline is unavailable",
+      "Propose the smallest sender seam using existing callable conventions",
+      "Preserve save-before-send and error behavior",
+      "Verify the actual production path uses the seam and report unavailable adapter or provider checks",
+      "Distinguish proposed or post-change checks from demonstrated before/after regression evidence"
+    ],
+    "forbidden_findings": [
+      "Claim a pre-change failure was observed",
+      "Use live production credentials",
+      "Add a test-mode branch that bypasses sending",
+      "Claim full production integration from a sender fake"
+    ],
+    "expected_activation": [
+      "testing-principles:write-tests"
+    ]
+  },
+  {
+    "id": "write-tests-only-production-constraint",
+    "mode": "write",
+    "invocation": "implicit",
+    "prompt": "Improve these tests only; do not change production code.",
+    "context": "An invoice exposes its final total to customers and caches a private subtotal. All calculation helpers are deterministic and accept ordinary data. The current test uses reflection to inspect the private cache. No test source or runtime is supplied.",
+    "required_findings": [
+      "Respect the prohibition on production changes",
+      "Assert customer-visible final total through the existing boundary",
+      "Keep real deterministic helpers rather than adding doubles",
+      "Avoid inventing framework APIs or execution results"
+    ],
+    "forbidden_findings": [
+      "Expose a public cache accessor",
+      "Add production test seams despite the tests-only scope",
+      "Retain private cache inspection as the main behavior assertion"
+    ],
+    "expected_activation": [
+      "testing-principles:write-tests"
+    ]
   }
 ]

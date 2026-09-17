@@ -22,6 +22,12 @@ unrelated documentation, overlap with an independent fixture plugin, and the two
 executable fixtures. The `invocation` field records `implicit` and `explicit`
 selection separately.
 
+Additional seam-design cases cover production-only design requests, an already
+testable multi-class behavior that needs no new seam, a legacy refactor with no
+safe pre-change baseline, and an explicit tests-only constraint. Grade both the
+proposed production boundary and its verification path: isolated injected-object
+tests alone do not establish that production composition uses the tested logic.
+
 ## Keep the oracle hidden
 
 Never send a whole case object or this guide to the model. Construct a reasoning

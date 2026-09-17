@@ -28,6 +28,6 @@ The following ideas are explained in the author's available material:
 
 ## Plugin conventions
 
-The five-dimension classification record, `supported`/`conditional`/`unresolved` confidence vocabulary, evidence fields, report layout, and conditional branches for missing architecture facts are original workflow conventions for this plugin. They organize the source-backed concepts without being attributed to the book.
+The five-dimension classification record, `supported`/`conditional`/`unresolved` confidence vocabulary, evidence fields, report layout, and conditional branches for missing architecture facts are original workflow conventions for this plugin. The seam-selection workflow, production-composition checks, and seam examples are also original plugin guidance, not claims of verified chapter content. They organize the source-backed concepts without being attributed to the book.
 
 Terms such as contract test, property-based test, component test, or consumer-driven contract may supplement the classification when a repository uses them. Treat them as repository or industry labels unless an available source supports a narrower attribution.
