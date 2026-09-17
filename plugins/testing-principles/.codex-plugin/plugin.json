@@ -1,7 +1,7 @@
 {
   "name": "testing-principles",
   "version": "0.1.0",
-  "description": "Write, classify, and audit tests using Khorikov's testing principles.",
+  "description": "Design for testability, classify, and audit tests using Khorikov's testing principles.",
   "author": {
     "name": "tacascer"
   },
@@ -9,8 +9,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Testing Principles",
-    "shortDescription": "Author and audit tests with durable testing principles.",
-    "longDescription": "Guidance for authoring, classifying, and auditing tests using Khorikov's testing principles.",
+    "shortDescription": "Design testable code and audit tests.",
+    "longDescription": "Guidance for designing testable production code, classifying tests, and auditing tests using Khorikov's testing principles.",
     "developerName": "tacascer",
     "category": "Productivity",
     "capabilities": [

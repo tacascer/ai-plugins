@@ -1,12 +1,14 @@
 # Testing Principles
 
-Testing Principles is a shared Codex and Claude Code plugin for classifying and auditing tests, designing production test seams, and writing tests. It applies a language-agnostic curriculum based on Vladimir Khorikov's *Unit Testing: Principles, Practices, and Patterns* while preserving repository conventions and reporting missing evidence plainly.
+Testing Principles is a shared Codex and Claude Code plugin for classifying and auditing tests and designing testable production code. It applies a language-agnostic curriculum based on Vladimir Khorikov's *Unit Testing: Principles, Practices, and Patterns* while preserving repository conventions and reporting missing evidence plainly.
 
 ## Workflows
 
 - `classify-tests` explains a test's scope, assertion style, dependencies, boundary, and quality dimensions.
 - `audit-tests` reviews existing tests and reports material findings with evidence and uncertainty.
-- `write-tests` designs production code for testability and creates or changes idiomatic tests, including regression tests that demonstrate a known failure. It favors minimal seams and checks that production wiring exercises the tested behavior.
+- `design-for-testing` designs testable production code and guides authorized testability refactors. It identifies minimal seams, preserves production contracts and wiring, and describes verification without requiring test authoring. Ordinary test-writing requests do not activate it.
+
+`design-for-testing` replaces the former `write-tests` workflow; use the new name for explicit invocations.
 
 Classification labels describe a test; they do not grade it. A unit test may be brittle, and an integration test may provide excellent protection against regressions.
 
@@ -19,7 +21,7 @@ name when selection must be explicit:
 | --- | --- | --- |
 | Classify | `$testing-principles:classify-tests` | `/testing-principles:classify-tests` |
 | Audit | `$testing-principles:audit-tests` | `/testing-principles:audit-tests` |
-| Write | `$testing-principles:write-tests` | `/testing-principles:write-tests` |
+| Design | `$testing-principles:design-for-testing` | `/testing-principles:design-for-testing` |
 
 For local Claude development, load this directory for one session:
 
@@ -54,8 +56,9 @@ The material is original guidance informed by the sources listed in [sources and
 
 The [evaluation guide](evals/README.md) defines balanced semantic cases,
 activation telemetry, hidden grader expectations, and two deliberately defective
-executable fixtures. The initial verification record is stored at
+source fixtures for design assessment. The initial verification record is stored at
 `docs/verification/2026-09-11-initial.md` in the collection repository. It
 separates structural and discovery evidence from model activation, reasoning,
-and agent-authored executable-test evidence. Do not infer behavioral validation
+and agent-authored executable-test evidence for the former workflow. Those results
+do not validate the renamed design workflow. Do not infer behavioral validation
 from a passing manifest check.

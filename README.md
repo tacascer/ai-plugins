@@ -3,7 +3,7 @@
 This repository contains independently installable agent plugins for Codex and
 Claude Code. Available packages are:
 
-- [Testing Principles](plugins/testing-principles/README.md): write, classify, and audit tests.
+- [Testing Principles](plugins/testing-principles/README.md): design testable code, classify tests, and audit tests.
 - [Time Modeling](plugins/time-modeling/README.md): design and audit temporal data models.
 - [Logging Principles](plugins/logging-principles/README.md): design and audit purposeful logging and failure reporting.
 
@@ -78,7 +78,7 @@ $testing-principles:classify-tests classify these tests
 /testing-principles:classify-tests classify these tests
 ```
 
-Replace `classify-tests` with `audit-tests` or `write-tests` as needed. For Time
+Replace `classify-tests` with `audit-tests` or `design-for-testing` as needed. For Time
 Modeling, use `$time-modeling:design-time-models` or
 `$time-modeling:audit-time-models` in Codex, and the corresponding `/` forms in
 Claude Code. For Logging Principles, use `$logging-principles:design-logging` or

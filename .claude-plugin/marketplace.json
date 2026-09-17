@@ -9,7 +9,7 @@
       "name": "testing-principles",
       "source": "./plugins/testing-principles",
       "version": "0.1.0",
-      "description": "Write, classify, and audit tests using Khorikov's testing principles."
+      "description": "Design for testability, classify, and audit tests using Khorikov's testing principles."
     },
     {
       "name": "time-modeling",

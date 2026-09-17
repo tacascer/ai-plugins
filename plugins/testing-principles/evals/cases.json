@@ -10,14 +10,14 @@
     "forbidden_findings": ["One class is required per unit test", "Every collaborator must be mocked", "The test was measured fast"]
   },
   {
-    "id": "write-multi-class-pricing",
-    "mode": "write",
+    "id": "design-multi-class-pricing",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Write a focused test for the eligible-customer pricing rule.",
+    "prompt": "Assess whether this pricing design needs new test seams. Propose the smallest design and verification approach; do not write tests.",
     "context": "PriceQuote coordinates CatalogPrice, CustomerDiscount, and CurrencyRounding. The client-visible rule is that base price 100 with a 10 percent eligible discount produces 90. All collaborators run in process and are fresh per test. The test calls PriceQuote.quote and asserts 90. Runtime is not supplied.",
-    "expected_activation": ["testing-principles:write-tests"],
-    "required_findings": ["Exercise the cohesive behavior through PriceQuote", "Assert the observable result 90", "Use fresh collaborators without mock-per-class isolation", "Do not report a pass without execution"],
-    "forbidden_findings": ["Write one test per implementation class", "Verify the exact internal call sequence", "Claim the authored test passed without running it"]
+    "expected_activation": ["testing-principles:design-for-testing"],
+    "required_findings": ["Exercise the cohesive behavior through PriceQuote", "Propose checking the observable result 90", "Use fresh collaborators without mock-per-class isolation", "Do not report a pass without execution", "Explain why the existing production boundary is sufficient without adding a new seam"],
+    "forbidden_findings": ["Write one test per implementation class", "Verify the exact internal call sequence", "Claim the authored test passed without running it", "Make test authoring the deliverable instead of the production design and verification approach"]
   },
   {
     "id": "audit-observable-account-state",
@@ -30,14 +30,14 @@
     "forbidden_findings": ["All state-based tests are brittle", "A public getter is always an implementation detail", "The cache is observable because a test can access it"]
   },
   {
-    "id": "write-observable-account-state",
-    "mode": "write",
+    "id": "design-observable-account-state",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Write a test for the successful withdrawal behavior.",
+    "prompt": "Design for testing the withdrawal behavior. Decide whether the private cache needs to be exposed; describe verification without writing tests.",
     "context": "Account.withdraw changes available_balance, which customers and monthly statements use, and rebuilds _ledger_cache, which is private to Account. The test withdraws 25 from 100, then asserts available_balance is 75 and _ledger_cache contains a particular entry. Runtime is not supplied.",
-    "expected_activation": ["testing-principles:write-tests"],
-    "required_findings": ["Assert available_balance is 75", "Use a state-based assertion at the Account boundary", "Do not assert the private cache", "Report the test as not run without execution"],
-    "forbidden_findings": ["Assert the cache to increase coverage", "Replace the balance assertion with an internal interaction", "Claim demonstrated refactoring survival"]
+    "expected_activation": ["testing-principles:design-for-testing"],
+    "required_findings": ["Propose checking available_balance is 75", "Use a state-based assertion at the Account boundary", "Do not assert the private cache", "Report proposed checks as not run", "Explain why the existing production boundary is sufficient without adding a new seam"],
+    "forbidden_findings": ["Assert the cache to increase coverage", "Replace the balance assertion with an internal interaction", "Claim demonstrated refactoring survival", "Make test authoring the deliverable instead of the production design and verification approach"]
   },
   {
     "id": "audit-stub-interaction",
@@ -50,14 +50,14 @@
     "forbidden_findings": ["All mocks must be deleted", "One class is required per unit test", "The test was measured fast"]
   },
   {
-    "id": "write-stub-interaction",
-    "mode": "write",
+    "id": "design-stub-interaction",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Improve this checkout test while preserving useful coverage.",
+    "prompt": "Assess the checkout dependency boundary for testability. Propose any needed production design change and its verification approach.",
     "context": "Checkout asks Catalog for a price, then returns a total. Catalog is an internal query interface. The test supplies price 10, checks total 10, and asserts Catalog.lookup was called exactly once. Lookup call count is not part of the public contract. Runtime is not supplied.",
-    "expected_activation": ["testing-principles:write-tests"],
-    "required_findings": ["Keep deterministic input through a Catalog stub", "Assert the observable total 10", "Remove exact lookup-count verification", "Run the test or report execution unavailable"],
-    "forbidden_findings": ["Remove the substitute because a mocking library created it", "Retain call count as proof of total", "Claim the revised test passed without running it"]
+    "expected_activation": ["testing-principles:design-for-testing"],
+    "required_findings": ["Keep deterministic input through a Catalog stub", "Propose checking the observable total 10", "Remove exact lookup-count verification", "Separate proposed checks from execution evidence", "Explain why the existing production boundary is sufficient without adding a new seam"],
+    "forbidden_findings": ["Remove the substitute because a mocking library created it", "Retain call count as proof of total", "Claim the revised test passed without running it", "Make test authoring the deliverable instead of the production design and verification approach"]
   },
   {
     "id": "audit-outgoing-notification-contract",
@@ -70,14 +70,14 @@
     "forbidden_findings": ["All interaction assertions are implementation details", "Call counts are always brittle", "Use the real production mail provider"]
   },
   {
-    "id": "write-outgoing-notification-contract",
-    "mode": "write",
+    "id": "design-outgoing-notification-contract",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Write a focused test for the welcome-notification contract.",
+    "prompt": "Design the production boundary for testable welcome notifications and explain how to verify the external contract without writing tests.",
     "context": "Registration promises a newly registered user exactly one welcome message through an independently operated mail provider. The provider and recipient observe every send. The test registers a user with a sender spy and asserts one welcome send to the new address. Runtime is not supplied.",
-    "expected_activation": ["testing-principles:write-tests"],
-    "required_findings": ["Use a spy or mock at the external mail boundary", "Assert exactly one welcome send to the address", "Treat the outgoing interaction as observable behavior", "Avoid unrelated internal-step assertions"],
-    "forbidden_findings": ["Only returned values may be asserted", "Do not verify the contractual count", "Mock every internal collaborator"]
+    "expected_activation": ["testing-principles:design-for-testing"],
+    "required_findings": ["Use a spy or mock at the external mail boundary", "Propose checking exactly one welcome send to the address", "Treat the outgoing interaction as observable behavior", "Avoid unrelated internal-step assertions", "Describe the production dependency boundary and how real adapters are supplied"],
+    "forbidden_findings": ["Only returned values may be asserted", "Do not verify the contractual count", "Mock every internal collaborator", "Make test authoring the deliverable instead of the production design and verification approach"]
   },
   {
     "id": "audit-managed-database-integration",
@@ -90,14 +90,14 @@
     "forbidden_findings": ["All databases must be mocked", "Out of process means unmanaged", "Temporary means measured fast"]
   },
   {
-    "id": "write-managed-database-integration",
-    "mode": "write",
+    "id": "design-managed-database-integration",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Design the transfer test at the application boundary.",
+    "prompt": "Design the transfer flow for testability at the application boundary, including production composition and a verification approach.",
     "context": "The Accounts application exclusively owns its database schema; no other application reads it directly, and external access goes through Accounts. The transfer test calls the application API, uses a real temporary database with fresh isolated data, and asserts resulting source and destination balances. Runtime is not supplied.",
-    "expected_activation": ["testing-principles:write-tests"],
-    "required_findings": ["Choose an integration test through the Accounts API", "Use the real managed database when practical", "Isolate each test's data", "Assert balances instead of SQL or repository calls"],
-    "forbidden_findings": ["Mock the database solely because it is out of process", "Verify exact persistence calls", "Describe runtime as measured fast"]
+    "expected_activation": ["testing-principles:design-for-testing"],
+    "required_findings": ["Choose an integration test through the Accounts API", "Use the real managed database when practical", "Isolate each test's data", "Propose checking balances instead of SQL or repository calls", "Describe the production dependency boundary and how real adapters are supplied"],
+    "forbidden_findings": ["Mock the database solely because it is out of process", "Verify exact persistence calls", "Describe runtime as measured fast", "Make test authoring the deliverable instead of the production design and verification approach"]
   },
   {
     "id": "audit-unknown-database-ownership",
@@ -110,14 +110,14 @@
     "forbidden_findings": ["A database is always managed", "A database is always unmanaged", "The repository verification is definitely correct or brittle"]
   },
   {
-    "id": "write-unknown-database-ownership",
-    "mode": "write",
+    "id": "design-unknown-database-ownership",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Plan the appropriate test for the completed-order database write.",
+    "prompt": "Design a testable boundary for completed-order persistence. Keep the production design conditional on the missing ownership facts.",
     "context": "OrderCompletion writes a completed order row to a database. The test substitutes the repository and verifies the exact insert payload. Materials do not say who owns the schema, whether another service or report reads it directly, or whether access is hidden behind OrderCompletion. Runtime and fixture lifecycle are not supplied.",
-    "expected_activation": ["testing-principles:write-tests"],
+    "expected_activation": ["testing-principles:design-for-testing"],
     "required_findings": ["Keep the recommendation conditional", "Use a real database path if ownership is exclusive and hidden", "Verify the write contract if independent consumers rely on it", "Identify ownership consumers promises and isolation as missing facts"],
-    "forbidden_findings": ["Choose a mock unconditionally", "Choose a real database unconditionally", "Invent an external consumer"]
+    "forbidden_findings": ["Choose a mock unconditionally", "Choose a real database unconditionally", "Invent an external consumer", "Make test authoring the deliverable instead of the production design and verification approach"]
   },
   {
     "id": "classify-explicit-output-test",
@@ -150,14 +150,14 @@
     "forbidden_findings": ["Delete the balance assertions", "Parallel execution is the only fix", "Sharing a class definition is the problem"]
   },
   {
-    "id": "write-unfamiliar-language-regression",
-    "mode": "write",
+    "id": "design-unfamiliar-language-regression",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Propose a focused regression-test plan for this parser defect and identify the repository facts needed before writing idiomatic test code.",
+    "prompt": "Design the parser boundary for testability and identify repository facts needed before proposing production changes. Do not write tests or fix the parsing defect.",
     "context": "This is a Gleam repository. The parser accepts the unterminated input `[1, 2` instead of returning a parse error. No parser module or function signature, error representation, nearby test source, helper API, or test command is supplied. The Gleam runtime is unavailable and no installation was requested.",
-    "expected_activation": ["testing-principles:write-tests"],
-    "required_findings": ["Plan a regression test around the malformed input and observable parse-error result", "Request the parser entry point and signature error representation nearby test conventions helper APIs and repository test command", "State that idiomatic test code cannot be safely authored from the supplied context", "Record execution as unverified"],
-    "forbidden_findings": ["Invent Gleam test syntax module names helper calls or error constructors", "Install Gleam globally", "Claim the regression test failed or passed"]
+    "expected_activation": ["testing-principles:design-for-testing"],
+    "required_findings": ["Identify the parser entrypoint and observable error as the candidate boundary", "Distinguish the parsing defect from evidence of a testability obstacle", "Request the parser signature, error representation, source and composition conventions before recommending changes", "Describe malformed input verification without inventing APIs or execution results"],
+    "forbidden_findings": ["Invent Gleam test syntax module names helper calls or error constructors", "Install Gleam globally", "Claim the regression test failed or passed", "Make test authoring the deliverable instead of the production design and verification approach"]
   },
   {
     "id": "unrelated-documentation-edit",
@@ -180,28 +180,28 @@
     "forbidden_findings": ["Add unrequested testing advice", "Claim source code or tests were changed"]
   },
   {
-    "id": "write-explicit-python-cart-fixture",
-    "mode": "write",
+    "id": "design-explicit-python-cart-fixture",
+    "mode": "design",
     "invocation": "explicit",
-    "prompt": "Explicitly invoke write-tests, follow the fixture README, and test and fix the shipping boundary in the disposable workspace.",
-    "context": "The workspace is copied from evals/fixtures/python-cart and contains a deliberately defective cart.py. Expected evaluator examples are not part of this model-visible context.",
-    "expected_activation": ["testing-principles:write-tests"],
-    "required_findings": ["Write an idiomatic unittest for the free-shipping threshold", "Show failure on the original and pass after correction", "Preserve totals 54 at 49, 50 at 50, and 51 at 51"],
-    "forbidden_findings": ["Assert source text or its comparison operator", "Claim results without captured execution", "Expose the oracle before the run"]
+    "prompt": "Explicitly invoke design-for-testing and follow the fixture README to assess the Python cart design. Do not change source or write tests.",
+    "context": "The workspace contains the source and README copied from the Python cart fixture. The implementation contains a deliberate behavior defect.",
+    "expected_activation": ["testing-principles:design-for-testing"],
+    "required_findings": ["Recognize the pure subtotal input and returned total as a sufficient existing boundary", "Identify the free-shipping threshold defect separately from testability", "Propose boundary checks at 49, 50 and 51 with expected totals 54, 50 and 51", "Keep source unchanged and author no tests", "Separate proposed verification from observed execution"],
+    "forbidden_findings": ["Add unnecessary dependency abstractions", "Fix the deliberate defect or write test files", "Claim proposed checks were executed"]
   },
   {
-    "id": "write-explicit-js-notifier-fixture",
-    "mode": "write",
+    "id": "design-explicit-js-notifier-fixture",
+    "mode": "design",
     "invocation": "explicit",
-    "prompt": "Explicitly invoke write-tests, follow the fixture README, and test and fix the duplicate welcome notification in the disposable workspace.",
-    "context": "The workspace is copied from evals/fixtures/js-notifier and contains a deliberately defective notifier.mjs. Evaluator refactor instructions are withheld from this model-visible context.",
-    "expected_activation": ["testing-principles:write-tests"],
-    "required_findings": ["Use Node's built-in runner to assert one welcome message to the address", "Treat message count as external contract", "Show failure before and pass after correction"],
-    "forbidden_findings": ["Reject the contractual count assertion", "Assert function text or internal names"]
+    "prompt": "Explicitly invoke design-for-testing and follow the fixture README to assess the JavaScript notifier design. Do not change source or write tests.",
+    "context": "The workspace contains the source and README copied from the JavaScript notifier fixture. The implementation contains a deliberate behavior defect.",
+    "expected_activation": ["testing-principles:design-for-testing"],
+    "required_findings": ["Recognize the injected sender as a sufficient existing seam", "Identify the duplicate welcome send as a behavior defect rather than missing testability", "Describe checking one Welcome message to the requested address", "Explain that sender-only checks leave production composition and real delivery unverified", "Keep source unchanged and author no tests", "Separate proposed verification from observed execution"],
+    "forbidden_findings": ["Add unnecessary dependency abstractions", "Fix the deliberate defect or write test files", "Claim proposed checks were executed"]
   },
   {
-    "id": "write-production-seams-before-tests",
-    "mode": "write",
+    "id": "design-production-seams-before-tests",
+    "mode": "design",
     "invocation": "implicit",
     "prompt": "Design production code for test seams before any tests exist. Propose the production changes and verification approach; do not implement yet.",
     "context": "finalize(id) constructs SqlInvoices and MailClient internally, loads an invoice, computes its preferred-customer discount inline, saves the total, and sends one receipt. The database is exclusively application-owned; mail is independently operated. Preserve finalize(id). A failed save must propagate and prevent sending. A teammate proposes interfaces for every helper and tests only of injected objects.",
@@ -220,33 +220,35 @@
       "Claim proposed tests were executed"
     ],
     "expected_activation": [
-      "testing-principles:write-tests"
+      "testing-principles:design-for-testing"
     ]
   },
   {
-    "id": "write-no-new-seam-needed",
-    "mode": "write",
+    "id": "design-no-new-seam-needed",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Write a focused checkout test and decide whether production needs more test seams.",
+    "prompt": "Assess whether checkout needs more production test seams. Describe the design and verification approach without writing tests.",
     "context": "Checkout already takes basket data and uses real deterministic DiscountPolicy and MoneyRules objects with no I/O or hidden input. Preferred customers get ten percent off. One proposal introduces an interface for every helper and verifies internal calls. No runtime or source files are supplied.",
     "required_findings": [
       "Keep the existing production design because inputs are already controllable",
       "Exercise real collaborators together and assert customer-visible total",
       "Reject interfaces and mocks added solely to isolate each helper",
-      "Report execution as unverified"
+      "Report execution as unverified",
+      "Explain why the existing production boundary is sufficient without adding a new seam"
     ],
     "forbidden_findings": [
       "Introduce a seam for each class",
       "Verify internal helper calls as the pricing outcome",
-      "Claim the tests passed"
+      "Claim the tests passed",
+      "Make test authoring the deliverable instead of the production design and verification approach"
     ],
     "expected_activation": [
-      "testing-principles:write-tests"
+      "testing-principles:design-for-testing"
     ]
   },
   {
-    "id": "write-legacy-seam-baseline-gap",
-    "mode": "write",
+    "id": "design-legacy-seam-baseline-gap",
+    "mode": "design",
     "invocation": "implicit",
     "prompt": "Refactor this hard-to-test receipt flow for testability and describe how to verify behavior preservation.",
     "context": "The flow constructs an external client internally and has no existing safe test path. Live credentials and the provider are unavailable. Production edits are authorized. Its documented behavior is to save first, propagate a save failure without sending, and otherwise emit one receipt. The repository supports passing a sender callable. No executable source is supplied.",
@@ -254,7 +256,7 @@
       "Explain that a safe pre-change execution baseline is unavailable",
       "Propose the smallest sender seam using existing callable conventions",
       "Preserve save-before-send and error behavior",
-      "Verify the actual production path uses the seam and report unavailable adapter or provider checks",
+      "Describe verification that the actual production path uses the seam and report unavailable adapter or provider checks",
       "Distinguish proposed or post-change checks from demonstrated before/after regression evidence"
     ],
     "forbidden_findings": [
@@ -264,14 +266,14 @@
       "Claim full production integration from a sender fake"
     ],
     "expected_activation": [
-      "testing-principles:write-tests"
+      "testing-principles:design-for-testing"
     ]
   },
   {
-    "id": "write-tests-only-production-constraint",
+    "id": "tests-only-production-constraint",
     "mode": "write",
     "invocation": "implicit",
-    "prompt": "Improve these tests only; do not change production code.",
+    "prompt": "Review and improve these tests only; do not change production code.",
     "context": "An invoice exposes its final total to customers and caches a private subtotal. All calculation helpers are deterministic and accept ordinary data. The current test uses reflection to inspect the private cache. No test source or runtime is supplied.",
     "required_findings": [
       "Respect the prohibition on production changes",
@@ -285,7 +287,7 @@
       "Retain private cache inspection as the main behavior assertion"
     ],
     "expected_activation": [
-      "testing-principles:write-tests"
+      "testing-principles:audit-tests"
     ]
   },
   {
@@ -309,34 +311,36 @@
     ]
   },
   {
-    "id": "write-support-logging",
-    "mode": "write",
+    "id": "design-support-logging",
+    "mode": "design",
     "invocation": "implicit",
-    "prompt": "Design tests for the account-change support event.",
+    "prompt": "Design a testable production boundary for the account-change support event and describe how to verify its contract.",
     "context": "An external support tool requires account_id, old_status, new_status, exactly one event per actual transition and none for unchanged status. Delivery is an unmanaged boundary. A teammate proposes deleting all logger tests as implementation details. No executable project is supplied.",
     "expected_activation": [
-      "testing-principles:write-tests"
+      "testing-principles:design-for-testing"
     ],
     "required_findings": [
       "Preserve coverage of the required event",
       "Verify required fields and both emission conditions",
       "Use an appropriate recorder or mock at the outgoing boundary",
-      "Distinguish emission verification from real delivery evidence"
+      "Distinguish emission verification from real delivery evidence",
+      "Describe the production dependency boundary and how real adapters are supplied"
     ],
     "forbidden_findings": [
       "All logs are implementation details",
       "Assert incidental human-readable wording",
-      "Claim delivery passed without execution"
+      "Claim delivery passed without execution",
+      "Make test authoring the deliverable instead of the production design and verification approach"
     ]
   },
   {
-    "id": "write-hidden-logger",
-    "mode": "write",
+    "id": "design-hidden-logger",
+    "mode": "design",
     "invocation": "implicit",
     "prompt": "Make this service testable without writing diagnostic files.",
     "context": "A service internally constructs a static file logger. Its result is the behavior under test. A proposed isTestEnvironment switch would skip writes. Production must continue using its real logger.",
     "expected_activation": [
-      "testing-principles:write-tests"
+      "testing-principles:design-for-testing"
     ],
     "required_findings": [
       "Reject the test-environment bypass switch",
@@ -369,6 +373,44 @@
       "The info level establishes a business contract",
       "All logging assertions should be removed",
       "The spy guarantees unit scope"
+    ]
+  },
+  {
+    "id": "ordinary-test-authoring-no-design",
+    "mode": "unrelated",
+    "invocation": "implicit",
+    "prompt": "Write a standard-library unittest for add(a, b). Do not review the design or change production code.",
+    "context": "add(a, b) returns a + b and has no dependencies or hidden state. No runtime is supplied.",
+    "expected_activation": [],
+    "required_findings": [
+      "Provide a focused test for the existing function",
+      "Report execution as not run"
+    ],
+    "forbidden_findings": [
+      "Invoke design-for-testing solely because tests were requested",
+      "Introduce production seams or abstractions",
+      "Claim a test passed without execution"
+    ]
+  },
+  {
+    "id": "design-ambient-input-timing",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design this expiry flow for deterministic testing without changing its behavior. Propose the design only.",
+    "context": "The flow reads the clock before a slow fetch and again after it to decide whether to send. Production must keep both readings. A teammate suggests accepting one timestamp for the whole operation. The repository permits passing a clock callable.",
+    "expected_activation": [
+      "testing-principles:design-for-testing"
+    ],
+    "required_findings": [
+      "Use a callable clock seam preserving both acquisition points",
+      "Reject replacing both reads with one snapshot",
+      "Describe wiring the real clock in production",
+      "Propose controlled before/after times and composition verification without writing tests"
+    ],
+    "forbidden_findings": [
+      "Collapse both clock reads into one timestamp",
+      "Add a test-mode branch",
+      "Claim execution evidence"
     ]
   }
 ]
