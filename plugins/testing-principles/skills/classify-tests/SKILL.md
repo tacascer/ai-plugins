@@ -21,3 +21,5 @@ Classify tests from behavior and evidence. Scope, assertion style, dependency ro
 5. Report evidence, uncertainty, and missing facts using [reporting](../../references/reporting.md). Mark speed unverified without execution evidence and use conditional conclusions when ownership or isolation is unknown.
 
 Do not infer scope from filenames, annotations, Docker, mock libraries, class count, or assertion count. Do not use a scope label as a quality score. Consult [behavior-boundary examples](../../examples/behavior-boundaries.md) when a unit spans classes.
+
+When logging is involved, read [testing logging behavior](../../references/logging.md). Identify the consumer and contract before asserting or removing log checks; distinguish incidental diagnostics from required events, use explicit seams, and preserve uncertainty about unknown consumers.

@@ -38,10 +38,11 @@ Start with [the framework](references/framework.md), then read the reference rel
 - [quality](references/quality.md)
 - [dependencies and test doubles](references/dependencies.md)
 - [designing production test seams](references/test-seams.md)
+- [testing logging behavior](references/logging.md)
 - [reporting](references/reporting.md)
 - [sources and provenance](references/sources.md)
 
-Original contrast examples cover [behavior and boundaries](examples/behavior-boundaries.md), [test doubles](examples/test-doubles.md), [integration boundaries](examples/integration-boundaries.md), and [production test seams](examples/test-seams.md). No particular language, test framework, mocking library, database, or coverage tool is required.
+Original contrast examples cover [behavior and boundaries](examples/behavior-boundaries.md), [test doubles](examples/test-doubles.md), [integration boundaries](examples/integration-boundaries.md), and [production test seams](examples/test-seams.md). See also [logging decisions](examples/logging.md). No particular language, test framework, mocking library, database, or coverage tool is required.
 
 ## Interpretation
 

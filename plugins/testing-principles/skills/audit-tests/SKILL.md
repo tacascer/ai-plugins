@@ -18,3 +18,5 @@ Judge whether tests protect meaningful behavior with proportionate cost. Evidenc
 Ask what meaningful fault each test detects and whether its assertions survive behavior-preserving refactoring. Treat timings as measured only when observed. Examine fixture clarity and upkeep rather than judging maintainability from line count alone.
 
 Coverage percentage locates executed or unexecuted code; it does not establish adequacy. Do not require one test per method. Neither mandate nor forbid mocks: identify stub input, outgoing mock behavior, ownership, and observers. See [test-double examples](../../examples/test-doubles.md) and [integration examples](../../examples/integration-boundaries.md).
+
+When logging is involved, read [testing logging behavior](../../references/logging.md). Identify the consumer and contract before asserting or removing log checks; distinguish incidental diagnostics from required events, use explicit seams, and preserve uncertainty about unknown consumers.

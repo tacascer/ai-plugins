@@ -18,3 +18,5 @@ Design production code with clear responsibilities and controllable boundaries, 
 7. Audit all four quality pillars and report commands and results with [reporting](../../references/reporting.md). Include any production seam changed, the preserved contract, composition evidence, and remaining fidelity gaps.
 
 For combined review and modification, use this procedure and apply the audit rubric before completion. Adapt through repository tools and documentation; do not impose a framework. Use [seam examples](../../examples/test-seams.md), [behavior examples](../../examples/behavior-boundaries.md), and [test-double examples](../../examples/test-doubles.md) as decision contrasts.
+
+When logging is involved, read [testing logging behavior](../../references/logging.md). Identify the consumer and contract before asserting or removing log checks; distinguish incidental diagnostics from required events, use explicit seams, and preserve uncertainty about unknown consumers.

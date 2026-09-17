@@ -134,6 +134,7 @@ content or setup change that justified the repeat.
 | Managed integration dependencies | managed database pair |
 | Conditional ownership and missing evidence | unknown database pair |
 | Quality pillars and evidence levels | audit/classify cases; executable fixtures |
+| Logging consumers, explicit seams, and conditional observability | diagnostic logging; support logging; hidden logger; unknown logger |
 | Repository-language adaptation and uncertainty | limited-context unfamiliar-language plan |
 
 Review these against the plugin's [source map](../references/sources.md), preserve

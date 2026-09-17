@@ -31,3 +31,13 @@ The following ideas are explained in the author's available material:
 The five-dimension classification record, `supported`/`conditional`/`unresolved` confidence vocabulary, evidence fields, report layout, and conditional branches for missing architecture facts are original workflow conventions for this plugin. The seam-selection workflow, production-composition checks, and seam examples are also original plugin guidance, not claims of verified chapter content. They organize the source-backed concepts without being attributed to the book.
 
 Terms such as contract test, property-based test, component test, or consumer-driven contract may supplement the classification when a repository uses them. Treat them as repository or industry labels unless an available source supports a narrower attribution.
+
+## Logging guidance
+
+The [logging reference](logging.md) and [examples](../examples/logging.md) distinguish direct article advice from plugin applications:
+
+- [Unit Testing Dependencies: The Complete Guide](https://enterprisecraftsmanship.com/posts/unit-testing-dependencies/) explicitly recommends injecting loggers; cumbersome propagation can indicate too many layers or too much logging.
+- [Code pollution](https://enterprisecraftsmanship.com/posts/code-pollution/) shows an injected substitute avoiding irrelevant logging I/O instead of a production test-mode switch.
+- [When to Mock](https://enterprisecraftsmanship.com/posts/when-to-mock/) supplies the general observability and dependency-ownership rules.
+
+Applying these rules to diagnostic wording, required support events, structured fields, and unknown consumers is original plugin guidance. The support/diagnostic vocabulary here is operationally defined in the reference; the searched articles do not establish the book’s full distinction. The available contents map logging to section 8.6, but that section’s text was not verified. These additions do not claim exhaustive coverage of its advice.

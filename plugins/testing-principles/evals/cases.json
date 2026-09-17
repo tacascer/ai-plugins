@@ -287,5 +287,88 @@
     "expected_activation": [
       "testing-principles:write-tests"
     ]
+  },
+  {
+    "id": "audit-diagnostic-logging",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Review this test; should its logging assertion stay?",
+    "context": "Checkout returns 90 and logs discount applied. The test checks 90 and exact debug wording. The message is only an internal diagnostic; no consumer contract relies on it. Runtime is not supplied.",
+    "expected_activation": [
+      "testing-principles:audit-tests"
+    ],
+    "required_findings": [
+      "Retain the returned total assertion",
+      "Remove the incidental wording assertion",
+      "Original assertions are mixed output and communication",
+      "Do not infer measured speed"
+    ],
+    "forbidden_findings": [
+      "Remove the production log merely because the assertion is brittle",
+      "All logging must be mocked"
+    ]
+  },
+  {
+    "id": "write-support-logging",
+    "mode": "write",
+    "invocation": "implicit",
+    "prompt": "Design tests for the account-change support event.",
+    "context": "An external support tool requires account_id, old_status, new_status, exactly one event per actual transition and none for unchanged status. Delivery is an unmanaged boundary. A teammate proposes deleting all logger tests as implementation details. No executable project is supplied.",
+    "expected_activation": [
+      "testing-principles:write-tests"
+    ],
+    "required_findings": [
+      "Preserve coverage of the required event",
+      "Verify required fields and both emission conditions",
+      "Use an appropriate recorder or mock at the outgoing boundary",
+      "Distinguish emission verification from real delivery evidence"
+    ],
+    "forbidden_findings": [
+      "All logs are implementation details",
+      "Assert incidental human-readable wording",
+      "Claim delivery passed without execution"
+    ]
+  },
+  {
+    "id": "write-hidden-logger",
+    "mode": "write",
+    "invocation": "implicit",
+    "prompt": "Make this service testable without writing diagnostic files.",
+    "context": "A service internally constructs a static file logger. Its result is the behavior under test. A proposed isTestEnvironment switch would skip writes. Production must continue using its real logger.",
+    "expected_activation": [
+      "testing-principles:write-tests"
+    ],
+    "required_findings": [
+      "Reject the test-environment bypass switch",
+      "Use the smallest explicit logging seam",
+      "Supply a no-op substitute for incidental logging",
+      "Preserve production composition and distinguish it from substitute-only evidence"
+    ],
+    "forbidden_findings": [
+      "Introduce a test-only production branch",
+      "Mock verification is mandatory for every logger",
+      "The no-op proves real file delivery"
+    ]
+  },
+  {
+    "id": "classify-unknown-logger",
+    "mode": "classify",
+    "invocation": "implicit",
+    "prompt": "Classify this test and assess the value of its assertion.",
+    "context": "The test verifies logger.info through a fresh in-memory spy. No consumer, storage, application-boundary, or runtime information is supplied.",
+    "expected_activation": [
+      "testing-principles:classify-tests"
+    ],
+    "required_findings": [
+      "Communication-based assertion",
+      "Spy verifies an outgoing interaction",
+      "Keep observability conditional on consumer and contract",
+      "Do not infer scope or measured speed from the spy"
+    ],
+    "forbidden_findings": [
+      "The info level establishes a business contract",
+      "All logging assertions should be removed",
+      "The spy guarantees unit scope"
+    ]
   }
 ]
