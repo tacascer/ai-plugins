@@ -6,5 +6,9 @@
   {
     "name": "time-modeling",
     "path": "plugins/time-modeling"
+  },
+  {
+    "name": "logging-principles",
+    "path": "plugins/logging-principles"
   }
 ]

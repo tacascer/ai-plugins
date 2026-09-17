@@ -1,0 +1,10 @@
+{
+  "name": "logging-principles",
+  "version": "0.1.0",
+  "description": "Design and audit purposeful logging and failure reporting.",
+  "author": {
+    "name": "tacascer"
+  },
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/"
+}
