@@ -31,6 +31,12 @@ path. Isolated injected-object checks alone do not establish production wiring.
 Existing historical results for the former `write-tests` workflow do not establish
 activation or semantic correctness for these revised cases.
 
+## Guided design cases
+
+The decision cases exercise the complete registration walkthrough, actual production policy variation, a necessary unmanaged sender interface, missing ownership evidence, and an unavailable managed database. Grade the reason connecting evidence to each choice, not just the presence of words such as unit or mock. Require distinct decisions for scope, assertion style, double role, and interface need. A justified decision to reuse a seam or omit a redundant test type is valid.
+
+These cases extend the evaluation inventory; adding them does not establish live automatic activation or a passing model run. Keep manually prompted reasoning probes separate from platform discovery evidence.
+
 ## Keep the oracle hidden
 
 Never send a whole case object or this guide to the model. Construct a reasoning

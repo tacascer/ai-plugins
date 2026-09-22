@@ -6,7 +6,7 @@ Testing Principles is a shared Codex and Claude Code plugin for classifying and 
 
 - `classify-tests` explains a test's scope, assertion style, dependencies, boundary, and quality dimensions.
 - `audit-tests` reviews existing tests and reports material findings with evidence and uncertainty.
-- `design-for-testing` designs testable production code and guides authorized testability refactors. It identifies minimal seams, preserves production contracts and wiring, and describes verification without requiring test authoring. Ordinary test-writing requests do not activate it.
+- `design-for-testing` walks through behavior boundaries, test types, dependency treatment, and whether interfaces or test doubles are justified. It explains the evidence behind each decision, preserves production contracts and wiring, and guides authorized testability refactors without requiring test authoring. Ordinary test-writing requests do not activate it.
 
 `design-for-testing` replaces the former `write-tests` workflow; use the new name for explicit invocations.
 
@@ -44,7 +44,7 @@ Start with [the framework](references/framework.md), then read the reference rel
 - [reporting](references/reporting.md)
 - [sources and provenance](references/sources.md)
 
-Original contrast examples cover [behavior and boundaries](examples/behavior-boundaries.md), [test doubles](examples/test-doubles.md), [integration boundaries](examples/integration-boundaries.md), and [production test seams](examples/test-seams.md). See also [logging decisions](examples/logging.md). No particular language, test framework, mocking library, database, or coverage tool is required.
+A [worked decision walkthrough](examples/design-decisions.md) connects test scope, doubles, and interfaces in one production design. Original contrast examples cover [behavior and boundaries](examples/behavior-boundaries.md), [test doubles](examples/test-doubles.md), [integration boundaries](examples/integration-boundaries.md), and [production test seams](examples/test-seams.md). See also [logging decisions](examples/logging.md). No particular language, test framework, mocking library, database, or coverage tool is required.
 
 ## Interpretation
 

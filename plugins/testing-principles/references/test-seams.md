@@ -15,6 +15,23 @@ Describe the behavior to protect, what prevents exercising it, the proposed seam
 
 Choose idiomatic functions, values, concrete collaborators, or existing interfaces before introducing a new abstraction. An interface is useful when it expresses a real boundary contract; one per class is not a testability requirement. Keep test fixtures, recorders, and fake implementations in test support.
 
+## Decide whether an interface is needed
+
+An interface is a production design choice; a test double is a test dependency's role. Dependency injection can use a value, callable, or concrete collaborator without introducing a new interface, trait, or protocol.
+
+| Evidence | Decision | Reason |
+| --- | --- | --- |
+| Existing inputs and observable outputs already permit exercising the behavior | No new seam or interface | Additional indirection adds no control or coverage |
+| Deterministic internal collaborators implement one cohesive behavior | Keep them real | Class boundaries need not become test boundaries |
+| Decisions and managed database I/O are intertwined | Separate decisions operating on data from orchestration; retain concrete persistence where suitable | Unit checks cover decisions; real-database integration checks cover persistence without a repository interface solely for mocking |
+| An existing callable or collaborator parameter supports necessary substitution | Reuse it | A second wrapper is unnecessary unless it supplies a missing contract |
+| An unmanaged boundary needs substitution and the language or existing architecture requires a declared contract | Introduce a narrow interface at that boundary | A production adapter and test substitute can exercise the observable contract without contacting the live provider |
+| Actual alternative production implementations share a meaningful contract | An interface may express that abstraction | Justify it with existing variation rather than hypothetical future implementations |
+
+These are reasons to assess a design, not instructions to remove existing repository abstractions. Respect architectural constraints and authorized scope. For each proposed interface, name the contract, the consumer, the implementations or substitution need, and why simpler inputs or existing collaborators do not suffice. Keep doubles in test support.
+
+Khorikov's [repository-interface discussion](https://enterprisecraftsmanship.com/posts/interfaces-for-repositories/) motivates isolating domain decisions and testing owned persistence directly. The language-neutral decision table is this plugin's application of that reasoning; see [provenance](sources.md).
+
 ## Preserve production semantics
 
 Keep existing entrypoints working and route them through the same logic exercised by tests. Wire real dependencies through normal application setup. An injected component that the production entrypoint bypasses is not evidence that production behavior is covered.

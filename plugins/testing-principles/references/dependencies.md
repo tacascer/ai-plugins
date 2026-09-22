@@ -19,9 +19,12 @@ A database is often managed, but not automatically. A database read by reporting
 
 ## Choose the double by role
 
+**Test double** is the umbrella term for a substitute used in a test, not a separate alternative to a stub or mock. First decide whether substitution is needed at the chosen boundary, then classify what the substitute does. An interface does not determine that role or the test's scope.
+
 - A **stub** supplies input to the system under test, such as a repository query result, clock value, or read-only service response. Assert the resulting behavior, not how the input was requested.
 - A **mock** records or verifies an outgoing interaction that produces a side effect. Use it when that interaction is observable at the chosen boundary, such as a promised notification to an external recipient.
 - A **spy** records real or fake interactions for later examination. Its value still depends on whether the recorded interaction is observable.
+- A **dummy** only fills an unused parameter; it provides neither meaningful input nor interaction evidence.
 - A **fake** is a working simplified implementation. Treat it as a stub or mock according to how the test uses it.
 
 A mocking library can create either a stub or a mock. Naming, framework types, and setup syntax do not determine the role.
