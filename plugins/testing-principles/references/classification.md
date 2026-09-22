@@ -14,6 +14,12 @@ A test that fails one or more of these criteria is an integration test. An end-t
 
 Record speed as `verified` only from execution evidence. Without timings or an observed run, use `unverified`. If test isolation depends on runner configuration, fixtures, or cleanup that was not inspected, make the scope conclusion conditional.
 
+## Choosing coverage before tests exist
+
+Use these criteria prospectively when designing coverage. Call a check an intended unit test when it exercises cohesive behavior with planned test isolation and a short feedback loop; do not claim measured speed before execution. Choose integration coverage when the behavior requires components and infrastructure working together, such as orchestration with real owned persistence. A mock does not make that whole test a unit test.
+
+Add an end-to-end path when a broad client entrypoint protects a distinct risk, such as routing and composition omitted by narrower checks. State its actual extent and substituted external systems; do not imply live-provider compatibility. Repository labels such as component or contract can supplement this explanation. Neither a fixed pyramid ratio nor one test of every type is required.
+
 ## 2. Assertion style
 
 - **Output-based:** compares returned or emitted values with expected results.

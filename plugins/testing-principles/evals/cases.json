@@ -412,5 +412,121 @@
       "Add a test-mode branch",
       "Claim execution evidence"
     ]
+  },
+  {
+    "id": "design-guided-registration-decisions",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Walk me through how to decide test types and whether to introduce interfaces or doubles for our registration design. Design only.",
+    "context": "Registration loads account data from our exclusively owned PostgreSQL database, runs deterministic eligibility rules across three concrete classes, queries an independently owned read-only risk API, persists acceptance, then sends exactly one welcome email through an external provider after commit. No other clients access the database. Risk client and mail sender are already parameters; database operations and decision logic are in the same handler. A teammate wants an interface and mock for every class to make all tests unit tests. We also need confidence in HTTP routing and production composition. Tests are not written yet and no timings are available.",
+    "expected_activation": [
+      "testing-principles:design-for-testing"
+    ],
+    "required_findings": [
+      "Explain the behavior and application boundary before choosing coverage",
+      "Keep the three real classes together for intended unit decision checks and mark speed unverified",
+      "Classify dependency process location ownership and planned test isolation separately",
+      "Choose integration coverage with real managed PostgreSQL and assert persisted outcomes",
+      "Use risk responses as stub inputs and the recorded welcome send as a mock role",
+      "Explain test double as an umbrella term rather than a separate substitute choice",
+      "Reuse existing risk and mail seams and separate decisions from I/O without adding an interface per class",
+      "Explicitly decide whether a broad end-to-end path adds HTTP routing and composition evidence and state substituted external boundaries",
+      "Preserve commit-before-send and describe distinct faults detected by the coverage"
+    ],
+    "forbidden_findings": [
+      "Mock every class to obtain unit scope",
+      "Verify internal risk lookup counts as the registration contract",
+      "Treat a mocked database as proof of persistence",
+      "Claim proposed tests were run"
+    ]
+  },
+  {
+    "id": "design-interface-real-variation",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Decide whether this design warrants an interface, test doubles, and unit or integration coverage. Propose only.",
+    "context": "PriceQuote supports two actual production discount policies selected by tenant configuration. Both run deterministically in process on explicit values, implement the same customer-visible policy contract, and can be freshly constructed per test. There is no I/O. Repository conventions permit a small policy protocol. No test timings are available.",
+    "expected_activation": [
+      "testing-principles:design-for-testing"
+    ],
+    "required_findings": [
+      "A policy interface can express actual production variation",
+      "Do not replace deterministic policies with mocks merely because an interface exists",
+      "Propose intended unit checks of customer-visible outputs with real policies",
+      "Mark speed unverified and describe isolation",
+      "No integration or end-to-end test is required merely to include every test type"
+    ],
+    "forbidden_findings": [
+      "Interfaces are only justified for external mocks",
+      "Every implementation needs a test double",
+      "Require one test of every scope"
+    ]
+  },
+  {
+    "id": "design-unmanaged-interface-needed",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design a testable notification boundary and explain the test scope, interface, and double choices. Do not implement.",
+    "context": "A handler directly constructs a sealed SDK client for an independently operated SMS provider. The customer contract requires one message to a specified number for a successful action. The statically typed repository cannot substitute this client and has no existing sender abstraction; its composition conventions support a small injected protocol. Provider access is unavailable in tests.",
+    "expected_activation": [
+      "testing-principles:design-for-testing"
+    ],
+    "required_findings": [
+      "Introduce a narrow sender contract justified by necessary substitution at the unmanaged boundary",
+      "Supply the real SDK adapter through normal production composition",
+      "Use a mock or spy for the promised recipient payload and count",
+      "Explain that interface and double presence do not determine test scope",
+      "Describe adapter verification with safe controlled transport when feasible and name missing provider compatibility evidence"
+    ],
+    "forbidden_findings": [
+      "Never introduce an interface with one production implementation",
+      "Mock each internal helper",
+      "Claim substitution proves live delivery"
+    ]
+  },
+  {
+    "id": "design-unknown-ownership-walkthrough",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Help choose test types and decide whether to add a repository interface or use a real dependency in this design. Design only.",
+    "context": "The service writes to a PostgreSQL table. Code and deployment ownership are unavailable. It is unknown whether reporting jobs read the table directly. The only supplied behavior is that a successful request stores an accepted record. No fixture lifecycle or timings are supplied.",
+    "expected_activation": [
+      "testing-principles:design-for-testing"
+    ],
+    "required_findings": [
+      "Ask a focused ownership or external-consumer question or explicitly retain conditional branches",
+      "If exclusively owned and hidden use real managed persistence for integration coverage when practical",
+      "If independently observed identify the relevant writes as an external contract before choosing verification",
+      "Leave shared/private and speed unresolved without evidence",
+      "Do not prescribe a repository interface before establishing the need"
+    ],
+    "forbidden_findings": [
+      "All databases are managed",
+      "Out-of-process dependencies are always unmanaged",
+      "Invent fixture isolation",
+      "Require the user to answer a fixed questionnaire before any useful guidance"
+    ]
+  },
+  {
+    "id": "design-constrained-managed-dependency",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design coverage and decide whether a new repository interface is justified under this constraint. Do not write tests.",
+    "context": "An application exclusively owns a database and no other consumers access it. This environment cannot run the database. Domain decisions already accept explicit values and produce results. An existing repository parameter can accept a simplified in-memory implementation in tests. No real database evidence or timings are available.",
+    "expected_activation": [
+      "testing-principles:design-for-testing"
+    ],
+    "required_findings": [
+      "Keep the existing pure decision boundary and real internal collaborators",
+      "Reuse the existing repository seam if substitution is useful rather than adding an interface",
+      "Describe the simplified implementation as a fake and determine its stub or mock role by use",
+      "Do not verify internal persistence calls as a substitute for observable results",
+      "Separate substitute-based coverage from the pending real-database integration check and state lost fidelity"
+    ],
+    "forbidden_findings": [
+      "Claim full persistence integration from the fake",
+      "Introduce an interface solely because every dependency needs one",
+      "Claim measured fast feedback"
+    ]
   }
 ]

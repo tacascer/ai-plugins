@@ -1,25 +1,27 @@
 ---
 name: design-for-testing
-description: Use when designing production code for testability, choosing test seams or dependency boundaries, or refactoring code with hidden inputs, internally constructed I/O, or decisions tangled with effects.
+description: Use when choosing test types and dependency treatment for a production design, deciding whether interfaces or test doubles are warranted, or refactoring code with hidden inputs, internally constructed I/O, or decisions tangled with effects.
 ---
 
 # Design for Testing
 
-Make production behavior easy to exercise through clear responsibilities, explicit inputs, and controllable boundaries. A seam supplies an input or substitutes a dependency without replacing the behavior being checked. Keep an existing design when it is already testable.
+Walk through Vladimir Khorikov's testing frameworks to choose coverage and production boundaries. Explain how each relevant fact leads to a decision; keep an already testable design. Read [the framework](../../references/framework.md) for the classical interpretation and [sources](../../references/sources.md) for attribution limits.
 
-This workflow produces a production design and verification approach. Ordinary requests to write tests, choose assertion syntax, or build fixtures do not by themselves call for this skill. Use `audit-tests` to review existing tests and `classify-tests` to explain their scope.
+This produces a design and verification approach. Ordinary test-writing requests alone do not activate it. Use `audit-tests` for reviews and `classify-tests` for classification of existing tests. A design request does not authorize production edits or require test authoring.
 
-## Procedure
+## Guided decisions
 
-1. Identify the behavior, client, public boundary, and requested scope. Inspect repository conventions for composition and dependency lifetimes. Distinguish a design proposal from an authorized production refactor; test-only work does not authorize production edits.
-2. Identify obstacles: ambient time, randomness or configuration, internal I/O construction, shared mutable state, or decisions mixed with effects. Read [test seams](../../references/test-seams.md). For each obstacle, explain what needs control or observation. If existing inputs and outcomes suffice, recommend no new seam.
-3. Choose the smallest useful design: explicit values, a boundary collaborator, or cohesive decision logic separated from I/O. Prefer existing idiomatic functions and concrete collaborators. Keep deterministic internal collaborators real; avoid interfaces per helper, public debug accessors, and test-mode branches.
-4. Trace production composition through the proposed boundary. Preserve entrypoints, dependency lifetimes, transactions, effect ordering, exception propagation, and input-acquisition timing. Describe where real adapters are supplied and how the normal entrypoint reaches the same logic future tests will exercise.
-5. Describe verification at each meaningful boundary using [dependencies](../../references/dependencies.md) and [quality](../../references/quality.md). Identify observable outcomes, controlled inputs, real managed-dependency integration when practical, externally observed unmanaged effects, and a check through normal production composition. Keep unknown ownership conditional. Substitute-only checks do not prove adapter or wiring fidelity.
-6. For an authorized refactor, establish a behavior baseline through the nearest practical boundary before moving responsibilities. If no safe baseline exists, state the gap and identify the minimum enabling seam. Apply the design within scope and run available relevant checks. Test authoring follows the task's separate development workflow; this skill does not require writing tests to complete a design.
+Inspect available code and conventions first. Explain supported decisions as you go; ask focused questions only for missing facts that change the recommendation. If facts remain unavailable, give conditional branches and name what resolves them. This is not a mandatory questionnaire or approval gate.
+
+1. **Establish behavior and boundary.** Identify the client, promised outcome, and components inside the system. Distinguish observable behavior from implementation details. Name testability obstacles, if any, separately from behavior defects.
+2. **Map dependencies.** Use [dependencies](../../references/dependencies.md) to determine shared/private, in/out of process, and, for out-of-process dependencies, managed/unmanaged. Cite ownership, external consumers, and fixture lifecycle evidence; technology names alone do not settle these axes.
+3. **Choose coverage.** Use [classification](../../references/classification.md) to propose unit, integration, and any useful end-to-end checks. Explain the cohesive behavior, isolation, feedback-speed assumptions, and boundaries each exercises. Several real classes can form one unit. Cover decisions directly and meaningful application paths with real managed dependencies when practical. Add a broad entrypoint check when it protects wiring or behavior missing from narrower coverage. Classify output, state, and communication assertions separately from scope. Proposed speed and isolation remain unverified without evidence.
+4. **Choose dependency treatment.** Keep deterministic internal collaborators real. For necessary substitutes, explain that test double is the umbrella term: stubs supply inputs; mocks verify observable outgoing effects; spies record interactions; fakes simplify implementations. Choose by use, not library name. Assert results of stub inputs, not query counts. Explain why an outgoing interaction is externally observable before verifying it. Identify lost adapter or provider fidelity.
+5. **Decide on interfaces and seams.** Follow [test seams](../../references/test-seams.md#decide-whether-an-interface-is-needed). Evaluate existing inputs and concrete collaborators, separating decisions from I/O, and only then a needed interface. State introduce, reuse, or no new interface and why. Trace real production composition; preserve lifetimes, transactions, effect ordering, exceptions, and input-acquisition timing. For an authorized refactor, establish a behavior baseline before moving responsibilities; name any gap and the minimum enabling seam.
+6. **Check value and summarize.** Apply the four [quality pillars](../../references/quality.md): regression protection, refactoring resistance, feedback speed, and maintainability. Explain the distinct fault each proposed check detects and unnecessary duplication it avoids.
 
 ## Deliverable
 
-Report the behavior and boundary, obstacle (or why none exists), proposed seam and production wiring, preserved contracts, and verification approach. Separate proposed checks from commands actually run and observed results. Name unresolved ownership, baseline, adapter, or composition evidence; never present a proposed check as a demonstrated regression.
+For each meaningful behavior, report the boundary, proposed test scope and rationale, assertion style and outcome, real dependencies or double roles, interface/seam decision, and missing evidence. Include production wiring and preserved contracts. Separate proposed verification from commands run and observed results; design completion does not demonstrate a regression test.
 
-Use [seam examples](../../examples/test-seams.md) for design contrasts. For logging boundaries, read [testing logging behavior](../../references/logging.md): identify the consumer and contract, preserve required events, and use explicit seams for incidental diagnostics.
+See the [worked decision walkthrough](../../examples/design-decisions.md) and [seam examples](../../examples/test-seams.md). For logging consumers and contracts, read [logging](../../references/logging.md).
