@@ -8,7 +8,7 @@
     "path": "plugins/time-modeling"
   },
   {
-    "name": "logging-principles",
-    "path": "plugins/logging-principles"
+    "name": "design-observability",
+    "path": "plugins/design-observability"
   }
 ]

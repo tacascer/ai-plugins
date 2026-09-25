@@ -5,7 +5,7 @@ Claude Code. Available packages are:
 
 - [Testing Principles](plugins/testing-principles/README.md): design testable code, classify tests, and audit tests.
 - [Time Modeling](plugins/time-modeling/README.md): design and audit temporal data models.
-- [Logging Principles](plugins/logging-principles/README.md): design and audit purposeful logging and failure reporting.
+- [Design Observability](plugins/design-observability/README.md): design and audit structured observability events, listeners, and signals.
 
 Each plugin keeps its manifests, skills, references, examples, and documentation
 together under `plugins/<name>/`.
@@ -81,9 +81,9 @@ $testing-principles:classify-tests classify these tests
 Replace `classify-tests` with `audit-tests` or `design-for-testing` as needed. For Time
 Modeling, use `$time-modeling:design-time-models` or
 `$time-modeling:audit-time-models` in Codex, and the corresponding `/` forms in
-Claude Code. For Logging Principles, use `$logging-principles:design-logging` or
-`$logging-principles:audit-logging` in Codex, and
-`/logging-principles:design-logging` or `/logging-principles:audit-logging` in
+Claude Code. For Design Observability, use `$design-observability:design-observability` or
+`$design-observability:audit-observability` in Codex, and
+`/design-observability:design-observability` or `/design-observability:audit-observability` in
 Claude Code. Load or install the selected plugin using its own directory or
 package name in the commands above.
 

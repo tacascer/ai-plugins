@@ -1,0 +1,23 @@
+{
+  "name": "design-observability",
+  "version": "0.2.0",
+  "description": "Design and audit application observability with structured events and listeners.",
+  "author": {
+    "name": "tacascer"
+  },
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Design Observability",
+    "shortDescription": "Design and audit structured observability.",
+    "longDescription": "Language-neutral guidance for explicit observability events, listeners, signal mappings, and lifecycle-aware diagnostics.",
+    "developerName": "tacascer",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Design observability events and listeners for my application."
+    ]
+  }
+}

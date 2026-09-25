@@ -1,12 +1,17 @@
-# Logging Principles evaluations
+# Design Observability evaluations
 
-[cases.json](cases.json) contains 16 semantic probes. Fifteen exercise design or audit behavior across important and expected failures, business outcomes, pure computation, retained diagnostics, sensitive context, startup and disconnected environments, required records, and missing consumer evidence. The unrelated release-note case expects neither workflow to activate. Only the two missing-consumer cases use explicit invocation; the other 14 test implicit selection.
+[cases.json](cases.json) contains 23 semantic probes: nine design, thirteen audit,
+and one unrelated negative-selection case. Two use explicit invocation; the rest
+exercise implicit selection. Coverage includes event/listener boundaries,
+committed outcomes, structured tests, startup and offline availability, duplicate
+and sampled measurements, listener failures, event contracts, sensitive context,
+required records, and uncertain consumers.
 
 ## Submission and isolation
 
 Submit only a case's `prompt` and `context`. Keep `expected_activation`, `required_findings`, and `forbidden_findings` in the evaluator. Do not expose this guide or the case file to the evaluated model.
 
-For explicit prompts, translate the generic workflow name to the platform form: `$logging-principles:design-logging` or `$logging-principles:audit-logging` for Codex, and the corresponding `/` form for Claude. Record the exact submitted input.
+For explicit prompts, translate the generic workflow name to the platform form: `$design-observability:design-observability` or `$design-observability:audit-observability` for Codex, and the corresponding `/` form for Claude. Record the exact submitted input.
 
 Use a fresh disposable workspace under ignored `.eval-runs/`. Expose a runtime copy of only the manifests, skills, references, and examples. Exclude `evals/`, `docs/`, the README, and the original checkout. Permit access only to the disposable workspace and the runtime copy. Use supported isolated loading without installing into user configuration.
 
@@ -35,8 +40,10 @@ For every attempted case, record:
 | Semantics | `pass`/`fail`/`unverified` with response-grounded findings |
 | Unavailable checks | Missing evidence and why it could not be obtained |
 
-Keep credentials and account identifiers out of records. Raw transcripts remain in `.eval-runs/`. Author review of the 16 cases against the guidance is an artifact consistency check, not a model evaluation.
+Keep credentials and account identifiers out of records. Raw transcripts remain in `.eval-runs/`. Author review of the cases against the guidance is an artifact consistency check, not a model evaluation.
 
 The [initial verification record](../docs/verification/2026-09-17-initial.md)
-records the current artifact and structural evidence. Live activation and
-semantic behavior are unverified in this environment.
+records historical version 0.1.0 evidence under the former plugin name.
+Read-only authoring probes may supply explicitly loaded skill behavior evidence;
+they do not establish native plugin activation or replace isolated full-suite
+evaluation. Record their scope separately from platform-loaded runs.
