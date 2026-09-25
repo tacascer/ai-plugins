@@ -1,0 +1,10 @@
+{
+  "name": "design-observability",
+  "version": "0.2.0",
+  "description": "Design and audit application observability with structured events and listeners.",
+  "author": {
+    "name": "tacascer"
+  },
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/"
+}

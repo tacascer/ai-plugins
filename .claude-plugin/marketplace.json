@@ -18,10 +18,10 @@
       "description": "Design and audit temporal data models while preserving time intent."
     },
     {
-      "name": "logging-principles",
-      "source": "./plugins/logging-principles",
-      "version": "0.1.0",
-      "description": "Design and audit purposeful logging and failure reporting."
+      "name": "design-observability",
+      "source": "./plugins/design-observability",
+      "version": "0.2.0",
+      "description": "Design and audit application observability with structured events and listeners."
     }
   ]
 }

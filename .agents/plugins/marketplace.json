@@ -29,10 +29,10 @@
       "category": "Productivity"
     },
     {
-      "name": "logging-principles",
+      "name": "design-observability",
       "source": {
         "source": "local",
-        "path": "./plugins/logging-principles"
+        "path": "./plugins/design-observability"
       },
       "policy": {
         "installation": "AVAILABLE",
