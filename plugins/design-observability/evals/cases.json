@@ -561,5 +561,30 @@
       "Activate an application observability workflow for standalone dashboard administration",
       "Claim checks or tests were run without execution evidence"
     ]
+  },
+  {
+    "id": "implement-structured-logs",
+    "mode": "implement",
+    "invocation": "implicit",
+    "prompt": "Add portable searchable completion logs to our service using its existing structured logger.",
+    "context": "JobCompleted events arrive late and can be replayed. They contain finished_at, job_id, customer_id, outcome, and elapsed_ms; older events lack trace context. The consumer has its own active span. Both stdout collection and an OTel logging bridge are available. CI has no hosted backend.",
+    "expected_activation": [
+      "design-observability:implement-observability"
+    ],
+    "required_findings": [
+      "Recommend structured logging with typed searchable fields and the OpenTelemetry Log Data Model",
+      "Map occurrence and observation time, severity, body and attributes, resource and instrumentation scope",
+      "Preserve original context when available and prevent consumer context from being substituted when it is missing",
+      "Keep application events independent of OpenTelemetry and use a compatible bridge or listener adapter",
+      "Check language and bridge support, minimize sensitive fields, declare replay behavior, and prevent duplicate export",
+      "Include logs in bounded initialization and shutdown and verify typed records separately from local OTLP delivery"
+    ],
+    "forbidden_findings": [
+      "Treat JSON formatting alone as OpenTelemetry Log Data Model compliance",
+      "Invent missing original timestamps or trace correlation",
+      "Require replacing the existing logger regardless of bridge compatibility",
+      "Claim exactly-once log delivery from OTLP or structured logging",
+      "Claim checks or tests were run without execution evidence"
+    ]
   }
 ]

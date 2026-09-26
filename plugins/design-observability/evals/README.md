@@ -1,10 +1,11 @@
 # Design Observability evaluations
 
-[cases.json](cases.json) contains 30 semantic probes: nine design, thirteen audit,
-six implementation, and two negative-selection cases. Three use explicit invocation;
+[cases.json](cases.json) contains 31 semantic probes: nine design, thirteen audit,
+seven implementation, and two negative-selection cases. Three use explicit invocation;
 the rest exercise implicit selection. Implementation coverage includes portable
 listeners, delayed/replayed events, context lifetime, sampling, SDK lifecycle,
-vendor migration, reusable libraries, and standalone dashboard exclusions.
+structured log mappings and bridges, vendor migration, reusable libraries, and
+standalone dashboard exclusions.
 Existing cases cover event contracts, committed outcomes, structured tests,
 availability, listener failures, sensitive context, and required records.
 

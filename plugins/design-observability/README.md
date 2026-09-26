@@ -1,6 +1,6 @@
 # Design Observability
 
-Design Observability provides shared Codex and Claude Code workflows for designing
+Design Observability provides shared Codex and Claude Code workflows for designing,
 implementing, and reviewing application observability around explicit structured events:
 
 ```text
@@ -17,8 +17,9 @@ setup. Application simplicity alone does not justify bypassing events.
 
 - `design-observability` designs event contracts, emission boundaries, listeners,
   useful signals, lifecycle, delivery behavior, and verification.
-- `implement-observability` implements provider-portable OpenTelemetry metrics and
-  traces, export configuration, context propagation, and SDK lifecycle.
+- `implement-observability` implements structured logs using the OpenTelemetry Log Data
+  Model, plus provider-portable metrics and traces, export configuration, context
+  propagation, and SDK lifecycle.
 - `audit-observability` reviews those boundaries for actionable problems while
   preserving useful signals and justified availability fallbacks. The audit is
   read-only unless edits are requested.
