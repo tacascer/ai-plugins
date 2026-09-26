@@ -1,11 +1,11 @@
 ---
 name: implement-observability
-description: Use when implementing application metrics or traces, wiring OpenTelemetry instrumentation and export, or replacing provider-coupled telemetry in application code.
+description: Use when implementing application logs, metrics, or traces, wiring OpenTelemetry instrumentation and export, or replacing provider-coupled telemetry in application code.
 ---
 
 # Implement Observability
 
-Implement backend-portable metrics and traces through the existing boundary:
+Implement backend-portable logs, metrics, and traces through the existing boundary:
 
 ```text
 application -> structured events -> OpenTelemetry listeners -> SDK -> OTLP -> destination
@@ -31,8 +31,12 @@ it does not authorize deployment, plugin installation, or unrelated rewrites.
    tracing, use an adapter-owned operation scope or synchronous lifecycle listener
    so a span exists while work runs; a late completion listener cannot reconstruct
    missing context or a real parent-child execution lifetime.
-3. Implement listener mappings: choose counters, histograms, or current-value
-   instruments by meaning; define units, bounded attributes, and counting semantics.
+3. Implement listener mappings. Recommend structured logging with named, typed
+   fields and the OpenTelemetry Log Data Model for log records. Keep searchable
+   facts separate from rendered messages; preserve occurrence time and original
+   correlation through delayed delivery. Reuse a compatible logging bridge.
+   For metrics, choose counters, histograms, or current-value instruments by meaning;
+   define units, bounded attributes, and counting semantics.
    Distinguish attempts, completions, and replay. Record metrics independently of
    trace sampling. Use explicit context across asynchronous work, close spans on
    every exit, and preserve the application's result and error behavior.
@@ -46,10 +50,10 @@ it does not authorize deployment, plugin installation, or unrelated rewrites.
    export failures from changing business outcomes; preserve stronger required
    audit guarantees separately. Use sanitized nonrecursive diagnostics for broken
    telemetry and startup availability gaps.
-6. Verify structured events, listener measurements/spans, and normal composition.
-   Use local SDK readers/exporters or structured captures without a hosted account;
-   check context propagation, unsampled metrics, replay behavior, and exporter
-   failure/shutdown. Verify actual OTLP wiring with a local receiver when changing
+6. Verify structured events, listener log records/measurements/spans, and normal
+   composition. Use local SDK readers/exporters or structured captures without a
+   hosted account; check log field mappings, context propagation, unsampled metrics,
+   replay, and exporter failure/shutdown. Verify actual OTLP wiring with a local receiver when changing
    export configuration. Distinguish that evidence from in-memory mapping tests.
 7. Report changed boundaries, configuration, checks actually executed, and remaining
    delivery limits. Provider portability means no application-instrumentation

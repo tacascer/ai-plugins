@@ -59,3 +59,34 @@ values and completed spans with local SDK captures. Exercise unsampled execution
 queue propagation, redelivery, and a blocked exporter with bounded shutdown. Change
 the OTLP destination to a local receiver to verify wire export separately. No hosted
 account is needed, and no production deployment is implied.
+
+## Adding searchable completion logs
+
+Operators also need logs for the delayed `JobCompleted` stream. Register one log
+listener through the existing structured logger's supported OTel bridge, or use
+a direct adapter if the bridge cannot preserve the required fields. This is a
+logical record mapping, not JSON wire format or a particular SDK call:
+
+| Log record | Value |
+| --- | --- |
+| Timestamp | `event.finished_at`, the original occurrence time |
+| ObservedTimestamp | Time the collection system observes the record |
+| SeverityText / SeverityNumber | `INFO` / `9` for successful completion; map other outcomes by policy |
+| Body | `"Job completed"` |
+| Attributes | Allowlisted `job.id`, `job.outcome`, and numeric `job.elapsed_ms` |
+| EventName | `job.completed` where supported; these custom names are not standard conventions |
+| Resource / InstrumentationScope | Source service identity / the job log adapter |
+| TraceId / SpanId / TraceFlags | Original captured context, if available |
+
+The existing event has no trace context. Leave correlation absent and prevent the
+bridge from attaching the consumer's ambient span. To correlate future records,
+capture serializable context at the work boundary; do not serialize live spans.
+The customer ID is omitted, and job IDs never become metric dimensions. Delayed
+observation does not change completion time. Each stream delivery can produce a
+record, including replay; this is the declared behavior, not exactly-once logging.
+
+Verify the resulting typed records with known occurrence and observation times,
+both present and absent original context, and replay. Exercise the actual bridge
+to detect accidental consumer correlation and duplicate export. Initialize the
+log provider/processor before listener registration; include logs in bounded
+flush/shutdown and verify their OTLP delivery with a local receiver separately.

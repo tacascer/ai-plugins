@@ -26,6 +26,42 @@ a particular exporter or global SDK setup. Inject providers into adapters when
 practical for independent instances and tests. Bridge an existing language-native
 instrumentation facade when it preserves these boundaries; do not force a rewrite.
 
+## Structured logs
+
+Recommend structured logging: keep useful facts in named, typed fields so consumers
+can query them without parsing prose. A readable message can accompany those fields.
+Use the [OpenTelemetry Log Data Model](https://opentelemetry.io/docs/specs/otel/logs/data-model/)
+as the recommended portable record model. It defines meaning, not a mandatory JSON
+encoding; JSON output alone does not establish a correct mapping.
+
+Map at the listener/adapter boundary, keeping application events SDK-independent:
+
+| Record field | Mapping |
+| --- | --- |
+| Timestamp / ObservedTimestamp | Original occurrence / collection observation time |
+| SeverityText / SeverityNumber | Source level / its corresponding OTel severity |
+| Body / Attributes | Message or structured payload / queryable event fields |
+| Resource / InstrumentationScope | Originating entity / emitting instrumentation |
+| TraceId / SpanId / TraceFlags | Available original operation correlation |
+| EventName | Stable event type when applicable and supported |
+
+Preserve field types and use applicable semantic conventions. Keep service identity
+in the resource and per-occurrence facts in attributes. Bound record size and apply
+the shared safe-field policy before emission.
+
+For delayed delivery, retain source occurrence time; do not overwrite it with
+listener time. Omit unknown occurrence time or correlation rather than inventing
+it. Pass captured original context explicitly and prevent bridges from substituting
+the consumer's ambient span when original context is absent. Trace correlation does
+not require that the span was sampled. Declare replay/duplicate behavior for logs;
+structured records and OTLP alone do not deduplicate deliveries.
+
+Prefer a supported bridge from the existing structured logging framework when it
+preserves fields and context. Otherwise use a listener-owned log adapter. Check the
+pinned language's logs SDK, bridge, field, and exporter support; document lossy
+mappings. Assign one export path per record to avoid duplicate bridge/direct export
+or simultaneous stdout collection and SDK export to the same destination.
+
 ## Metrics
 
 Choose by meaning: counters accumulate nonnegative occurrences; histograms capture
@@ -83,14 +119,14 @@ for standard settings such as `OTEL_SERVICE_NAME`, `OTEL_RESOURCE_ATTRIBUTES`, a
 `OTEL_EXPORTER_OTLP_ENDPOINT`; do not assume all languages implement every variable.
 Verify signal-specific overrides and HTTP path versus gRPC endpoint semantics.
 
-Initialize resource identity, providers, metric readers, span processors, and
+Initialize resource identity, providers, metric readers, span/log processors, and
 listeners before observed work. Check required early bootstrap order for automatic
 instrumentation. Use SDK batching and periodic metric collection rather than
 synchronous network calls for every event. Configure bounded queues, timeouts and
 supported retry behavior; document drop behavior during outages. Telemetry remains
 best effort unless an explicitly stronger contract is implemented separately.
 
-Drain application work before telemetry shutdown. Flush metrics and traces with
+Drain application work before telemetry shutdown. Flush logs, metrics, and traces with
 a deadline, then release resources; SDK shutdown/flush ordering is language-specific.
 Test short-lived processes and cancellation where applicable. Do not recursively
 report exporter failure through the failing exporter. Retain a minimal sanitized
@@ -101,10 +137,14 @@ local diagnostic path for startup and telemetry-infrastructure failures.
 | Boundary | Useful evidence |
 | --- | --- |
 | Producer | Typed events and business results; commit failure does not emit success |
-| Listener | Real SDK measurements and completed spans; units, bounded attributes, status and parentage |
+| Listener | Structured log records, SDK measurements and completed spans; log fields, units, bounded attributes, status and correlation |
 | Sampling/replay | Unsampled work still records metrics; duplicate delivery follows the declared counting contract |
 | Composition | First accepted operation reaches registered listeners; task context survives transport |
-| Export/lifecycle | Local OTLP receiver observes both signals; unavailable receiver cannot hang work or shutdown |
+| Export/lifecycle | Local OTLP receiver observes each configured signal; unavailable receiver cannot hang work or shutdown |
+
+For logs, verify typed fields, severity mapping, resource/scope, occurrence versus
+observation time, original or absent trace context, and declared replay behavior.
+Exercise the actual logging bridge when used, including duplicate-export prevention.
 
 Use SDK in-memory exporters/readers or structured capture facilities supported by
 the chosen version. Explicitly collect/flush when tests require it, avoid real-time
@@ -118,6 +158,8 @@ Consult the chosen language's current API and SDK documentation before coding:
 
 - [Language APIs and SDKs](https://opentelemetry.io/docs/languages/)
 - [Components and export boundaries](https://opentelemetry.io/docs/concepts/components/)
+- [Logs and logging bridges](https://opentelemetry.io/docs/specs/otel/logs/)
+- [Log Data Model](https://opentelemetry.io/docs/specs/otel/logs/data-model/)
 - [Metrics API](https://opentelemetry.io/docs/specs/otel/metrics/api/)
 - [Tracing API](https://opentelemetry.io/docs/specs/otel/trace/api/)
 - [Context propagation](https://opentelemetry.io/docs/concepts/context-propagation/)
