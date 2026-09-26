@@ -15,3 +15,8 @@ verification boundaries, procedures, reports, evaluations, and examples are
 original plugin guidance. No vendor, library, or functional rewrite is required.
 
 This plugin is not affiliated with or endorsed by Nikita Sobolev.
+
+The OpenTelemetry implementation workflow draws on the official API, SDK, and
+protocol documentation linked in the [implementation reference](opentelemetry.md).
+OpenTelemetry is required for that workflow; the design and audit workflows retain
+their broader scope. The event/listener boundary remains this plugin's convention.

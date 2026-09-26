@@ -1,6 +1,6 @@
 ---
 name: design-observability
-description: Use when designing or changing application observability, structured events, telemetry listeners, metrics, logs, traces, or failure reporting.
+description: Use when choosing or revising application observability architecture, event contracts, telemetry listener boundaries, signal mappings, or failure-reporting policy.
 ---
 
 # Design Observability
@@ -51,3 +51,6 @@ Consult the [examples](../../examples/observability-decisions.md) when a contras
 helps. This skill covers application observability architecture, not unrelated
 prose edits or standalone vendor/platform administration. It does not authorize
 implementation beyond the user's request or override development processes.
+
+For implementing metrics and traces in code, use the
+[implementation workflow](../implement-observability/SKILL.md).

@@ -20,8 +20,8 @@
     {
       "name": "design-observability",
       "source": "./plugins/design-observability",
-      "version": "0.2.0",
-      "description": "Design and audit application observability with structured events and listeners."
+      "version": "0.3.0",
+      "description": "Design, implement, and audit structured observability with OpenTelemetry metrics and traces."
     }
   ]
 }
