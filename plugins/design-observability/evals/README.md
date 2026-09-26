@@ -1,17 +1,18 @@
 # Design Observability evaluations
 
-[cases.json](cases.json) contains 23 semantic probes: nine design, thirteen audit,
-and one unrelated negative-selection case. Two use explicit invocation; the rest
-exercise implicit selection. Coverage includes event/listener boundaries,
-committed outcomes, structured tests, startup and offline availability, duplicate
-and sampled measurements, listener failures, event contracts, sensitive context,
-required records, and uncertain consumers.
+[cases.json](cases.json) contains 30 semantic probes: nine design, thirteen audit,
+six implementation, and two negative-selection cases. Three use explicit invocation;
+the rest exercise implicit selection. Implementation coverage includes portable
+listeners, delayed/replayed events, context lifetime, sampling, SDK lifecycle,
+vendor migration, reusable libraries, and standalone dashboard exclusions.
+Existing cases cover event contracts, committed outcomes, structured tests,
+availability, listener failures, sensitive context, and required records.
 
 ## Submission and isolation
 
 Submit only a case's `prompt` and `context`. Keep `expected_activation`, `required_findings`, and `forbidden_findings` in the evaluator. Do not expose this guide or the case file to the evaluated model.
 
-For explicit prompts, translate the generic workflow name to the platform form: `$design-observability:design-observability` or `$design-observability:audit-observability` for Codex, and the corresponding `/` form for Claude. Record the exact submitted input.
+For explicit prompts, translate the generic workflow name to the platform form: `$design-observability:design-observability`, `$design-observability:implement-observability`, or `$design-observability:audit-observability` for Codex, and the corresponding `/` form for Claude. Record the exact submitted input.
 
 Use a fresh disposable workspace under ignored `.eval-runs/`. Expose a runtime copy of only the manifests, skills, references, and examples. Exclude `evals/`, `docs/`, the README, and the original checkout. Permit access only to the disposable workspace and the runtime copy. Use supported isolated loading without installing into user configuration.
 

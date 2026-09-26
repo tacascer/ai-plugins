@@ -419,5 +419,147 @@
       "Parse the rendered message as the event contract",
       "Claim checks or tests were run without execution evidence"
     ]
+  },
+  {
+    "id": "implement-portable-listeners",
+    "mode": "implement",
+    "invocation": "implicit",
+    "prompt": "Implement metrics and traces for this import service without tying it to a provider.",
+    "context": "The service emits structured ImportCompleted events synchronously after commit. No hosted backend is available in CI. The destination may change next quarter.",
+    "expected_activation": [
+      "design-observability:implement-observability"
+    ],
+    "required_findings": [
+      "Keep application events free of vendor and OpenTelemetry SDK types; listeners/adapters own instrumentation",
+      "Use configurable OTLP export with optional Collector",
+      "Verify typed metrics and spans locally and distinguish that from OTLP delivery"
+    ],
+    "forbidden_findings": [
+      "Scatter SDK calls through business handlers",
+      "Require a hosted backend or Collector for all deployments",
+      "Claim checks or tests were run without execution evidence"
+    ]
+  },
+  {
+    "id": "implement-delayed-replay",
+    "mode": "implement",
+    "invocation": "implicit",
+    "prompt": "Implement operation counts, latency, and tracing for this job service.",
+    "context": "JobCompleted(job_id, customer_id, outcome, finished_at, elapsed_ms) arrives seconds late at least once. It has no trace context. HTTP automatic instrumentation exists; traces are sampled at 10%.",
+    "expected_activation": [
+      "design-observability:implement-observability"
+    ],
+    "required_findings": [
+      "Capture trace lifetime and propagation at actual work boundaries instead of inventing context from late delivery",
+      "Preserve event/listener boundaries using an adapter-owned scope or synchronous lifecycle listener",
+      "Define attempts versus unique jobs and handle or disclose replay overcounting",
+      "Keep metrics independent of trace sampling and IDs out of metric dimensions"
+    ],
+    "forbidden_findings": [
+      "Claim exactly-once counts from OTLP or a nontransactional dedup marker",
+      "Use the late consumer ambient context as original execution parent",
+      "Duplicate automatic HTTP spans",
+      "Claim checks or tests were run without execution evidence"
+    ]
+  },
+  {
+    "id": "implement-export-lifecycle",
+    "mode": "implement",
+    "invocation": "explicit",
+    "prompt": "Use implement-observability to wire OpenTelemetry metrics and traces into this worker.",
+    "context": "The worker starts consuming immediately, exits after a small batch, and runs with an unreachable OTLP endpoint during outages. Startup configuration may also fail before telemetry initialization.",
+    "expected_activation": [
+      "design-observability:implement-observability"
+    ],
+    "required_findings": [
+      "Initialize telemetry and register listeners before accepting work",
+      "Drain work before bounded metrics and trace flush/shutdown",
+      "Preserve business results on diagnostic export failure and provide sanitized nonrecursive fallback",
+      "Verify actual local OTLP export separately from in-memory mapping"
+    ],
+    "forbidden_findings": [
+      "Use unbounded buffering or shutdown waits",
+      "Recursively emit exporter failures through the failed exporter",
+      "Log credentials in startup diagnostics",
+      "Claim checks or tests were run without execution evidence"
+    ]
+  },
+  {
+    "id": "implement-vendor-migration",
+    "mode": "implement",
+    "invocation": "implicit",
+    "prompt": "Replace our provider-specific application instrumentation with OpenTelemetry.",
+    "context": "Handlers call a vendor counter API and tracing SDK. HTTP auto-instrumentation already runs. Operations dashboards use the existing metric names; a separate required audit record must survive.",
+    "expected_activation": [
+      "design-observability:implement-observability"
+    ],
+    "required_findings": [
+      "Move mappings into listeners/adapters behind structured events",
+      "Inventory existing emission and give each signal one owner during cutover",
+      "Preserve metric consumer contracts and required audit semantics",
+      "Keep backend configuration at export/composition boundary"
+    ],
+    "forbidden_findings": [
+      "Dual emit the same measurements without a duplication policy",
+      "Replace required durable audit records with sampled traces",
+      "Rewrite unrelated application behavior",
+      "Claim checks or tests were run without execution evidence"
+    ]
+  },
+  {
+    "id": "implement-context-boundary",
+    "mode": "implement",
+    "invocation": "implicit",
+    "prompt": "Implement parent-child tracing across this asynchronous worker boundary.",
+    "context": "Two concurrent requests schedule tasks. Existing task messages contain only a request ID; baggage can include customer data. Failures and cancellation are possible.",
+    "expected_activation": [
+      "design-observability:implement-observability"
+    ],
+    "required_findings": [
+      "Propagate full supported context rather than equating request ID with trace context",
+      "Attach and detach task context safely with isolated concurrent lifetimes",
+      "Close spans on all exits and preserve application errors",
+      "Allowlist safe baggage and attributes"
+    ],
+    "forbidden_findings": [
+      "Serialize live span handles in task messages",
+      "Copy arbitrary baggage into metrics",
+      "Treat recording an exception as automatically setting error status",
+      "Claim checks or tests were run without execution evidence"
+    ]
+  },
+  {
+    "id": "implement-library",
+    "mode": "implement",
+    "invocation": "implicit",
+    "prompt": "Add portable metrics and traces to our reusable processing library.",
+    "context": "Several applications use the library with different backends. Tests construct two instances in one process. Some SDK environment settings are unsupported in the pinned language version.",
+    "expected_activation": [
+      "design-observability:implement-observability"
+    ],
+    "required_findings": [
+      "Keep application-owned SDK/exporter configuration outside the library",
+      "Use API or event interfaces and injectable adapters for isolated instances",
+      "Verify pinned SDK support rather than assuming every environment variable works"
+    ],
+    "forbidden_findings": [
+      "Install a global exporter in the library",
+      "Hardcode vendor credentials or endpoints",
+      "Assert all SDKs support the same environment settings",
+      "Claim checks or tests were run without execution evidence"
+    ]
+  },
+  {
+    "id": "negative-backend-dashboard",
+    "mode": "none",
+    "invocation": "implicit",
+    "prompt": "Move this dashboard panel and rename its legend in the hosted telemetry UI.",
+    "context": "No application code, instrumentation, export wiring, or observability architecture change is requested.",
+    "expected_activation": [],
+    "required_findings": [],
+    "forbidden_findings": [
+      "Activate an application observability workflow for standalone dashboard administration",
+      "Claim checks or tests were run without execution evidence"
+    ]
   }
 ]

@@ -1,7 +1,7 @@
 # Design Observability
 
 Design Observability provides shared Codex and Claude Code workflows for designing
-and reviewing application observability around explicit structured events:
+implementing, and reviewing application observability around explicit structured events:
 
 ```text
 application -> structured events -> listeners -> logs, metrics, traces, error reports
@@ -17,6 +17,8 @@ setup. Application simplicity alone does not justify bypassing events.
 
 - `design-observability` designs event contracts, emission boundaries, listeners,
   useful signals, lifecycle, delivery behavior, and verification.
+- `implement-observability` implements provider-portable OpenTelemetry metrics and
+  traces, export configuration, context propagation, and SDK lifecycle.
 - `audit-observability` reviews those boundaries for actionable problems while
   preserving useful signals and justified availability fallbacks. The audit is
   read-only unless edits are requested.
@@ -26,13 +28,22 @@ Descriptions support automatic selection for matching tasks. Explicit invocation
 | Workflow | Codex | Claude Code |
 | --- | --- | --- |
 | Design | `$design-observability:design-observability` | `/design-observability:design-observability` |
+| Implement | `$design-observability:implement-observability` | `/design-observability:implement-observability` |
 | Audit | `$design-observability:audit-observability` | `/design-observability:audit-observability` |
 
 Application logging, metrics, traces, and failure reporting are in scope.
 Incidental mentions of telemetry and standalone vendor/platform administration
 are not. Existing failure semantics and required audit records remain intact.
 
+Implementation uses configurable OTLP export, either directly to a compatible
+destination or through an optional Collector. Application events remain independent
+of telemetry SDKs. See the [implementation reference](references/opentelemetry.md)
+and [worked example](examples/opentelemetry-implementation.md).
+
 ## Migration and local loading
+
+Version 0.3.0 adds `implement-observability` to the existing package.
+
 
 Version 0.2.0 renames the `logging-principles` plugin and its `design-logging` and
 `audit-logging` workflows. Use the new package and qualified skill names above;
@@ -63,7 +74,9 @@ author.
 
 ## Evaluation
 
-See the [redesign verification record](docs/verification/2026-09-25-observability-redesign.md)
+See the [implementation verification record](docs/verification/2026-09-26-opentelemetry-implementation.md)
+for version 0.3.0 checks and limited authoring probes, and the
+[redesign verification record](docs/verification/2026-09-25-observability-redesign.md)
 for executed checks, limited authoring probes, and remaining validation limits.
 
 The [evaluation guide](evals/README.md) describes semantic probes and independent
