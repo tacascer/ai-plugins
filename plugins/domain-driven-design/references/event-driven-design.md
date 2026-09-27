@@ -78,7 +78,9 @@ injection, replay, old/new contract tests, and operational reconciliation for
 the promised outcome.
 
 Assess CQRS and event sourcing separately. CQRS may justify distinct read and
-write models when their requirements diverge; it adds projections and lag.
+write models when their requirements diverge; they can share a database.
+Separately maintained read projections add synchronization work and can
+introduce lag.
 Event sourcing persists history as the state source when historical behavior
 or reconstruction warrants replay, event evolution, and retention costs.
 Messages alone require neither. Microservice deployment and data mesh are
