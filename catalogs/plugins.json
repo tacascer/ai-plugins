@@ -10,5 +10,9 @@
   {
     "name": "design-observability",
     "path": "plugins/design-observability"
+  },
+  {
+    "name": "domain-driven-design",
+    "path": "plugins/domain-driven-design"
   }
 ]

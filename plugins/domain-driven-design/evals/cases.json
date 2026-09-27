@@ -1,0 +1,102 @@
+[
+  {
+    "id": "design-simple-logic",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the business logic for this small admin feature.",
+    "context": "A venue clerk maintains room labels and seating capacity. The only rules are that labels are nonempty and capacity is a positive integer. A single clerk saves one record at a time; no other workflow depends on these edits.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Prefer a proportionate simple implementation for the supplied CRUD rules"],
+    "forbidden_findings": ["Mandate aggregates or event sourcing", "Invent additional business rules"]
+  },
+  {
+    "id": "design-context-language",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the domain model for the term 'reservation' across these teams.",
+    "context": "At a tool library, the lending team calls an approved item hold a reservation. The workshop team calls a paid seat booking a reservation. Holds expire after 48 hours; seat bookings are nontransferable and governed by a different cancellation policy.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Separate the conflicting meanings of reservation into context-scoped language or models"],
+    "forbidden_findings": ["Force one universal Reservation entity with all rules"]
+  },
+  {
+    "id": "audit-context-boundaries",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit our proposed DDD boundaries and deployment plan.",
+    "context": "A repair cooperative distinguishes scheduling and billing as business capabilities. Its design document names Booking as a bounded context with a consistent scheduling vocabulary and gives Booking a Booking aggregate. It then says each aggregate must be a separately deployed service. No runtime scaling or team ownership evidence is supplied.",
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Distinguish business subdomains, model scope, and deployment boundaries", "Qualify deployment advice against missing operational evidence"],
+    "forbidden_findings": ["One service per aggregate is a DDD rule"]
+  },
+  {
+    "id": "audit-invariant",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this membership allocation flow for domain-model risks.",
+    "context": "A makerspace promises no more than 20 active memberships per studio. The enroll command reads Studio.active_count, creates Membership in a separate transaction, and increments the count later in a worker. Two enroll requests can both observe 19 and both confirm a place before the worker runs.",
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Identify the supplied cross-transaction capacity invariant violation", "Explain that two confirmed enrollments can exceed capacity", "Propose a consistency boundary or atomic admission check and a concurrency verification"],
+    "forbidden_findings": ["Criticize only naming or folder layout", "Claim to have inspected code not supplied"]
+  },
+  {
+    "id": "design-context-integration",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the integration between these business contexts.",
+    "context": "A museum's Collections team owns accession status and artifact identity. Exhibitions needs a local display record and public title, which can differ from the archival title. Both teams currently discuss reading one shared database table. Collections can provide an accession-status change feed.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Assign ownership of archival facts to Collections", "Justify a translation into Exhibitions' local model and explain the contract"],
+    "forbidden_findings": ["Share persistence entities by default", "Treat public and archival titles as necessarily identical"]
+  },
+  {
+    "id": "design-missing-rule",
+    "mode": "design",
+    "invocation": "explicit",
+    "prompt": "Use domain-driven-design:design-domain-model to design the subscription pause rule.",
+    "context": "A subscription may be paused after a customer request. The request says nothing about whether billing stops immediately, at the next cycle, or after fulfillment. That policy changes what state and transitions the model needs.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Ask the domain expert when billing stops relative to pause and fulfillment", "Explain how the policy answer affects state or transitions"],
+    "forbidden_findings": ["Invent a definitive billing-stop policy"]
+  },
+  {
+    "id": "audit-sound-simple",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Review whether this implementation needs DDD changes.",
+    "context": "A single admin transaction updates a category label after checking it is nonempty. There are no other supplied business rules, concurrent workflows, or integrations. The transaction is covered by a passing validation test and the users report no relevant problem.",
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Recommend no domain-model change for the adequate simple implementation"],
+    "forbidden_findings": ["Require DDD abstractions without a demonstrated benefit", "Claim the test was independently rerun"]
+  },
+  {
+    "id": "audit-partial-evidence",
+    "mode": "audit",
+    "invocation": "explicit",
+    "prompt": "Use domain-driven-design:audit-domain-model to review the current Order model.",
+    "context": "Only a README says that Order and Inventory exchange events. No code, event payload, transaction policy, business invariant, or runtime traces are available. The README does not state any observed failure.",
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["State the access limits and qualify any suspected problem as a question or hypothesis", "Name the evidence needed to assess event ownership and consistency"],
+    "forbidden_findings": ["Claim unseen code is defective", "Assert a demonstrated invariant violation"]
+  },
+  {
+    "id": "design-eventstorming",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Help us discover the model for a new equipment-return workflow.",
+    "context": "Support, warehouse, and finance disagree about what 'returned' means. No agreed process map exists. A replacement shipment and refund can happen in different orders, and stakeholders are available for a workshop next week.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Propose stakeholder discovery such as EventStorming around business events and decisions", "Label candidate terms, events, and boundaries provisional until experts validate them"],
+    "forbidden_findings": ["Present agent guesses as expert agreement"]
+  },
+  {
+    "id": "negative-dns-domain",
+    "mode": "none",
+    "invocation": "implicit",
+    "prompt": "Update the DNS configuration for example.test to point www to the new web host.",
+    "context": "The task concerns A and CNAME records, DNS TTLs, and an infrastructure change. It contains no business model, business rules, or application-event design request.",
+    "expected_activation": [],
+    "required_findings": ["Address the DNS configuration request"],
+    "forbidden_findings": ["Activate a DDD workflow", "Treat DNS domains as bounded contexts"]
+  }
+]
