@@ -98,5 +98,118 @@
     "expected_activation": [],
     "required_findings": ["Address the DNS configuration request"],
     "forbidden_findings": ["Activate a DDD workflow", "Treat DNS domains as bounded contexts"]
+  },
+  {
+    "id": "design-event-semantics",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the messages for this order handoff between Sales and Shipping.",
+    "context": "Sales accepts an order. It then sends Shipping a message named ShipOrderNow with a destination and deadline; Shipping is the only intended recipient. A customer portal also needs to learn that the order was accepted. Sales owns acceptance; Shipping owns shipment decisions.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Distinguish the directed shipment request from the past-tense acceptance fact", "Describe a stable external acceptance contract separately from Sales' internal domain events, with producer and consumer ownership"],
+    "forbidden_findings": ["Rename ShipOrderNow as an event to conceal its command intent", "Assume Shipping has accepted the request because Sales published it"]
+  },
+  {
+    "id": "audit-event-leakage",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit the order integration contract against the business handoff requirement.",
+    "context": "Review the supplied order-flow files. Shipping needs accepted order ID and destination to prepare fulfillment. Sales wants to change its database column names next month. Cite the contract and implementation evidence you use.",
+    "fixture_paths": ["fixtures/order-flow/README.md", "fixtures/order-flow/order_flow.py", "fixtures/order-flow/contracts.json"],
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Cite the contract fields exposing Sales persistence shape and explain consumer coupling to column changes", "Propose a consumer-relevant external contract with a compatible migration path"],
+    "forbidden_findings": ["Assume current JSON serialization is a stable business integration contract", "Claim unseen production consumers have already failed"]
+  },
+  {
+    "id": "design-event-content",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Choose an integration event for a catalog price change.",
+    "context": "Catalog owns prices. Search needs only product ID and current public price for an eventually consistent index; Checkout must read the current approved price when charging. Catalog can serve a price lookup. Its internal Product record also has supplier cost and negotiation notes.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Compare notification plus lookup with carrying consumer-relevant public price for Search", "Address Checkout's need for current approved price at charge time and avoid leaking internal cost or notes"],
+    "forbidden_findings": ["Always serialize the full Product record", "Assume an eventually consistent price event alone authorizes the current Checkout charge"]
+  },
+  {
+    "id": "audit-distributed-decisions",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit whether this event chain has a clear business owner.",
+    "context": "An order acceptance event triggers Loyalty to decide whether a discount applies. Loyalty emits DiscountSelected; Fulfillment then decides whether the order is viable and may reverse acceptance. Product policy says discount eligibility must be decided before a customer is promised an accepted total. No one team owns that end-to-end promise.",
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Trace the acceptance, discount, and fulfillment decisions against the promised total", "Identify dispersed decision ownership and functional coupling, then propose a proportionate owner or boundary for the promise"],
+    "forbidden_findings": ["Claim asynchronous transport eliminates functional coupling", "Invent a discount policy absent from the scenario"]
+  },
+  {
+    "id": "audit-publication-gap",
+    "mode": "audit",
+    "invocation": "explicit",
+    "prompt": "Use domain-driven-design:audit-domain-model to audit order acceptance and fulfillment delivery.",
+    "context": "Review the supplied order-flow files. The business requires every accepted order to become eligible for fulfillment. Cite the code locations that establish your finding and propose a proportionate correction and verification.",
+    "fixture_paths": ["fixtures/order-flow/README.md", "fixtures/order-flow/order_flow.py", "fixtures/order-flow/contracts.json"],
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Cite the acceptance commit before publish and explain how a publish failure strands an accepted order", "Propose coordination such as a transactional outbox with relay/recovery and a failure-injection check"],
+    "forbidden_findings": ["Claim the broker makes the database write atomic", "Claim the fixture is production code"]
+  },
+  {
+    "id": "audit-duplicate-ordering",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit fulfillment's handling of repeated and reordered order messages.",
+    "context": "Review the supplied order-flow files. Fulfillment must happen once for each accepted order; a later destination revision must supersede an earlier one. The broker can retry and can reorder messages for one order. Cite the implementation evidence and suggest verification.",
+    "fixture_paths": ["fixtures/order-flow/README.md", "fixtures/order-flow/order_flow.py", "fixtures/order-flow/contracts.json"],
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Cite the consumer's duplicate side effect and lack of per-order sequence handling", "Propose idempotent fulfillment effects and scoped version or ordering checks with replay tests"],
+    "forbidden_findings": ["Promise exactly-once business effects from transport alone", "Demand total ordering across all orders without a business reason"]
+  },
+  {
+    "id": "design-compensation",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the failure handling for a booking and payment flow.",
+    "context": "A travel booking reserves a non-refundable partner ticket and separately charges a card. The partner may time out after accepting a reservation; the card may decline. A customer should receive a clear final or pending status. Neither operation shares a transaction.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Name who owns workflow progress, timeout reconciliation, and customer-facing intermediate status", "Describe compensation limits for the non-refundable ticket and an escalation or business remedy when reversal is impossible"],
+    "forbidden_findings": ["Treat compensation as guaranteed global rollback", "Assume a timeout proves no partner reservation occurred"]
+  },
+  {
+    "id": "design-pattern-independence",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Choose whether this message-based workflow needs CQRS or event sourcing.",
+    "context": "A community market sends OrderAccepted notifications to a warehouse. The order write and read views have the same small data shape. Neither historical reconstruction nor independent read scaling is required. The existing order table already records current state.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Assess CQRS read/write separation independently from event sourcing as a state persistence choice", "Recommend a proportionate current-state design unless a concrete new requirement justifies either pattern"],
+    "forbidden_findings": ["Require CQRS and event sourcing because messages are used"]
+  },
+  {
+    "id": "audit-event-evolution",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Review this proposed event contract migration.",
+    "context": "Billing publishes InvoiceIssued version 1 with amount_minor and currency. A new Revenue consumer needs tax_minor too. Billing can add a field, but an older external consumer cannot deploy this month. The plan says to replace version 1 everywhere in one release without checking old readers.",
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Identify the unverified old-reader compatibility risk and old/new coexistence period", "Propose staged contract evolution with consumer tests or observed adoption before retirement"],
+    "forbidden_findings": ["Assume all contracts can be replaced atomically", "Assume the older consumer definitely rejects added fields without evidence"]
+  },
+  {
+    "id": "audit-telemetry-delivery",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit the delivery claim for this accepted-order integration.",
+    "context": "Sales commits accepted orders and logs an OrderAccepted telemetry event to its local process logger. Shipping needs every accepted order to reach its fulfillment queue. The design calls the local log a reliable integration event but gives no durable relay or consumer contract.",
+    "expected_activation": ["domain-driven-design:audit-domain-model"],
+    "required_findings": ["Distinguish best-effort observability logging from required business-message delivery", "Identify the missing durable publication and consumer contract, with a proportionate recovery check"],
+    "forbidden_findings": ["Treat a local logger as reliable integration", "Demand all telemetry be transactional"]
+  },
+  {
+    "id": "design-domain-evolution",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Revise our domain investment and boundaries after a business pivot.",
+    "context": "A retailer formerly used a commodity returns package. Differentiated refurbishment and resale of returns is now its main growth strategy. Returns policy differs by item history and condition, while Checkout remains simple. The current Returns and Checkout models share one deployment and a common returns table.",
+    "expected_activation": ["domain-driven-design:design-domain-model"],
+    "required_findings": ["Reassess Returns' business importance and model investment using the changed strategy", "Propose an incremental ownership or boundary change with data and behavior verification, without requiring a new service"],
+    "forbidden_findings": ["Freeze the old subdomain classification permanently", "Mandate a service split solely because the domain changed"]
   }
 ]

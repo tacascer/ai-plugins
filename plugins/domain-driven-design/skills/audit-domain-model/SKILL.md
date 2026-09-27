@@ -10,6 +10,9 @@ needed topic references. Read
 [strategic design](../../references/strategic-design.md) for context meaning
 and ownership, [tactical design](../../references/tactical-design.md) for
 invariants and implementation patterns, and
+[event-driven design](../../references/event-driven-design.md) for message
+meaning, coupling, and delivery. Read [evolution](../../references/evolution.md)
+for migration or contract coexistence, and
 [reporting](../../references/reporting.md) for evidence and limits. Consult
 [sources](../../references/sources.md) before making book-specific claims.
 
@@ -17,7 +20,8 @@ invariants and implementation patterns, and
    available scenarios, code, schemas, transaction boundaries, and message
    contracts; report which were unavailable.
 2. Trace representative business operations through decisions, state changes,
-   and integrations. Locate each important invariant and its enforcement point.
+   publication, and consumer effects. Locate each important invariant, its
+   enforcement point, and the relevant contract and recovery evidence.
 3. Separate demonstrated defects from plausible risks and questions needing
    business expertise. Missing evidence is a limit, never proof of a defect.
 4. For each finding, give a code or contract location when available, or cite

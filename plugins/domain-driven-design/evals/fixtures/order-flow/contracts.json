@@ -1,0 +1,19 @@
+{
+  "topic": "sales.orders",
+  "messages": [
+    {
+      "type": "OrderAccepted",
+      "orders_pk": 1042,
+      "ship_to_line": "12 Grove Lane",
+      "orders_status_code": "A",
+      "row_version": 1
+    },
+    {
+      "type": "OrderDestinationRevised",
+      "orders_pk": 1042,
+      "ship_to_line": "5 Birch Road",
+      "orders_status_code": "A",
+      "row_version": 2
+    }
+  ]
+}

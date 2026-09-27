@@ -39,10 +39,14 @@ installation for structural validation.
 ## Shared material and evaluation
 
 [Principles](references/principles.md) route work to the appropriate
-[strategic](references/strategic-design.md) and
-[tactical](references/tactical-design.md) guidance.
+[strategic](references/strategic-design.md),
+[tactical](references/tactical-design.md),
+[event-driven](references/event-driven-design.md), and
+[evolution](references/evolution.md) guidance.
 [Reporting](references/reporting.md) defines evidence and uncertainty,
-and [original examples](examples/domain-decisions.md) contrast simple and
-invariant-rich choices. The [evaluation guide](evals/README.md) defines ten
-cases and separates hidden graders from model-visible prompts. Authored cases
-and structural validation do not establish live activation or semantic results.
+and original [domain](examples/domain-decisions.md) and
+[event](examples/event-driven-decisions.md) examples contrast proportionate
+choices. The [evaluation guide](evals/README.md) defines 21 cases, including
+an order-flow audit fixture, and separates hidden graders from model-visible
+inputs. Authored cases and structural validation do not establish live
+activation or semantic results.
