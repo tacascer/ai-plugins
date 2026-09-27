@@ -6,6 +6,7 @@ Claude Code. Available packages are:
 - [Testing Principles](plugins/testing-principles/README.md): design testable code, classify tests, and audit tests.
 - [Time Modeling](plugins/time-modeling/README.md): design and audit temporal data models.
 - [Design Observability](plugins/design-observability/README.md): design, implement, and audit structured observability, including OpenTelemetry metrics and traces.
+- [Domain-Driven Design](plugins/domain-driven-design/README.md): design and audit business models, rules, boundaries, and event-driven integrations.
 
 Each plugin keeps its manifests, skills, references, examples, and documentation
 together under `plugins/<name>/`.
@@ -88,6 +89,10 @@ Claude Code. For OpenTelemetry implementation, use
 `$design-observability:implement-observability` in Codex or
 `/design-observability:implement-observability` in Claude Code. Load or install the
 selected plugin using its own directory or package name in the commands above.
+
+For Domain-Driven Design, use `$domain-driven-design:design-domain-model` or
+`$domain-driven-design:audit-domain-model` in Codex, and the corresponding `/`
+forms in Claude Code.
 
 Start a fresh session after installing or updating a plugin so the platform
 reloads its skills. See the [Testing Principles verification record](docs/verification/2026-09-11-initial.md)

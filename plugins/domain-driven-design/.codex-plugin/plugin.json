@@ -1,0 +1,17 @@
+{
+  "name": "domain-driven-design",
+  "version": "0.1.0",
+  "description": "Design and audit business domain models and event-driven integrations with proportionate DDD guidance.",
+  "author": {"name": "tacascer"},
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Domain-Driven Design",
+    "shortDescription": "Design and audit business models and event flows.",
+    "longDescription": "Practical, language-agnostic guidance for business rules, bounded contexts, implementation choices, and event-driven integration in new and existing systems.",
+    "developerName": "tacascer",
+    "category": "Productivity",
+    "capabilities": ["Interactive"],
+    "defaultPrompt": ["Audit my domain model and business-event flow for evidenced risks and proportionate improvements."]
+  }
+}
