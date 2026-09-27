@@ -155,8 +155,8 @@ Review Focus conditions each have a named case. No runtime API or repository
 validator change is required; task interfaces are file paths, skill identities,
 and the existing case schema.
 
-Recommended execution: native implementation in this session followed by a fresh
-whole-branch reviewer. The references and workflows share terminology closely,
-so maintaining one implementation context should reduce inconsistency. The user
-must review this plan and select native or subagent-driven execution before work
-starts.
+Execution status: the user approved this plan and selected subagent-driven
+execution. Task 1 (`bb23bc9`) and Task 2 (`4c62800`) were implemented and
+reviewed. Task 3's completed checks, attempted isolated run, and pending live
+evaluation are recorded in [the initial verification record](../../verification/2026-09-27-initial.md).
+Whole-branch review and publication remain separate steps.

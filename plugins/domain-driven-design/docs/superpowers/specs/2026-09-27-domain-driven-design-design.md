@@ -2,7 +2,9 @@
 
 Date: 2026-09-27
 
-Status: written spec approved by the user; implementation plan pending review.
+Status: written spec and implementation plan approved by the user; subagent-driven
+implementation selected. Tasks 1 and 2 are complete; Task 3 verification is
+recorded in [the initial verification record](../../verification/2026-09-27-initial.md).
 
 ## Purpose and agreed scope
 
@@ -218,7 +220,7 @@ checks, supplemental checks, and executed or pending model evaluations.
 
 ## Review and next stage
 
-This spec records the approved conversational design. Review it for scope,
-workflow behavior, event-driven guidance, and evaluation expectations. Written
-spec approval permits creating the implementation plan using writing-plans;
-implementation follows review of that plan and selection of its execution method.
+The user approved this spec and the implementation plan and selected
+subagent-driven execution. The verification record distinguishes completed
+structural checks from runtime evaluations still pending authentication and a
+safe isolated loader.

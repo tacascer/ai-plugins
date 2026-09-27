@@ -48,5 +48,6 @@ and original [domain](examples/domain-decisions.md) and
 [event](examples/event-driven-decisions.md) examples contrast proportionate
 choices. The [evaluation guide](evals/README.md) defines 21 cases, including
 an order-flow audit fixture, and separates hidden graders from model-visible
-inputs. Authored cases and structural validation do not establish live
-activation or semantic results.
+inputs. The [initial verification record](docs/verification/2026-09-27-initial.md)
+lists completed checks and the current inference blocker. Live activation and
+semantic behavior remain unverified.
