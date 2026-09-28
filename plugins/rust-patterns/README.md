@@ -42,4 +42,5 @@ trade-offs without prescribing a stack. The [evaluation guide](evals/README.md)
 defines 20 authored cases, including an unrelated-task case and a small Rust
 audit fixture. The cases and structural checks do not establish live activation
 or semantic behavior; both live Claude attempts stopped at authentication
-before model inference, as documented in the verification record.
+before model inference, and the user chose to stop Claude testing. The
+verification record documents these limits.
