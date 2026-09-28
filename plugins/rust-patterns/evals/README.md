@@ -61,5 +61,7 @@ activation evidence, observed identity set, expected-set comparison, semantic
 verdict with response evidence, and unavailable checks. Keep credentials and
 account identifiers out of records. Raw transcripts stay in the ignored
 workspace; a concise verification summary may be committed under `docs/`.
-Structural validation and static rubric review do not establish runtime
-activation or model behavior.
+When a case or fixture changes after an attempt, identify the refreshed
+runtime snapshot separately and retain the earlier input and transcript as
+evidence for the version actually submitted. Structural validation and static
+rubric review do not establish runtime activation or model behavior.

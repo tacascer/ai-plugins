@@ -94,12 +94,12 @@
     "id": "audit-blocking-work",
     "mode": "audit",
     "invocation": "implicit",
-    "prompt": "Audit async scheduling in the supplied preview excerpt.",
-    "context": "Concurrent preview requests share a Tokio runtime. Review only the visible excerpt and the stated service requirements; explain the scheduling consequence and a proportionate correction.",
+    "prompt": "Audit async scheduling and task lifecycle in the supplied preview and notification excerpts.",
+    "context": "Concurrent preview requests share a Tokio runtime. Accepted document notifications belong to the service through graceful shutdown. Review only the visible excerpts and stated service requirements; explain concrete consequences and proportionate corrections.",
     "fixture_paths": ["fixtures/rust-review/README.md", "fixtures/rust-review/async_work.rs"],
     "expected_activation": ["rust-patterns:audit-rust"],
-    "required_findings": ["Locate `std::fs::read_to_string` inside async `render_preview` and explain that blocking file I/O occupies an executor worker and can delay other futures", "Suggest bounded blocking or a suitable async I/O path after checking workload and runtime"],
-    "forbidden_findings": ["Claim `spawn_blocking` by itself bounds CPU concurrency", "Fabricate measured latency"]
+    "required_findings": ["Locate `std::fs::read_to_string` inside async `render_preview` and explain that blocking file I/O occupies an executor worker and can delay other futures", "Suggest bounded blocking or a suitable async I/O path after checking workload and runtime", "Trace `launch_index_notification` through `tokio::spawn` and the dropped `JoinHandle`: the visible path neither observes indexing failure nor retains ownership for graceful shutdown draining", "Recommend a service-owned task tracker or equivalent mechanism that observes task results and drains accepted notifications during shutdown, with an explicit failure response"],
+    "forbidden_findings": ["Claim `spawn_blocking` by itself bounds CPU concurrency", "Claim dropping a `JoinHandle` immediately cancels its task", "Fabricate measured latency"]
   },
   {
     "id": "audit-cancellation",

@@ -7,6 +7,11 @@ pub async fn render_preview(path: &Path) -> std::io::Result<String> {
     Ok(source.lines().take(20).collect::<Vec<_>>().join("\n"))
 }
 
+pub fn launch_index_notification(remote: Arc<RemoteIndexer>, id: DocumentId) {
+    let handle = tokio::spawn(async move { remote.index(id).await });
+    drop(handle);
+}
+
 pub async fn update_cache_and_index(
     cache: Arc<Mutex<HashMap<DocumentId, String>>>,
     remote: &RemoteIndexer,

@@ -14,6 +14,9 @@ The service's contracts are:
 - A preview request may run concurrently with other requests. Its local cache
   protects only short metadata updates; a slow indexing call must not hold up
   unrelated cache updates.
+- Once a document is accepted, its indexing notification is service-owned:
+  the service must observe a failed notification for retry or operator action,
+  and graceful shutdown must drain accepted notifications before returning.
 - The remote indexing service may accept a publication before its response
   arrives. A local timeout does not tell the service whether that happened.
   Retries must account for that uncertainty.
@@ -28,5 +31,5 @@ Snippet dependency context: the code sketches APIs from `serde` 1,
 and `tracing` 0.1. A project's
 exact pinned versions and features would need checking before API-level fixes.
 Symbols such as `RemoteIndexer` and `DocumentId` stand for omitted service
-interfaces. The excerpts intentionally leave lifecycle, retry storage,
-deployment, and authentication implementation outside the visible scope.
+interfaces. The excerpts intentionally leave retry storage, deployment, and
+authentication implementation outside the visible scope.
