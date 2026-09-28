@@ -41,5 +41,5 @@ and [async and I/O](examples/async-and-io-decisions.md) examples illustrate
 trade-offs without prescribing a stack. The [evaluation guide](evals/README.md)
 defines 20 authored cases, including an unrelated-task case and a small Rust
 audit fixture. The cases and structural checks do not establish live activation
-or semantic behavior; the initial live attempt stopped before model inference,
-as documented in the verification record.
+or semantic behavior; both live Claude attempts stopped at authentication
+before model inference, as documented in the verification record.
