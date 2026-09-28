@@ -2,7 +2,7 @@
 
 Date: 2026-09-28
 
-Status: conversational design approved; written spec awaiting user review.
+Status: written spec approved by the user on 2026-09-28.
 
 ## Intent and success criteria
 
