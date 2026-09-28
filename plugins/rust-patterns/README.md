@@ -22,7 +22,8 @@ claim that its historical library choices are current defaults.
   the inspected design is sound. Audits are read-only unless edits are requested.
 
 The skill descriptions allow matching tasks to select a workflow automatically;
-live selection has not been verified. Invoke a workflow explicitly as follows:
+live selection has not been verified. The [initial verification record](docs/verification/2026-09-28-initial.md)
+separates package checks from model behavior. Invoke a workflow explicitly as follows:
 
 | Workflow | Codex | Claude Code |
 | --- | --- | --- |
@@ -40,4 +41,5 @@ and [async and I/O](examples/async-and-io-decisions.md) examples illustrate
 trade-offs without prescribing a stack. The [evaluation guide](evals/README.md)
 defines 20 authored cases, including an unrelated-task case and a small Rust
 audit fixture. The cases and structural checks do not establish live activation
-or semantic behavior; platform/model results require separate recorded runs.
+or semantic behavior; the initial live attempt stopped before model inference,
+as documented in the verification record.

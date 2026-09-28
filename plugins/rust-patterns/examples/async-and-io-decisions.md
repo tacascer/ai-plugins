@@ -30,7 +30,7 @@ In an async handler, finish this local update before `remote.index(id).await`. I
 
 For a synchronous renderer inside an async request, bound concurrency before `tokio::task::spawn_blocking(move || render_preview(bytes))`; observe its join result. A Tokio timeout on the awaiting future does not stop a blocking job that has already started. Use an async file API when it fits the workload. [Tokio's documented limits](https://docs.rs/tokio/latest/tokio/task/fn.spawn_blocking.html) govern this choice.
 
-An illustrative remote call is `tokio::time::timeout(deadline, remote.publish(id)).await`. An elapsed deadline says the local future stopped waiting; the remote may have accepted the publication. Record an operation key before sending, make duplicate attempts safe where the remote contract allows it, or reconcile status before retrying. Do not report “publish rolled back” from a local timeout. [Tokio timeout source](https://docs.rs/tokio/latest/tokio/time/fn.timeout.html).
+An illustrative remote call is `tokio::time::timeout(budget, remote.publish(id)).await`, where `budget` is a `Duration`. An elapsed timeout says the local future stopped waiting; the remote may have accepted the publication. Record an operation key before sending, make duplicate attempts safe where the remote contract allows it, or reconcile status before retrying. Do not report “publish rolled back” from a local timeout. [Tokio timeout source](https://docs.rs/tokio/latest/tokio/time/fn.timeout.html).
 
 ## Reuse and atomic local writes
 
