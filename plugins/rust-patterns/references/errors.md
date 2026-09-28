@@ -1,0 +1,7 @@
+# Error boundaries
+
+**Problem and fit.** Different consumers need different error detail: a caller may retry, a handler must choose a safe response, and an operator needs causal context. Keep typed variants where caller behavior differs, such as malformed input versus transient storage failure. A single local `Result<T, E>` and standard-library error type suffice when no richer decisions or context are needed. [Source](sources.md#verified-book-principles).
+
+**Shape.** Define the smallest recoverable categories at the layer whose callers act on them. Add source-preserving context such as operation and safe identifier at an application boundary. Map categories to HTTP status and public body only at the handler edge; do not return internal connection details or submitted document content. An opaque report is useful where callers only propagate and diagnose; an enum is useful where they branch. Either can be built with standard traits or an existing error crate. See [an original example](../examples/type-and-error-boundaries.md).
+
+**Trade-offs and pitfalls.** Flattening every error to a string loses retry decisions and source chains; exposing every internal variant couples public responses to internals. Panic for an unrecoverable programmer invariant, not malformed requests or an expected unavailable dependency. Context and `Debug` output can leak credentials, payloads, or tokens; review what is formatted and logged. Ask: who must act on this failure, what evidence do operators need, and what can a client safely see?

@@ -7,6 +7,7 @@ Claude Code. Available packages are:
 - [Time Modeling](plugins/time-modeling/README.md): design and audit temporal data models.
 - [Design Observability](plugins/design-observability/README.md): design, implement, and audit structured observability, including OpenTelemetry metrics and traces.
 - [Domain-Driven Design](plugins/domain-driven-design/README.md): design and audit business models, rules, boundaries, and event-driven integrations.
+- [Rust Patterns](plugins/rust-patterns/README.md): choose and audit practical Rust patterns, code boundaries, and library usage.
 
 Each plugin keeps its manifests, skills, references, examples, and documentation
 together under `plugins/<name>/`.
@@ -93,6 +94,10 @@ selected plugin using its own directory or package name in the commands above.
 For Domain-Driven Design, use `$domain-driven-design:design-domain-model` or
 `$domain-driven-design:audit-domain-model` in Codex, and the corresponding `/`
 forms in Claude Code.
+
+For Rust Patterns, use `$rust-patterns:design-rust` or
+`$rust-patterns:audit-rust` in Codex, and `/rust-patterns:design-rust` or
+`/rust-patterns:audit-rust` in Claude Code.
 
 Start a fresh session after installing or updating a plugin so the platform
 reloads its skills. See the [Testing Principles verification record](docs/verification/2026-09-11-initial.md)

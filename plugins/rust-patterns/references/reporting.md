@@ -1,0 +1,7 @@
+# Report the decision or finding
+
+**Design output.** State the proposed decision, the facts that make it fit, realistic alternatives and trade-offs, failure behavior, and the smallest verification that would establish it. Name assumptions and unknown pinned versions, features, build wiring, or unavailable docs. Keep an existing working stack unless a supplied requirement warrants change. Cite current primary documentation for version-sensitive library claims, and distinguish a book-derived principle from current API evidence. A design answer does not claim commands or tests were run when they were not.
+
+**Audit output.** For each actionable finding, give priority, exact supplied location, triggering path, consequence under the stated contract, evidence, and a minimal correction with a verification idea. Separate confirmed behavior from a possible issue whose caller or runtime evidence is missing. State coverage limits for partial excerpts and report no finding when a simple implementation meets the contract. Audits are read-only unless the user separately requests changes.
+
+**Scope.** Do not turn a formatting request into an architecture audit. Preserve the project's runtime, framework, dependencies, build tool, and explicit event/listener architecture. Recommend a sibling workflow such as `design-observability`, `audit-observability`, or `design-for-testing` by name only when its deeper work would help; this plugin has no required sibling dependency. [Reference router](index.md).

@@ -1,0 +1,209 @@
+[
+  {
+    "id": "design-validated-type",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design the Rust boundary for document identifiers used across these operations.",
+    "context": "A document service accepts an identifier as a request string, then passes it to storage, jobs, and notifications. The sole invariant is that it is nonempty after trimming whitespace. Invalid input should receive a recoverable rejection. No other syntax or length rule exists.",
+    "expected_activation": ["rust-patterns:design-rust"],
+    "required_findings": ["Recommend a validated boundary type whose fallible conversion rejects whitespace-only identifiers", "Explain that downstream operations accept the validated type and inspect other construction paths"],
+    "forbidden_findings": ["Invent length, character-set, or uniqueness rules absent from the context"]
+  },
+  {
+    "id": "audit-validation-bypass",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit the document-name invariant in the supplied Rust excerpts.",
+    "context": "Review the supplied document-processing requirements and the `DocumentName` restoration path. Report a concrete construction path and consequence; do not assume omitted call sites exist.",
+    "fixture_paths": ["fixtures/rust-review/README.md", "fixtures/rust-review/types.rs"],
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Trace `restore_document` through derived `Deserialize` on transparent `DocumentName`, which constructs the inner `String` without calling `DocumentName::parse`", "Explain that JSON with a whitespace-only `name` can produce a `StoredDocument` contrary to the README invariant and propose validation at deserialization or restoration"],
+    "forbidden_findings": ["Claim the private tuple field by itself protects every construction path", "Claim to have compiled the partial fixture"]
+  },
+  {
+    "id": "design-error-boundaries",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Choose Rust error boundaries for this document-ingest flow.",
+    "context": "A parser may reject malformed user input; persistence may fail from a transient connection error; the HTTP handler must return an appropriate client or server response; operators need enough context to diagnose persistence failures without exposing the submitted document or credentials. Callers sometimes retry storage errors but never malformed input.",
+    "expected_activation": ["rust-patterns:design-rust"],
+    "required_findings": ["Preserve a typed distinction where callers decide whether to retry or reject", "Add safe contextual source information for operator diagnosis at an appropriate application boundary", "Map errors to user-safe HTTP responses at the handler boundary"],
+    "forbidden_findings": ["Demand one error crate or one error type for every layer", "Log the document or credentials for diagnosis"]
+  },
+  {
+    "id": "design-existing-stack",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design shared state and persistence access for this Rust endpoint.",
+    "context": "The service already uses Actix Web 4 and Diesel 2 with a working connection-pool adapter and tests. A new endpoint reads one document and updates its status; current handler state and query patterns meet latency and correctness requirements. The team has no migration request or framework limitation to solve.",
+    "expected_activation": ["rust-patterns:design-rust"],
+    "required_findings": ["Adapt the endpoint to the existing Actix state and Diesel query/pool conventions", "Keep the choice proportional to the one-read, one-update behavior"],
+    "forbidden_findings": ["Migrate to Axum or SQLx solely because examples use them"]
+  },
+  {
+    "id": "design-build-tooling",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design how to add a Rust HTTP client to this service's existing build.",
+    "context": "This repository's release build and CI use Bazel Rust targets. `services/documents/BUILD.bazel` owns the binary and library targets; `services/documents/Cargo.toml` records dependency versions and features for the Bazel dependency importer. The team wants a reusable client for repeated calls and asks for the dependency and target changes conceptually, not a file edit.",
+    "expected_activation": ["rust-patterns:design-rust"],
+    "required_findings": ["Keep the Bazel targets and existing dependency metadata in the change/verification path", "Describe constructing and sharing a client at service scope for repeated remote calls"],
+    "forbidden_findings": ["Replace the release build with Cargo", "Claim to have run Bazel or edited files"]
+  },
+  {
+    "id": "design-library-alternative",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Help choose a Rust SQL query interface for a new service, using current primary documentation for factual claims.",
+    "context": "The service targets PostgreSQL and will have a mix of hand-written analytical SQL and composable CRUD filters. The team can maintain either build-time schema metadata or a checked-in schema declaration; it has not selected SQLx or Diesel. Explain what would tip the decision, including any dependency-version or build constraints. Do not present unmeasured performance claims.",
+    "expected_activation": ["rust-patterns:design-rust"],
+    "required_findings": ["Explain the trade-off between SQLx literal-SQL macro checking against database/offline metadata and Diesel schema-backed typed query DSL for composable queries", "Cite primary SQLx and Diesel documentation for their specific capabilities, and qualify version, MSRV, and build integration before choosing"],
+    "forbidden_findings": ["Declare either library universally best", "Invent a benchmark or assume the team's build tool"]
+  },
+  {
+    "id": "design-unavailable-docs",
+    "mode": "design",
+    "invocation": "explicit",
+    "prompt": "Use rust-patterns:design-rust to suggest an async database boundary.",
+    "context": "The application has a private SQL adapter fork and an unspecified Tokio version. Network documentation and the repository's lockfile are unavailable in this review. A handler must avoid blocking the executor and return a recoverable storage failure; give a conceptual design that can be checked when versions and code become available.",
+    "expected_activation": ["rust-patterns:design-rust"],
+    "required_findings": ["State that exact fork and runtime APIs cannot be verified from supplied evidence", "Describe a pattern-level boundary for storage calls and recoverable errors, with version/code checks needed before API-specific advice"],
+    "forbidden_findings": ["Invent adapter methods, feature flags, or successful verification"]
+  },
+  {
+    "id": "design-config-validation",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design startup configuration handling for this Rust worker.",
+    "context": "A worker reads a database URL, an indexing API credential, and a batch size from environment variables and a file. The batch size must be 1 through 500 and the URL must identify the supported PostgreSQL scheme. Invalid settings should stop startup; operators need to know which setting failed without seeing credentials. Serde-based typed loading is already available.",
+    "expected_activation": ["rust-patterns:design-rust"],
+    "required_findings": ["Parse into typed configuration then validate semantic limits at startup before creating dependents", "Report setting names or safe categories while excluding credential values from diagnostics"],
+    "forbidden_findings": ["Print credentials in errors or logs", "Assume successful deserialization proves range and scheme validity"]
+  },
+  {
+    "id": "design-integration-testing",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design integration tests for this Rust document API.",
+    "context": "The API's production startup composes routes, a PostgreSQL pool, and an outgoing HTTP indexing client. Tests must verify the visible create-document response and persisted row, including indexer rejection. The database is owned by the service and can be isolated per test; the indexer is an external HTTP service that should not receive test traffic.",
+    "expected_activation": ["rust-patterns:design-rust"],
+    "required_findings": ["Exercise production composition through the HTTP boundary with isolated real owned persistence", "Control the external indexer at its HTTP boundary and assert both request and failure behavior"],
+    "forbidden_findings": ["Mock every internal collaborator", "Require a repository trait merely to make mocks possible"]
+  },
+  {
+    "id": "audit-blocking-work",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit async scheduling and task lifecycle in the supplied preview and notification excerpts.",
+    "context": "Concurrent preview requests share a Tokio runtime. Accepted document notifications belong to the service through graceful shutdown. Review only the visible excerpts and stated service requirements; explain concrete consequences and proportionate corrections.",
+    "fixture_paths": ["fixtures/rust-review/README.md", "fixtures/rust-review/async_work.rs"],
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Locate `std::fs::read_to_string` inside async `render_preview` and explain that blocking file I/O occupies an executor worker and can delay other futures", "Suggest bounded blocking or a suitable async I/O path after checking workload and runtime", "Trace `launch_index_notification` through `tokio::spawn` and the dropped `JoinHandle`: the visible path neither observes indexing failure nor retains ownership for graceful shutdown draining", "Recommend a service-owned task tracker or equivalent mechanism that observes task results and drains accepted notifications during shutdown, with an explicit failure response"],
+    "forbidden_findings": ["Claim `spawn_blocking` by itself bounds CPU concurrency", "Claim dropping a `JoinHandle` immediately cancels its task", "Fabricate measured latency"]
+  },
+  {
+    "id": "audit-cancellation",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit timeout semantics in the supplied publishing excerpt.",
+    "context": "The indexer can accept publication before replying. Review the visible timeout path and explain the state after a timeout and what a retry design must account for.",
+    "fixture_paths": ["fixtures/rust-review/README.md", "fixtures/rust-review/async_work.rs"],
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Trace `publish_with_deadline` through `timeout` around `remote.publish` and explain that dropping the local future cannot prove the remote publication was undone", "Describe an idempotency or reconciliation approach for uncertain outcomes without claiming one is implemented"],
+    "forbidden_findings": ["Promise timeout cancellation rolls back the remote operation", "Promise exactly-once publication from the timeout alone"]
+  },
+  {
+    "id": "audit-shared-state",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit contention in the supplied cache update excerpt.",
+    "context": "Unrelated preview requests update the same cache. The cache protects short metadata changes, while indexer latency can vary. Review the visible synchronization scope.",
+    "fixture_paths": ["fixtures/rust-review/README.md", "fixtures/rust-review/async_work.rs"],
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Locate the `cache.lock().await` guard retained through `remote.index(id).await` in `update_cache_and_index`", "Explain that unrelated cache updates wait on the remote call and recommend dropping or narrowing the guard before external await while checking ordering needs"],
+    "forbidden_findings": ["Mandate an async mutex for every shared value", "Claim the snippet proves a data race"]
+  },
+  {
+    "id": "audit-http-client",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit HTTP client lifetime in the supplied notification excerpt.",
+    "context": "The service sends many notifications to the same remote origin. Inspect the visible client construction and explain the relevant resource behavior without inventing measurements.",
+    "fixture_paths": ["fixtures/rust-review/README.md", "fixtures/rust-review/http.rs"],
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Locate `reqwest::Client::new()` inside each `send_notification` call", "Explain that a per-call client forfeits connection-pool reuse across repeated sends and recommend sharing a configured client across operations"],
+    "forbidden_findings": ["Fabricate measured latency or throughput", "Claim a single request is necessarily incorrect"]
+  },
+  {
+    "id": "audit-transaction",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit the database atomicity contract in the supplied storage excerpt.",
+    "context": "The document row and delivery receipt must appear together or neither appears. Review the two visible writes and the failure path if the second write fails.",
+    "fixture_paths": ["fixtures/rust-review/README.md", "fixtures/rust-review/persistence.rs"],
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Trace `store_document_and_receipt`: the first `execute(pool)` can commit before the second `execute(pool)` fails, leaving a document without a receipt", "Recommend one explicit database transaction encompassing both writes and a failure-injection check of the all-or-nothing contract"],
+    "forbidden_findings": ["Claim an HTTP request automatically creates a database transaction", "Claim a transaction includes the external indexer"]
+  },
+  {
+    "id": "audit-migration",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this Rust service's planned database migration.",
+    "context": "Version A reads `documents.title` and continues serving during a rolling deployment. The migration plan drops `title` and adds required `display_name`; version B reads only `display_name`. Both versions share the same PostgreSQL database for several minutes and the team has not arranged a stop-the-world cutover.",
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Explain that dropping `title` while version A still serves breaks its reads", "Recommend a compatible expand/backfill/read-switch/contract sequence, with checks for both versions during overlap"],
+    "forbidden_findings": ["Require simultaneous replacement without evidence it is possible", "Claim to have inspected migration files"]
+  },
+  {
+    "id": "audit-telemetry-secrets",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit sensitive span fields in the supplied ingest excerpt.",
+    "context": "The service needs a request ID for diagnostics, while authorization credentials must never enter spans. Inspect the visible instrumentation and recommend a narrow correction.",
+    "fixture_paths": ["fixtures/rust-review/README.md", "fixtures/rust-review/telemetry.rs"],
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Identify `#[tracing::instrument]` on `ingest_document` as automatically capturing `authorization_token` through its `Debug` value", "Exclude the credential argument from instrumentation while retaining safe `request_id` correlation; review whether the body should also be captured"],
+    "forbidden_findings": ["Remove all useful request context", "Claim a specific secret value was observed in a log"]
+  },
+  {
+    "id": "audit-auth-work",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit credential verification in this Rust login path using current primary guidance.",
+    "context": "A Tokio HTTP handler calls a synchronous adaptive password-verification function directly for each login. A `#[tracing::instrument]` span captures a `String` password argument, and success issues a browser session cookie without explicit Secure or HttpOnly attributes. No password algorithm version or work factors are supplied. Multiple logins can be concurrent.",
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Identify expensive synchronous verification on executor workers and propose bounded blocking execution or a suitable established boundary", "Exclude password material from span fields and address session-cookie protection using current primary password/session guidance", "State that exact hash parameters and library APIs cannot be verified without versions"],
+    "forbidden_findings": ["Treat a historical book parameter as a verified current default", "Claim a current credential or cookie library was inspected in this scenario"]
+  },
+  {
+    "id": "audit-partial-evidence",
+    "mode": "audit",
+    "invocation": "explicit",
+    "prompt": "Use rust-patterns:audit-rust to review the visible Rust helper only.",
+    "context": "The only code supplied is `fn normalized_name(raw: &str) -> String { raw.trim().to_owned() }`. Callers and persistence code are unavailable. A separate product note says document names should be nonempty, but no evidence shows whether callers validate before or after this helper. Report what can be confirmed and what evidence is needed for a stronger finding.",
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Explain that the helper trims but can return an empty string, while the visible evidence does not prove an invalid name reaches persistence", "Request relevant call-site or boundary evidence before asserting an invariant violation"],
+    "forbidden_findings": ["Invent file paths or line numbers", "Claim tests ran or unseen defects are confirmed"]
+  },
+  {
+    "id": "audit-sound-simple",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this Rust helper for design and library-use problems.",
+    "context": "The entire helper is `pub fn nonempty_line_count(text: &str) -> usize { text.lines().filter(|line| !line.trim().is_empty()).count() }`. It is pure, used only for small in-memory UTF-8 documents, and the requirement is exactly to count lines that are nonempty after trimming. Callers accept `usize`; no I/O or unusual whitespace policy is involved.",
+    "expected_activation": ["rust-patterns:audit-rust"],
+    "required_findings": ["Conclude that the supplied standard-library implementation fits the stated behavior and requires no pattern or library change"],
+    "forbidden_findings": ["Demand a newtype, trait, iterator wrapper, or external crate without a concrete benefit", "Invent a bug absent from the supplied contract"]
+  },
+  {
+    "id": "negative-format-only",
+    "mode": "negative",
+    "invocation": "implicit",
+    "prompt": "Run the repository's existing Rust formatter on `src/lib.rs` and report whether it changed the file.",
+    "context": "The user requests formatting only. The repository already defines `cargo fmt -- src/lib.rs` as its formatter command; no design choice or code audit is requested.",
+    "expected_activation": [],
+    "required_findings": ["Keep the response limited to the formatter task and its observed result if execution is available"],
+    "forbidden_findings": ["Activate a Rust pattern design or audit workflow", "Turn formatting into a pattern review"]
+  }
+]

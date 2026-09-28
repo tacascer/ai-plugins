@@ -1,0 +1,9 @@
+# Types and boundaries
+
+**Problem and fit.** Use a validated type when a rule must survive multiple operations and accepting an invalid value has a consequence. A plain `String`, `&str`, or integer remains preferable when no invariant or unit distinction needs enforcement. Do not invent length, syntax, uniqueness, or normalization rules. [Source](sources.md#verified-book-principles).
+
+**Shape.** Parse an untrusted primitive once through `TryFrom` or a named fallible constructor; keep the inner field private and accept the validated type downstream. Borrow `&str` for inspection, own `String` when a value must outlive the request or cross a task boundary. A wrapper should convey a real constraint or prevent mixing domains, not merely rename a primitive. See [an original example](../examples/type-and-error-boundaries.md).
+
+**Options and trade-offs.** Trimming may be validation only or canonicalization; choose explicitly because persisted identity and display behavior can change. A private constructor narrows ordinary callers, but derived `Deserialize`, ORM mapping, database restore, defaults, `From`, and mutation methods can construct or change a value without the parser. Trace every construction and mutation path; revalidate at restoration or implement custom deserialization when stored data is untrusted. Existing persisted invalid values may require a migration or explicit rejection path. [Source](sources.md#verified-book-principles).
+
+**Pitfalls and review questions.** Which path first accepts raw input? Can stored JSON or a database row bypass validation? Can a setter or mutable inner reference break it later? Is the claimed violation actually reachable from supplied call sites? If a helper only trims and its callers are absent, report the potential empty result and request boundary evidence before claiming corrupt storage.

@@ -28,6 +28,12 @@
       "source": "./plugins/domain-driven-design",
       "version": "0.1.0",
       "description": "Design and audit business domain models and event-driven integrations with proportionate DDD guidance."
+    },
+    {
+      "name": "rust-patterns",
+      "source": "./plugins/rust-patterns",
+      "version": "0.1.0",
+      "description": "Design and audit practical Rust patterns, code boundaries, and library choices against project constraints."
     }
   ]
 }

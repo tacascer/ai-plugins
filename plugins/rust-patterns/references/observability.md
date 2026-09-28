@@ -1,0 +1,7 @@
+# Observability boundaries
+
+**Problem and fit.** Record safe, structured context that explains a failed operation without exposing payloads, credentials, or session tokens. Correlation IDs and operation outcomes are often more useful than dumping inputs. Choose fields from the actual diagnostic question and the service's existing event contract. [Book principle](sources.md#verified-book-principles).
+
+**Shape.** Instrument async operations so the span follows future polls; inspect automatic argument capture. `#[tracing::instrument]` records arguments by default, while `skip(...)` and `skip_all` exclude them. A `Debug` wrapper around a credential is still unsafe if automatically captured. Keep safe request correlation while excluding secret arguments and reviewing document bodies. [tracing source](sources.md#current-primary-sources-and-bounded-alternatives).
+
+**Ownership and trade-offs.** If the application already emits explicit structured events to listeners, preserve that boundary: application code owns meaningful facts, listeners own logs, metrics, traces, and exporters. Direct startup diagnostics can be reasonable before that infrastructure exists. Avoid recommending new instrumentation solely because a crate exists. Ask: where is the signal emitted, what fields enter it, does async context survive, and can the reporting path itself fail silently? For deeper event contracts or telemetry delivery work, see the sibling `design-observability` and `audit-observability` workflows by name; they are optional and independent of this package.

@@ -1,0 +1,11 @@
+# Async work and shared state
+
+**Problem and fit.** Async code must make task ownership, blocking work, deadlines, and state lifetimes explicit when requests run concurrently. Keep a simple direct `await` when no independent task is needed. For spawned work, identify who observes failure, owns shutdown, and cancels or drains it; dropping an unobserved handle is not a lifecycle plan.
+
+**Shape and options.** A blocking file read or expensive password operation on an executor worker delays other futures. Prefer a suitable async I/O API for genuinely async I/O; use bounded blocking execution for synchronous APIs and limit CPU-heavy concurrency. Tokio's `spawn_blocking` moves work off executor workers, but already-started work normally cannot be aborted and its default blocking-thread allowance is large. Check the project's runtime, feature set, and workload before naming an API. [Tokio source](sources.md#current-primary-sources-and-bounded-alternatives).
+
+**Cancellation and failure.** A timeout drops a local future; an external service may already have accepted its request. Retries need idempotency keys, status lookup, or reconciliation when outcomes are uncertain. A database transaction protects only its own database scope; it does not roll back a remote publication. Bound each stage, record enough safe correlation to investigate, and define what happens after cancellation. [Tokio source](sources.md#current-primary-sources-and-bounded-alternatives).
+
+**Shared state.** Establish whether state is shared across workers or built per worker; framework factories can change the lifetime. Use a mutex only when mutation needs exclusion, and choose sync or async locking according to the critical section and runtime. Keep critical sections short: release a cache guard before awaiting a remote call unless a documented ordering requirement needs another design. Reuse configured clients and pools across requests where supported rather than rebuilding them per call. See [HTTP](http.md) and [the I/O example](../examples/async-and-io-decisions.md).
+
+**Review questions.** Where can execution block? Who owns each task? Does a deadline leave remote effects uncertain? Does a guard live across `.await`? Is shared state constructed at the intended worker scope? Are limits and shutdown behavior tested?
