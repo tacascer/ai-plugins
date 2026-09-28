@@ -1,0 +1,9 @@
+# Tests by behavior and boundary
+
+**Problem and fit.** Choose the smallest test that proves the behavior at risk, then add an end-to-end slice when composition or cross-boundary effects matter. A pure validator can have focused unit and property tests. A create-document operation whose contract includes HTTP response, persisted row, and indexer rejection needs a composed HTTP test. [Book principle](sources.md#verified-book-principles).
+
+**Dependency treatment.** Run owned, manageable persistence with isolated database state when practical; control an unmanaged external HTTP service at its protocol boundary. An instance-per-test Wiremock server can assert the outgoing request and return rejection without external traffic. Do not add a repository trait solely to mock owned storage or mock every internal collaborator. Keep production startup wiring recognizable in tests. [Wiremock source](sources.md#current-primary-sources-and-bounded-alternatives).
+
+**Property options.** quickcheck's `Arbitrary` suits type-wide generation; proptest strategies suit a particular constrained input space and composed shrinking. Test the invariant, not a reimplementation of the parser. Check versions and features before using API-specific examples. [Primary sources](sources.md#current-primary-sources-and-bounded-alternatives).
+
+**Useful failure probes.** Inject failure after the first write to verify transaction atomicity; exercise an older and newer app version during schema overlap; test timeout outcomes without asserting that local cancellation undid a remote effect. For telemetry, assert contractual event fields and emission conditions, while incidental diagnostics need not be tested by exact wording. Ask: what visible result changes, who owns each dependency, and does the test actually execute the intended path?
