@@ -14,5 +14,9 @@
   {
     "name": "domain-driven-design",
     "path": "plugins/domain-driven-design"
+  },
+  {
+    "name": "rust-patterns",
+    "path": "plugins/rust-patterns"
   }
 ]

@@ -1,0 +1,8 @@
+{
+  "name": "rust-patterns",
+  "version": "0.1.0",
+  "description": "Design and audit practical Rust patterns, code boundaries, and library choices against project constraints.",
+  "author": {"name": "tacascer"},
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/"
+}
