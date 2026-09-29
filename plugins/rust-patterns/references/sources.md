@@ -1,5 +1,7 @@
 # Source evidence and decision limits
 
+For *Rust for Rustaceans*, see the separate [edition, passage, and primary-source map](rustaceans-sources.md) and [correction ledger](rustaceans-errata.md). The material below concerns *Zero to Production in Rust*.
+
 Accessed 2026-09-28. This is a map of evidence for the decision references, not
 a reproduction of the book. The supplied PDF is a historical snapshot: its
 framework comparison describes March 2022, and its database comparison

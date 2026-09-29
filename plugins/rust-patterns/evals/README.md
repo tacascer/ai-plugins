@@ -1,6 +1,6 @@
 # Rust Patterns behavioral evaluations
 
-[cases.json](cases.json) contains 20 authored probes: 8 design, 11 audit, and
+[cases.json](cases.json) contains 38 authored probes: 12 design, 25 audit, and
 1 unrelated-task case. These are contracts for selection and reasoning, not
 evidence that either platform's model has passed. The original
 [document-processing fixture](fixtures/rust-review/README.md) supplies code and
@@ -65,3 +65,7 @@ When a case or fixture changes after an attempt, identify the refreshed
 runtime snapshot separately and retain the earlier input and transcript as
 evidence for the version actually submitted. Structural validation and static
 rubric review do not establish runtime activation or model behavior.
+
+## Rustaceans expansion
+
+The 18 additional cases cover no_std/MSRV, trait dispatch and compatibility, macro boundaries, initialization and unwind safety, FFI representations, variance, Cow, polling, raw-pointer uncertainty, feature gating, weak CAS, tool-evidence limits, volatile access, stale index handles, and a sound simple API. These are authored expectations, not automatic model passes. The [expansion verification record](../docs/verification/2026-09-29-rustaceans.md) distinguishes reference retrieval, scenario application, example execution, and repository checks.
