@@ -32,8 +32,8 @@
     {
       "name": "rust-patterns",
       "source": "./plugins/rust-patterns",
-      "version": "0.1.0",
-      "description": "Design and audit practical Rust patterns, code boundaries, and library choices against project constraints."
+      "version": "0.2.0",
+      "description": "Design and audit Rust application, library, and systems patterns against project contracts."
     }
   ]
 }

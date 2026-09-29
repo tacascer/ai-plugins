@@ -205,5 +205,322 @@
     "expected_activation": [],
     "required_findings": ["Keep the response limited to the formatter task and its observed result if execution is available"],
     "forbidden_findings": ["Activate a Rust pattern design or audit workflow", "Turn formatting into a pattern review"]
+  },
+  {
+    "id": "design-no-std-contract",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design a reusable Rust parser for bare-metal and desktop consumers.",
+    "context": "The bare-metal consumer has core but no allocator. Desktop callers want owned convenience results. The crate promises an MSRV and uses Cargo; no target or compiler version is supplied.",
+    "expected_activation": [
+      "rust-patterns:design-rust"
+    ],
+    "required_findings": [
+      "Separate a core-only borrowed or caller-buffer API from additive alloc/std conveniences",
+      "Check transitive default features and actual no_std target builds as well as the declared MSRV"
+    ],
+    "forbidden_findings": [
+      "Treat no_std as proof of no allocation",
+      "Put a universal panic handler or allocator into the reusable library",
+      "Invent supported toolchain versions"
+    ]
+  },
+  {
+    "id": "design-trait-dispatch",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Choose a Rust interface for runtime-selected validation rules.",
+    "context": "Some callers select among heterogeneous rules at runtime; others use a fixed rule. Rules inspect borrowed text and return bool; they do not need ownership.",
+    "expected_activation": [
+      "rust-patterns:design-rust"
+    ],
+    "required_findings": [
+      "Compare concrete/generic use with a borrowed dyn-compatible trait object",
+      "Explain dyn compatibility and downstream compatibility concerns"
+    ],
+    "forbidden_findings": [
+      "Require heap allocation for every dyn use",
+      "Claim generics are always faster without evidence"
+    ]
+  },
+  {
+    "id": "audit-partial-initialization",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this Rust initializer for panic safety.",
+    "context": "A Vec<String> has length start and capacity at least start+n. A guard sets length to start+n when dropped. A loop writes generated Strings into spare capacity and tracks fill only after each write. The generator can panic after fill<n. The guard runs during unwinding.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Trace the guard exposing uninitialized slots after generator panic",
+      "Recommend safe push or publishing only start+fill with correct cleanup"
+    ],
+    "forbidden_findings": [
+      "Treat reserved capacity as initialized values",
+      "Claim the supplied prose was compiled",
+      "Recommend catch_unwind as the sole soundness fix"
+    ]
+  },
+  {
+    "id": "audit-unlock-guard",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this custom Rust lock guard.",
+    "context": "Acquisition atomically changes false to true with Acquire ordering. The guard owns a reference to that AtomicBool. Drop stores true to it with Release. The protected callback can return or unwind. false means unlocked.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Identify that Drop leaves the lock held on normal return and unwinding",
+      "Release the same atomic to false with the required ordering and test both exits"
+    ],
+    "forbidden_findings": [
+      "Claim fixing the store proves the entire lock sound",
+      "Treat Release ordering as a substitute for the correct stored value"
+    ]
+  },
+  {
+    "id": "audit-ffi-nullable",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit the representation assumptions in this Rust FFI proposal.",
+    "context": "A C function returns a nullable void pointer. The Rust declaration proposes Option<*mut c_void> because all Option pointers are claimed to have pointer layout. A comment also calls c_void equivalent to the zero-sized unit type.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Reject the blanket Option raw-pointer layout claim and distinguish raw nullable pointers from the documented NonNull niche",
+      "Reject c_void as equivalent to unit and check complete ABI/ownership contracts"
+    ],
+    "forbidden_findings": [
+      "Use the nonexistent NotNull type from a typo",
+      "Claim NonNull guarantees validity or ownership",
+      "Certify FFI safety from size alone"
+    ]
+  },
+  {
+    "id": "audit-variance",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Review the lifetime explanation in this Rust API.",
+    "context": "The documentation says &'a mut T is invariant in both a and T, so the duration of a mutable borrow can never be shortened.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Distinguish covariance in the reference lifetime from invariance in the pointee type",
+      "Explain that variance is defined relative to a parameter"
+    ],
+    "forbidden_findings": [
+      "Declare that all mutable-reference lifetimes are invariant"
+    ]
+  },
+  {
+    "id": "audit-cow-input",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit a Rust decoder ownership comment.",
+    "context": "display_text accepts &[u8] and returns String::from_utf8_lossy(input). Its comment says invalid UTF-8 transfers ownership of the input buffer to the result.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Explain that the input remains borrowed and invalid data yields an allocated repaired result",
+      "Distinguish borrowed valid output from owned repaired output"
+    ],
+    "forbidden_findings": [
+      "Claim the borrowed input buffer is consumed"
+    ]
+  },
+  {
+    "id": "audit-future-pending",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit a manually implemented Rust future.",
+    "context": "On each poll the wrapper creates a fresh receive future, polls once, drops it on Pending and returns Pending without retaining state or ensuring a wake. The receive operation registers its wake only in the retained future and loses it when dropped.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Trace lost in-flight state and wake registration to stalled or restarted work",
+      "Retain and repoll the in-flight future after wake, accepting that another poll may still be Pending"
+    ],
+    "forbidden_findings": [
+      "Spin in a tight polling loop",
+      "Assume wake guarantees Ready"
+    ]
+  },
+  {
+    "id": "audit-raw-pointer-shared",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Review this proposed unsafe Rust finding.",
+    "context": "The only evidence is &Holder where Holder contains *mut u32 pointing to a separate allocation. A proposed finding claims that shared access to Holder alone forbids any mutation of that allocation. Allocation provenance, aliasing, synchronization, and dereference code are unavailable.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Reject the blanket implication from shared Holder to raw-pointer pointee immutability",
+      "Require provenance, aliasing and synchronization evidence before declaring actual mutation sound or unsound"
+    ],
+    "forbidden_findings": [
+      "Declare all writes legal merely because the pointer is raw",
+      "Claim a confirmed data race without evidence"
+    ]
+  },
+  {
+    "id": "audit-cfg-optional",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit conditional use of an optional Rust dependency.",
+    "context": "An optional codec crate is referenced only inside if cfg!(feature = \"codec\") { codec::decode(bytes) } else { fallback(bytes) }. The no-default-features build omits the dependency.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Explain both branches still type-check and use cfg attributes to remove unavailable references",
+      "Verify both enabled and disabled configurations"
+    ],
+    "forbidden_findings": [
+      "Assume cfg! removes the disabled branch"
+    ]
+  },
+  {
+    "id": "design-macro-boundary",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Choose whether a Rust macro is warranted and how to verify it.",
+    "context": "A crate repeats many related trait implementations. A macro would be exported to consumer crates, may call a helper, and accepts a user expression that must run once.",
+    "expected_activation": [
+      "rust-patterns:design-rust"
+    ],
+    "required_findings": [
+      "Compare ordinary code, macro_rules and a procedural macro proportionally",
+      "Check helper resolution/privacy and single evaluation in a separate consumer"
+    ],
+    "forbidden_findings": [
+      "Prescribe a procedural macro solely because repetition exists",
+      "Treat expansion snapshots alone as behavioral proof"
+    ]
+  },
+  {
+    "id": "audit-api-compatibility",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Review this Rust library change for downstream breakage.",
+    "context": "A public trait previously supported dyn Trait. A proposed release adds a required generic method with no Self: Sized bound. Existing downstream crates implement the trait and store trait objects.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Identify both the new implementation requirement and lost dyn compatibility",
+      "Suggest preserving the object interface or explicitly treating the change as breaking"
+    ],
+    "forbidden_findings": [
+      "Call this nonbreaking merely because existing method signatures did not change"
+    ]
+  },
+  {
+    "id": "audit-weak-cas",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this Rust atomic update.",
+    "context": "A loop-free operation calls compare_exchange_weak once, then reports a definite competing write whenever it gets Err, even if the returned current value equals the expected value.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Explain spurious failure and retry semantics where required by the operation",
+      "Avoid inferring a definite competing write from every weak-CAS failure"
+    ],
+    "forbidden_findings": [
+      "Claim weak compare-exchange cannot fail when values match"
+    ]
+  },
+  {
+    "id": "design-unsafe-verification",
+    "mode": "design",
+    "invocation": "implicit",
+    "prompt": "Design verification for a Rust collection using unsafe initialization and custom atomics.",
+    "context": "The team proposes a clean Miri run and a million stress iterations as proof the abstraction is sound for all callers and targets.",
+    "expected_activation": [
+      "rust-patterns:design-rust"
+    ],
+    "required_findings": [
+      "Require a safety argument for all safe API paths plus panic and partial-progress tests",
+      "Describe bounded Miri and model-checking evidence without universal proof claims"
+    ],
+    "forbidden_findings": [
+      "Certify soundness from a passing tool run"
+    ]
+  },
+  {
+    "id": "audit-library-no-change",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit this small Rust library API for unnecessary complexity.",
+    "context": "A private concrete parser borrows input, returns a typed error needed by its caller, and uses safe Vec::push. It has no plugin implementations, FFI, async work, or no_std requirement. Supplied contract tests cover success and rejection.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Report no evidenced need for additional abstractions",
+      "Keep the concrete safe design proportional to known requirements"
+    ],
+    "forbidden_findings": [
+      "Demand dyn dispatch, typestate, macros, unsafe optimization, or no_std support without a requirement"
+    ]
+  },
+  {
+    "id": "audit-msrv-claim",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit a Rust crate compatibility claim.",
+    "context": "Cargo.toml declares rust-version 1.70. CI only runs the current compiler with all features. The release claims all feature combinations and 1.70 are verified.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Distinguish declaration from tested compatibility",
+      "Require the promised MSRV and supported feature/target checks; all-features misses minimal configurations"
+    ],
+    "forbidden_findings": [
+      "Claim a manifest declaration proves MSRV compatibility"
+    ]
+  },
+  {
+    "id": "audit-mmio-volatile",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit a Rust embedded synchronization claim.",
+    "context": "Two interrupt contexts share a device state word. A comment says read_volatile and write_volatile make accesses atomic and synchronize the contexts, so no exclusion is needed.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Distinguish volatile device access from atomicity and synchronization",
+      "Require a target-appropriate exclusion or synchronization protocol"
+    ],
+    "forbidden_findings": [
+      "Treat volatile as a replacement for atomics or a critical section"
+    ]
+  },
+  {
+    "id": "audit-stale-index-handle",
+    "mode": "audit",
+    "invocation": "implicit",
+    "prompt": "Audit index handles in a Rust collection.",
+    "context": "An arena exposes usize slot IDs. Removing item A frees slot 4; inserting B reuses slot 4. A caller retains A's ID and later updates slot 4 believing it still identifies A. The API promises stale IDs are rejected.",
+    "expected_activation": [
+      "rust-patterns:audit-rust"
+    ],
+    "required_findings": [
+      "Trace reused slot 4 to updating B through a stale handle",
+      "Recommend generation validation or another strategy preserving stale-ID rejection"
+    ],
+    "forbidden_findings": [
+      "Claim integer indices automatically solve lifetime and identity validity"
+    ]
   }
 ]
