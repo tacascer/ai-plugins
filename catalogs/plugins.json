@@ -18,5 +18,9 @@
   {
     "name": "rust-patterns",
     "path": "plugins/rust-patterns"
+  },
+  {
+    "name": "graphql-design",
+    "path": "plugins/graphql-design"
   }
 ]

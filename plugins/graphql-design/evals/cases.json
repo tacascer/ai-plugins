@@ -1,0 +1,80 @@
+[
+  {
+    "id": "design-no-relay-client", "mode": "design", "invocation": "implicit",
+    "prompt": "Design a GraphQL server schema and resolver contracts for this library catalog.",
+    "context": "Book and Author are durable entities. Clients need to refetch either by an ID returned by the API and paginate a library's books; today clients use plain fetch, not Relay. A book may be withdrawn. Catalog order is newest publication date, with ISBN as a stable tie-breaker. Forward pagination is sufficient.",
+    "expected_activation": ["graphql-design:design-graphql"],
+    "required_findings": ["Provide globally unique opaque Book and Author IDs, exact Node interface and node(id: ID!): Node root lookup", "Provide a BookConnection with edges, cursors, non-null PageInfo, and first/after arguments", "Specify refetch and stable ordering resolver behavior even though clients use plain fetch"],
+    "forbidden_findings": ["Drop Node or connection baseline because no Relay client is installed", "Require every catalog object to implement Node", "Claim implementation checks ran"]
+  },
+  {
+    "id": "design-missing-order", "mode": "design", "invocation": "explicit",
+    "prompt": "Use graphql-design:design-graphql. Design pagination for a GraphQL library's books.",
+    "context": "The product requires a paginated books collection and refetchable books. No business ordering, filter visibility rules, existing schema, or cursor policy is supplied.",
+    "expected_activation": ["graphql-design:design-graphql"],
+    "required_findings": ["Ask for the missing business ordering or present a clearly conditional ordering proposal", "Explain that stable order and a tie-breaker determine cursor behavior", "Propose relevant identity and connection SDL without presenting unknown policy as fact"],
+    "forbidden_findings": ["Present publication date, title, or any other order as a confirmed business rule", "Claim a query or test was executed"]
+  },
+  {
+    "id": "design-migration", "mode": "design", "invocation": "implicit",
+    "prompt": "Revise this GraphQL schema to support object refetching and pagination while preserving existing clients.",
+    "context": "The server currently has type Book { localId: ID!, title: String! } and Query { book(localId: ID!): Book, books: [Book!]! }. Mobile clients query both fields. New clients need global Book identity and forward-paginated books in title-then-localId order. A book can be deleted.",
+    "expected_activation": ["graphql-design:design-graphql"],
+    "required_findings": ["Add Node identity and node(id: ID!): Node with unavailable/deleted lookup able to return null", "Add a connection field with first/after and stable title-then-localId order", "Keep old book and books fields during migration and describe client transition"],
+    "forbidden_findings": ["Delete or change existing fields without a migration explanation", "Assume localId is globally unique across types", "Require immediate Relay client installation"]
+  },
+  {
+    "id": "audit-node-shape", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit this GraphQL server SDL for Relay object identification compatibility.",
+    "context": "schema { query: Query } interface Node { id: ID!, updatedAt: String } type Book implements Node { id: ID!, updatedAt: String, title: String! } type Query { node(key: String!): Book, book(id: ID!): Book } No resolver code or runtime trace is supplied.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Node interface has an extra updatedAt field; exact shape requires only id: ID!", "Root node has wrong argument name/type and return type; requires node(id: ID!): Node", "Runtime identity and refetch behavior remain unverified from SDL"],
+    "forbidden_findings": ["Treat a type named Node and a node field as sufficient compatibility", "Claim runtime behavior was tested"]
+  },
+  {
+    "id": "audit-valid-options", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit this GraphQL schema and described resolver behavior for Relay identification and connection compatibility.",
+    "context": "interface Node { id: ID! } type Book implements Node { id: ID!, title: String! } type Query { node(id: ID!): Node, books(first: Int, after: String): BookConnection } type BookConnection { edges: [BookEdge], pageInfo: PageInfo! } type BookEdge { node: String, cursor: String! } type PageInfo { hasNextPage: Boolean!, hasPreviousPage: Boolean!, startCursor: String, endCursor: String }. IDs are opaque strings like bk~47 (not base64), unique across Node objects. node refetches the same Book or null when unavailable, repeated IDs are field-stable. books is forward-only, ordered by title then unique Book ID; cursors are opaque, pages and flags follow the connection algorithm, and negative first errors.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Accept the non-base64 globally unique opaque IDs", "Accept forward-only first/after without last/before", "Accept scalar BookEdge.node and avoid formal violation findings on supplied contracts"],
+    "forbidden_findings": ["Require base64 encoding", "Require both pagination directions", "Require every edge node to implement Node", "Invent a defect from optional nullability choices"]
+  },
+  {
+    "id": "audit-schema-only", "mode": "audit", "invocation": "explicit",
+    "prompt": "Use graphql-design:audit-graphql. Audit the GraphQL server's Relay compatibility based on this SDL.",
+    "context": "interface Node { id: ID! } type Book implements Node { id: ID!, title: String! } type Query { node(id: ID!): Node, books(first: Int, after: String): BookConnection } type BookConnection { edges: [BookEdge], pageInfo: PageInfo! } type BookEdge { node: Book, cursor: String! } type PageInfo { hasNextPage: Boolean!, hasPreviousPage: Boolean!, startCursor: String, endCursor: String }. Resolver code, traces, and tests are unavailable.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Report no evidenced schema-shape violation in the supplied SDL", "Separately identify unknown runtime identity uniqueness, refetch and pagination behavior", "Propose targeted runtime checks without claiming execution"],
+    "forbidden_findings": ["Claim runtime conformance from SDL alone", "Call missing runtime evidence a confirmed implementation defect", "Claim tests passed"]
+  },
+  {
+    "id": "audit-plural-identifiers", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit this optional plural GraphQL identifying lookup and its resolver trace.",
+    "context": "interface Node { id: ID! } type Book implements Node { id: ID!, title: String! } type Query { node(id: ID!): Node, booksByIsbn(isbns: [String!]!): [Book] }. For booksByIsbn(isbns: [\"A\", \"missing\", \"B\"]) the trace returns [Book B, Book A], omitting the missing entry. For input [\"B\", \"A\"] it still returns [Book A, Book B]. The field is intended as a plural identifying root field.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Plural lookup must preserve input length and position, using null for unavailable items", "The trace reorders results and omits the missing slot, breaking input-to-result correspondence", "Give a concrete correction keyed by each input position"],
+    "forbidden_findings": ["Require every server to expose a plural lookup", "Treat the observed results as compliant because all found books appear"]
+  },
+  {
+    "id": "audit-sound-design", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit these GraphQL contracts and supplied traces for Relay compatibility; report only evidenced findings.",
+    "context": "interface Node { id: ID! } type Book implements Node { id: ID!, title: String! } type Query { node(id: ID!): Node, books(first: Int, after: String): BookConnection } type BookConnection { edges: [BookEdge], pageInfo: PageInfo! } type BookEdge { node: Book, cursor: String! } type PageInfo { hasNextPage: Boolean!, hasPreviousPage: Boolean!, startCursor: String, endCursor: String }. IDs are globally unique opaque strings. Trace: book bk~1 and node(id: bk~1) return the same title within a query; deleted bk~2 returns null. Ordered books are A,B,C with cursors cA,cB,cC. books(first: 2) returns A,B, hasNextPage true, hasPreviousPage false, startCursor cA, endCursor cB. books(first: 2, after: cB) returns C, hasNextPage false, hasPreviousPage false, startCursor cC, endCursor cC. books(first: 0) returns no edges and hasNextPage true; books(first: -1) errors.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Report no evidenced formal violations for the supplied contracts and traces", "Scope the conclusion to supplied evidence"],
+    "forbidden_findings": ["Invent a defect or require backward pagination", "Claim independent query execution or tests"]
+  },
+  {
+    "id": "negative-rest", "mode": "negative", "invocation": "implicit",
+    "prompt": "Rename the REST route GET /api/books to GET /api/library/books and update its callers.",
+    "context": "This service has no GraphQL endpoint. Keep response JSON unchanged. No identity or pagination design is requested.",
+    "expected_activation": [], "required_findings": ["Address the REST route rename and callers"],
+    "forbidden_findings": ["Activate a graphql-design workflow", "Redesign the route as GraphQL"]
+  },
+  {
+    "id": "negative-client-style", "mode": "negative", "invocation": "implicit",
+    "prompt": "Change the library web client's book-card CSS spacing and hover color.",
+    "context": "The change is confined to client presentation. No server schema, resolver, query shape, or pagination behavior changes.",
+    "expected_activation": [], "required_findings": ["Address the CSS presentation request"],
+    "forbidden_findings": ["Activate a graphql-design workflow", "Audit server contracts without relevance"]
+  }
+]
