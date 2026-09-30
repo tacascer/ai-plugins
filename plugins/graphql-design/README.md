@@ -23,9 +23,9 @@ scaffolding, or client-only presentation changes. No application edit or
 installation is implied by using these skills.
 
 The [evaluation cases](evals/README.md) are authored probes, not live model
-results. Current repository structural validation cannot establish full
-platform-schema conformance or agent activation/semantic behavior. Those live
-behaviors remain unverified until an isolated inference run records evidence.
+results. The [initial verification record](docs/verification/2026-09-30-initial.md)
+separates repository and native packaging checks, direct fixture calls, and
+unverified live activation and semantic behavior.
 
 The [design decisions](examples/design-decisions.md) and
 [audit findings](examples/audit-findings.md) show worked examples. The audit
