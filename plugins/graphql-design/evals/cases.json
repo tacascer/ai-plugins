@@ -12,7 +12,7 @@
     "prompt": "Use graphql-design:design-graphql. Design pagination for a GraphQL library's books.",
     "context": "The product requires a paginated books collection and refetchable books. No business ordering, filter visibility rules, existing schema, or cursor policy is supplied.",
     "expected_activation": ["graphql-design:design-graphql"],
-    "required_findings": ["Ask for the missing business ordering or present a clearly conditional ordering proposal", "Explain that stable order and a tie-breaker determine cursor behavior", "Propose relevant identity and connection SDL without presenting unknown policy as fact"],
+    "required_findings": ["Ask for the missing business ordering or present a clearly conditional ordering proposal", "Explain that stable order and a tie-breaker determine cursor behavior", "If proposing a design in the response, include relevant identity and connection SDL without presenting unknown policy as fact"],
     "forbidden_findings": ["Present publication date, title, or any other order as a confirmed business rule", "Claim a query or test was executed"]
   },
   {
