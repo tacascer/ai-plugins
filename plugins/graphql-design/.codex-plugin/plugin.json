@@ -1,0 +1,17 @@
+{
+  "name": "graphql-design",
+  "version": "0.1.0",
+  "description": "Design and audit GraphQL refetching and cursor pagination against Relay-compatible contracts.",
+  "author": {"name": "tacascer"},
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "GraphQL Design",
+    "shortDescription": "Design and audit GraphQL server contracts.",
+    "longDescription": "Language-agnostic guidance for GraphQL object identification, refetching, cursor connections, and pagination behavior.",
+    "developerName": "tacascer",
+    "category": "Productivity",
+    "capabilities": ["Interactive"],
+    "defaultPrompt": ["Audit my GraphQL refetching and pagination contracts for Relay compatibility."]
+  }
+}

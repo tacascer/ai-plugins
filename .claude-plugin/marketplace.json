@@ -34,6 +34,12 @@
       "source": "./plugins/rust-patterns",
       "version": "0.2.0",
       "description": "Design and audit Rust application, library, and systems patterns against project contracts."
+    },
+    {
+      "name": "graphql-design",
+      "source": "./plugins/graphql-design",
+      "version": "0.1.0",
+      "description": "Design and audit GraphQL refetching and cursor pagination against Relay-compatible contracts."
     }
   ]
 }
