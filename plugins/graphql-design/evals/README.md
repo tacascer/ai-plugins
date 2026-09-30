@@ -1,10 +1,12 @@
 # GraphQL Design evaluations
 
-[cases.json](cases.json) contains ten authored probes: three design, five audit,
-and two unrelated tasks. `design-missing-order` and `audit-schema-only` use
-explicit invocation; the rest test implicit selection. The cases are grader
-expectations, not evidence of live agent behavior. Grade meaning and evidence,
-not exact prose.
+[cases.json](cases.json) contains twenty authored probes: three design, fifteen
+audit, and two unrelated tasks. `design-missing-order`, `audit-schema-only`,
+`audit-identity-collision`, and `audit-backward-order` use explicit invocation;
+the rest test implicit selection. Six audit cases supply the static library
+fixture; other behavioral cases include self-contained traces in `context`.
+The cases are grader expectations, not evidence of live agent behavior. Grade
+meaning and evidence, not exact prose.
 
 ## Submission and isolation
 
@@ -17,10 +19,12 @@ model's context. Do not expose this README or the complete cases file.
 Render explicit `Use graphql-design:...` as `$graphql-design:...` for Codex or
 `/graphql-design:...` for Claude Code, and record the exact submitted input.
 Use an ignored `.eval-runs/` disposable workspace. The plugin run may read a
-runtime copy of only manifests, skills, references, and examples, plus selected
-fixture copies. Exclude `evals/`, `docs/`, plugin README, and the original
-checkout from runtime access. Use supported isolated loading without changing
-user plugin configuration.
+runtime copy of only manifests, skills, references, and
+`examples/design-decisions.md`, plus selected fixture copies. Explicitly
+exclude the worked answer `examples/audit-findings.md`, as well as `evals/`,
+`docs/`, the plugin README, and the original checkout from runtime access.
+Selected fixture files are the sole exception to excluding `evals/`. Use
+supported isolated loading without changing user plugin configuration.
 
 A no-plugin baseline submits the same prompt/context without plugin guidance.
 For explicit invocation, remove the unavailable workflow invocation and

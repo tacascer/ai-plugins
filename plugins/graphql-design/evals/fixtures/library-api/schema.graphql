@@ -1,0 +1,50 @@
+interface Node {
+  id: ID!
+}
+
+type Book implements Node {
+  id: ID!
+  title: String!
+}
+
+type Author implements Node {
+  id: ID!
+  title: String!
+}
+
+type Library {
+  books(first: Int, after: String, last: Int, before: String): BookConnection!
+  authors(first: Int, after: String, last: Int, before: String): AuthorConnection!
+}
+
+type Query {
+  node(id: ID!): Node
+  library: Library!
+}
+
+type BookConnection {
+  edges: [BookEdge!]!
+  pageInfo: PageInfo!
+}
+
+type BookEdge {
+  node: Book
+  cursor: String!
+}
+
+type AuthorConnection {
+  edges: [AuthorEdge!]!
+  pageInfo: PageInfo!
+}
+
+type AuthorEdge {
+  node: Author
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}

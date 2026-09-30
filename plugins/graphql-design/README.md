@@ -26,3 +26,8 @@ The [evaluation cases](evals/README.md) are authored probes, not live model
 results. Current repository structural validation cannot establish full
 platform-schema conformance or agent activation/semantic behavior. Those live
 behaviors remain unverified until an isolated inference run records evidence.
+
+The [design decisions](examples/design-decisions.md) and
+[audit findings](examples/audit-findings.md) show worked examples. The audit
+example uses a small static [library fixture](evals/fixtures/library-api/README.md)
+and distinguishes direct Python function checks from GraphQL execution.

@@ -76,5 +76,91 @@
     "context": "The change is confined to client presentation. No server schema, resolver, query shape, or pagination behavior changes.",
     "expected_activation": [], "required_findings": ["Address the CSS presentation request"],
     "forbidden_findings": ["Activate a graphql-design workflow", "Audit server contracts without relevance"]
+  },
+  {
+    "id": "audit-identity-collision", "mode": "audit", "invocation": "explicit",
+    "prompt": "Use graphql-design:audit-graphql. Audit the supplied library fixture for global object identity and refetching.",
+    "context": "Inspect the three fixture files. Call or trace object_id(\"Book\", \"1\"), object_id(\"Author\", \"1\"), and node(\"1\", \"alice\"). Book 1 and Author 1 are distinct objects. Explain the resulting refetch ambiguity and the smallest correction.",
+    "fixture_paths": ["evals/fixtures/library-api/README.md", "evals/fixtures/library-api/schema.graphql", "evals/fixtures/library-api/resolvers.py"],
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Book 1 and Author 1 receive the same ID from object_id despite being distinct Node objects", "node(\"1\", \"alice\") chooses Book first, so the Author ID cannot reliably refetch Author 1", "Recommend a globally unique type-aware opaque ID and unambiguous lookup"],
+    "forbidden_findings": ["Treat local primary-key uniqueness as global uniqueness", "Claim a GraphQL server query was executed"]
+  },
+  {
+    "id": "audit-backward-order", "mode": "audit", "invocation": "explicit",
+    "prompt": "Use graphql-design:audit-graphql. Audit backward pagination in the supplied library fixture.",
+    "context": "Inspect the three fixture files. The catalog order is A, B, C, D. Trace connection(BOOKS, last=2, before=\"cursor:D\"). Report the returned order and the correct public edge order with a practical correction.",
+    "fixture_paths": ["evals/fixtures/library-api/README.md", "evals/fixtures/library-api/schema.graphql", "evals/fixtures/library-api/resolvers.py"],
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Locate the backward-result reversal in connection and show that last=2 before cursor:D returns C,B", "The same catalog order requires B,C, with the edge nearest cursor:D last", "Remove the public edge reversal while selecting the final two bounded edges"],
+    "forbidden_findings": ["Endorse reversing public edge order for last/before", "Claim a GraphQL executor ran"]
+  },
+  {
+    "id": "audit-page-flags", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit PageInfo calculation in the supplied library fixture against Relay connection behavior.",
+    "context": "Inspect the three fixture files. Catalog order is A, B, C, D. Trace connection(BOOKS, first=2) and connection(BOOKS, last=2, before=\"cursor:D\"). Distinguish the required primary-direction flag from any optional opposite-direction discovery.",
+    "fixture_paths": ["evals/fixtures/library-api/README.md", "evals/fixtures/library-api/schema.graphql", "evals/fixtures/library-api/resolvers.py"],
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Identify constant false hasNextPage as wrong when first=2 leaves C,D", "Identify constant false hasPreviousPage as wrong when last=2 before cursor:D omits A", "Accept false for the opposite-direction flag when efficient discovery is unavailable"],
+    "forbidden_findings": ["Require exact expensive opposite-direction discovery for every request", "Treat both constant-false flags as valid"]
+  },
+  {
+    "id": "audit-count-boundaries", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit count and empty-page boundaries in the supplied library connection fixture.",
+    "context": "Inspect the three fixture files. Catalog order is A, B, C, D. Trace connection(BOOKS, first=-1), connection(BOOKS, last=-1), connection(BOOKS, first=0), and connection(BOOKS, first=0, after=\"cursor:A\"). Check counts, empty cursors, and the primary-direction page flag independently.",
+    "fixture_paths": ["evals/fixtures/library-api/README.md", "evals/fixtures/library-api/schema.graphql", "evals/fixtures/library-api/resolvers.py"],
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Negative first and last must error; fixture Python slicing accepts them", "Zero is a valid size with no edges and nullable startCursor/endCursor", "An empty first=0 page can still have hasNextPage true when bounded edges remain"],
+    "forbidden_findings": ["Reject zero as invalid", "Always mark empty pages as having no neighboring edges", "Claim empty boundary cursors prove both page flags false"]
+  },
+  {
+    "id": "audit-refetch-missing", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit this GraphQL node refetch trace for a previously returned object that was later deleted.",
+    "context": "SDL: interface Node { id: ID! } type Book implements Node { id: ID!, title: String! } type Query { node(id: ID!): Node }. A first request returns Book(id: \"Book:7\", title: \"Atlas\"). The book is deleted before a later request. Trace: node(id: \"Book:7\") returns null. No fixture or executor is supplied.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Accept null when a previously returned Node is unavailable or deleted", "State the conclusion is limited to the supplied trace"],
+    "forbidden_findings": ["Require a non-null result after deletion", "Fabricate a required transport error", "Claim the trace was independently executed"]
+  },
+  {
+    "id": "audit-field-stability", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit repeated Node identity field stability in this supplied GraphQL response trace.",
+    "context": "SDL: interface Node { id: ID! } type Book implements Node { id: ID!, title: String! } type Query { book(localId: ID!): Book, node(id: ID!): Node }. In one query, book(localId: \"7\") returns {id: \"Book:7\", title: \"Atlas\"}, while node(id: \"Book:7\") returns {id: \"Book:7\", title: \"Revised Atlas\"}. Both fields select title. Across later requests, titles may legitimately change. No fixture or executor is supplied.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Identify conflicting title values for the same Node ID within one query", "Require common selected fields to agree within that query and propose a consistent snapshot or equivalent correction", "Limit the evidence to the supplied response trace"],
+    "forbidden_findings": ["Claim Node fields must remain immutable across separate requests", "Invent a fixture location or claim live execution"]
+  },
+  {
+    "id": "audit-cursor-bounds", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit cursor-bound handling for this GraphQL connection trace.",
+    "context": "Ordered edges are A(cursor:A), B(cursor:B), C(cursor:C), D(cursor:D). Trace: first=2 after cursor:B returns B,C; last=2 before cursor:D returns C,D. Another request with a well-formed but unmatched cursor:X returns A,B for first=2, as though that bound did not match. A malformed cursor such as \"???\" is governed by the application's documented input policy, which is not supplied. No fixture or executor is supplied.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Matched after and before cursors exclude the matching edge; the two supplied matched-bound results are wrong", "Correct results are C,D for first=2 after cursor:B and B,C for last=2 before cursor:D", "A well-formed unmatched cursor can leave the bound unapplied; malformed-input rejection is an application policy requiring separate evidence"],
+    "forbidden_findings": ["Require spec-mandated rejection of every unmatched cursor", "Equate well-formed unmatched cursor with malformed input", "Invent code line anchors"]
+  },
+  {
+    "id": "audit-combined-slicing", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit a GraphQL connection request using both first and last.",
+    "context": "Ordered edges are A(cursor:A), B(cursor:B), C(cursor:C), D(cursor:D), E(cursor:E). Trace: first=3, last=2, after=cursor:A, before=cursor:E returns B,C. Applying cursor bounds exclusively leaves B,C,D. No fixture or executor is supplied.",
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Apply cursor bounds before slicing, then first=3 from the front, then last=2 from the end to obtain C,D", "Identify the supplied B,C result as inconsistent with that order", "Explain combining first and last is discouraged but still specified, not prohibited"],
+    "forbidden_findings": ["Claim the specification prohibits combining first and last", "Apply last before first", "Invent a code line anchor"]
+  },
+  {
+    "id": "audit-auth-refetch", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit the supplied library fixture's object refetching and authorization behavior.",
+    "context": "Inspect the three fixture files. The documented application policy restricts private Book 1 to principal alice. Trace node(object_id(\"Book\", \"1\"), principal=\"bob\"). Explain what the resolver returns, why the refetch path matters, and which conclusion is application security guidance rather than a Relay rule.",
+    "fixture_paths": ["evals/fixtures/library-api/README.md", "evals/fixtures/library-api/schema.graphql", "evals/fixtures/library-api/resolvers.py"],
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Trace node lookup returning private Book 1 to bob without the documented ownership check", "Recommend enforcing the same visibility policy on the refetch path", "Label authorization as application security guidance separate from Relay's identity and refetch rules"],
+    "forbidden_findings": ["Claim Relay defines the application's authorization rules", "Claim a live GraphQL query was executed"]
+  },
+  {
+    "id": "audit-read-only", "mode": "audit", "invocation": "implicit",
+    "prompt": "Audit the supplied library fixture for Relay compatibility and report corrections only. Do not edit any supplied file.",
+    "context": "Inspect the three fixture files. Focus on object IDs and connection behavior. The request is audit-only, even though the fixture is editable in the disposable workspace.",
+    "fixture_paths": ["evals/fixtures/library-api/README.md", "evals/fixtures/library-api/schema.graphql", "evals/fixtures/library-api/resolvers.py"],
+    "expected_activation": ["graphql-design:audit-graphql"],
+    "required_findings": ["Report evidenced ID collision and connection issues with concrete corrections", "Leave all supplied files unchanged during the audit"],
+    "forbidden_findings": ["Apply fixes to the fixture during an audit-only request", "Claim a GraphQL server was run"]
   }
 ]
