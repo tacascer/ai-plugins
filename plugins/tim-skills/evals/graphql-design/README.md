@@ -20,8 +20,8 @@ Render explicit `Use tim-skills:...` as `$tim-skills:...` for Codex or
 `/tim-skills:...` for Claude Code, and record the exact submitted input.
 Use an ignored `.eval-runs/` disposable workspace. The plugin run may read a
 runtime copy of only manifests, skills, references, and
-`examples/design-decisions.md`, plus selected fixture copies. Explicitly
-exclude the worked answer `examples/audit-findings.md`, as well as `evals/`,
+`examples/graphql-design/design-decisions.md`, plus selected fixture copies. Explicitly
+exclude the worked answer `examples/graphql-design/audit-findings.md`, as well as `evals/`,
 `docs/`, the plugin README, and the original checkout from runtime access.
 Selected fixture files are the sole exception to excluding `evals/`. Use
 supported isolated loading without changing user plugin configuration.

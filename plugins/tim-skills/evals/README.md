@@ -21,7 +21,11 @@ unprefixed case IDs in topic prose refer to that topic's prefixed cases.
 Submit only a case's prompt, context, and selected fixture files to the evaluated
 model. Keep this directory's case inventory, required/forbidden findings, and
 activation expectations in the grader process. Copy only runtime manifests,
-skills, references, and examples when isolating plugin guidance.
+skills, references, and examples when isolating plugin guidance. Apply the
+selected topic guide's restrictions before exposing that runtime copy. For
+GraphQL fixture audits, include `examples/graphql-design/design-decisions.md`
+and exclude `examples/graphql-design/audit-findings.md`, which contains worked
+fixture answers.
 
 Grade activation telemetry separately from semantic quality. The existing
 [result schema](testing-principles/result.schema.json) records observations and
