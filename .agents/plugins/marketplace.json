@@ -5,70 +5,10 @@
   },
   "plugins": [
     {
-      "name": "testing-principles",
+      "name": "tim-skills",
       "source": {
         "source": "local",
-        "path": "./plugins/testing-principles"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "time-modeling",
-      "source": {
-        "source": "local",
-        "path": "./plugins/time-modeling"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "design-observability",
-      "source": {
-        "source": "local",
-        "path": "./plugins/design-observability"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "domain-driven-design",
-      "source": {
-        "source": "local",
-        "path": "./plugins/domain-driven-design"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "rust-patterns",
-      "source": {
-        "source": "local",
-        "path": "./plugins/rust-patterns"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "graphql-design",
-      "source": {
-        "source": "local",
-        "path": "./plugins/graphql-design"
+        "path": "./plugins/tim-skills"
       },
       "policy": {
         "installation": "AVAILABLE",

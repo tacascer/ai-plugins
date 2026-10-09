@@ -46,7 +46,7 @@ class ValidationTests(unittest.TestCase):
     def test_missing_manifest_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            missing = root / "plugins/testing-principles/.codex-plugin/plugin.json"
+            missing = root / "plugins/tim-skills/.codex-plugin/plugin.json"
             missing.unlink()
 
             errors = validate_repository(root)
@@ -56,10 +56,10 @@ class ValidationTests(unittest.TestCase):
     def test_mismatched_manifest_versions_are_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            manifest_path = root / "plugins/testing-principles/.claude-plugin/plugin.json"
+            manifest_path = root / "plugins/tim-skills/.claude-plugin/plugin.json"
             manifest = self.read_json(manifest_path)
             self.assertIsInstance(manifest, dict)
-            manifest["version"] = "0.2.0"
+            manifest["version"] = "1.1.0"
             self.write_json(manifest_path, manifest)
 
             errors = validate_repository(root)
@@ -70,7 +70,7 @@ class ValidationTests(unittest.TestCase):
     def test_required_manifest_metadata_must_be_nonempty(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            manifest_path = root / "plugins/testing-principles/.codex-plugin/plugin.json"
+            manifest_path = root / "plugins/tim-skills/.codex-plugin/plugin.json"
             manifest = self.read_json(manifest_path)
             self.assertIsInstance(manifest, dict)
             manifest["description"] = "   "
@@ -92,41 +92,41 @@ class ValidationTests(unittest.TestCase):
 
             errors = validate_repository(root)
 
-            self.assert_error_contains(errors, "duplicate plugin name: testing-principles")
+            self.assert_error_contains(errors, "duplicate plugin name: tim-skills")
 
     def test_missing_referenced_markdown_file_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            missing = root / "plugins/testing-principles/references/quality.md"
+            missing = root / "plugins/tim-skills/references/testing-principles/quality.md"
             missing.unlink()
 
             errors = validate_repository(root)
 
-            self.assert_error_contains(errors, "references/quality.md")
+            self.assert_error_contains(errors, "references/testing-principles/quality.md")
 
     def test_decoded_resource_symlink_escape_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
             outside = root / "outside.md"
             outside.write_text("outside\n", encoding="utf-8")
-            link = root / "plugins/testing-principles/references/escaped resource.md"
+            link = root / "plugins/tim-skills/references/testing-principles/escaped resource.md"
             link.symlink_to(outside)
-            readme = root / "plugins/testing-principles/README.md"
+            readme = root / "plugins/tim-skills/README.md"
             readme.write_text(
                 readme.read_text(encoding="utf-8")
-                + "\n[escaped](references/escaped%20resource.md)\n",
+                + "\n[escaped](references/testing-principles/escaped%20resource.md)\n",
                 encoding="utf-8",
             )
 
             errors = validate_repository(root)
 
             self.assert_error_contains(errors, "escapes plugin directory")
-            self.assert_error_contains(errors, "references/escaped resource.md")
+            self.assert_error_contains(errors, "references/testing-principles/escaped resource.md")
 
     def test_plugin_root_symlink_escape_is_reported_without_traversal(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            plugin_root = root / "plugins/testing-principles"
+            plugin_root = root / "plugins/tim-skills"
             outside = Path(directory) / "outside-plugin"
             shutil.copytree(plugin_root, outside)
             shutil.rmtree(plugin_root)
@@ -148,7 +148,7 @@ class ValidationTests(unittest.TestCase):
                 tempfile.TemporaryDirectory() as directory,
             ):
                 root = self.copy_repository(directory)
-                plugin_root = root / "plugins/testing-principles"
+                plugin_root = root / "plugins/tim-skills"
                 link = plugin_root / relative_path
                 outside = root / ("outside-dir" if is_directory else "outside-file")
                 if is_directory:
@@ -174,7 +174,7 @@ class ValidationTests(unittest.TestCase):
     def test_internal_bundle_symlink_is_valid(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            helpers = root / "plugins/testing-principles/helpers"
+            helpers = root / "plugins/tim-skills/helpers"
             helpers.mkdir()
             target = helpers / "real.sh"
             target.write_text("#!/bin/sh\n", encoding="utf-8")
@@ -186,7 +186,7 @@ class ValidationTests(unittest.TestCase):
         for field in ("name", "description"):
             with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
                 root = self.copy_repository(directory)
-                skill_path = root / "plugins/testing-principles/skills/audit-tests/SKILL.md"
+                skill_path = root / "plugins/tim-skills/skills/audit-tests/SKILL.md"
                 lines = skill_path.read_text(encoding="utf-8").splitlines()
                 skill_path.write_text(
                     "\n".join(line for line in lines if not line.startswith(f"{field}:"))
@@ -202,7 +202,7 @@ class ValidationTests(unittest.TestCase):
     def test_malformed_yaml_frontmatter_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            skill_path = root / "plugins/testing-principles/skills/audit-tests/SKILL.md"
+            skill_path = root / "plugins/tim-skills/skills/audit-tests/SKILL.md"
             skill_path.write_text(
                 "---\nname: [unterminated\ndescription: broken\n---\n",
                 encoding="utf-8",
@@ -280,7 +280,7 @@ class ValidationTests(unittest.TestCase):
     def test_absolute_local_link_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            readme = root / "plugins/testing-principles/README.md"
+            readme = root / "plugins/tim-skills/README.md"
             readme.write_text(
                 readme.read_text(encoding="utf-8")
                 + "\n[absolute](/tmp/resource.md)\n",
@@ -294,10 +294,10 @@ class ValidationTests(unittest.TestCase):
     def test_reference_style_local_link_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            readme = root / "plugins/testing-principles/README.md"
+            readme = root / "plugins/tim-skills/README.md"
             readme.write_text(
                 readme.read_text(encoding="utf-8")
-                + "\n[reference][local]\n\n[local]: references/quality.md\n",
+                + "\n[reference][local]\n\n[local]: references/testing-principles/quality.md\n",
                 encoding="utf-8",
             )
 
@@ -307,7 +307,7 @@ class ValidationTests(unittest.TestCase):
 
     def test_multiline_reference_style_local_targets_are_reported(self) -> None:
         cases = (
-            ("references/quality.md", "reference-style local link"),
+            ("references/testing-principles/quality.md", "reference-style local link"),
             ("references/missing.md", "missing linked resource"),
             ("/tmp/resource.md", "absolute local link"),
             ("../../outside.md", "escapes plugin directory"),
@@ -318,7 +318,7 @@ class ValidationTests(unittest.TestCase):
                 tempfile.TemporaryDirectory() as directory,
             ):
                 root = self.copy_repository(directory)
-                readme = root / "plugins/testing-principles/README.md"
+                readme = root / "plugins/tim-skills/README.md"
                 readme.write_text(
                     readme.read_text(encoding="utf-8")
                     + f"\n[guide]:\n  {destination}\n",
@@ -333,7 +333,7 @@ class ValidationTests(unittest.TestCase):
     def test_skill_name_must_match_its_directory(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            skill_path = root / "plugins/testing-principles/skills/audit-tests/SKILL.md"
+            skill_path = root / "plugins/tim-skills/skills/audit-tests/SKILL.md"
             contents = skill_path.read_text(encoding="utf-8")
             skill_path.write_text(
                 contents.replace("name: audit-tests", "name: other-name", 1),
@@ -347,7 +347,7 @@ class ValidationTests(unittest.TestCase):
     def test_expected_activation_requires_plugin_qualified_identity(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            cases_path = root / "plugins/testing-principles/evals/cases.json"
+            cases_path = root / "plugins/tim-skills/evals/cases.json"
             cases = self.read_json(cases_path)
             self.assertIsInstance(cases, list)
             cases[0]["expected_activation"] = ["audit-tests"]
@@ -364,7 +364,7 @@ class ValidationTests(unittest.TestCase):
     def test_cli_prints_path_specific_errors_and_exits_one(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_repository(directory)
-            missing = root / "plugins/testing-principles/references/quality.md"
+            missing = root / "plugins/tim-skills/references/testing-principles/quality.md"
             missing.unlink()
 
             result = subprocess.run(
@@ -376,8 +376,8 @@ class ValidationTests(unittest.TestCase):
             )
 
             self.assertEqual(result.returncode, 1)
-            self.assertIn("plugins/testing-principles", result.stderr)
-            self.assertIn("references/quality.md", result.stderr)
+            self.assertIn("plugins/tim-skills", result.stderr)
+            self.assertIn("references/testing-principles/quality.md", result.stderr)
             self.assertNotIn("Traceback", result.stderr)
 
 

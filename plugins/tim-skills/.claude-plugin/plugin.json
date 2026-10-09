@@ -1,0 +1,10 @@
+{
+  "name": "tim-skills",
+  "version": "1.0.0",
+  "description": "Design, implement, and audit testing, time models, observability, domain models, Rust patterns, and GraphQL contracts.",
+  "author": {
+    "name": "tacascer"
+  },
+  "repository": "https://github.com/tacascer/ai-plugins",
+  "skills": "./skills/"
+}
