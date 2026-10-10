@@ -6,40 +6,10 @@
   "description": "Independent agent workflow plugins for Codex and Claude Code.",
   "plugins": [
     {
-      "name": "testing-principles",
-      "source": "./plugins/testing-principles",
-      "version": "0.1.0",
-      "description": "Design for testability, classify, and audit tests using Khorikov's testing principles."
-    },
-    {
-      "name": "time-modeling",
-      "source": "./plugins/time-modeling",
-      "version": "0.1.0",
-      "description": "Design and audit temporal data models while preserving time intent."
-    },
-    {
-      "name": "design-observability",
-      "source": "./plugins/design-observability",
-      "version": "0.3.0",
-      "description": "Design, implement, and audit structured observability with OpenTelemetry metrics and traces."
-    },
-    {
-      "name": "domain-driven-design",
-      "source": "./plugins/domain-driven-design",
-      "version": "0.1.0",
-      "description": "Design and audit business domain models and event-driven integrations with proportionate DDD guidance."
-    },
-    {
-      "name": "rust-patterns",
-      "source": "./plugins/rust-patterns",
-      "version": "0.2.0",
-      "description": "Design and audit Rust application, library, and systems patterns against project contracts."
-    },
-    {
-      "name": "graphql-design",
-      "source": "./plugins/graphql-design",
-      "version": "0.1.0",
-      "description": "Design and audit GraphQL refetching and cursor pagination against Relay-compatible contracts."
+      "name": "tim-skills",
+      "source": "./plugins/tim-skills",
+      "version": "1.0.0",
+      "description": "Design, implement, and audit testing, time models, observability, domain models, Rust patterns, and GraphQL contracts."
     }
   ]
 }

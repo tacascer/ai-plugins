@@ -4,6 +4,14 @@ Create a dedicated Git worktree and branch for each change. Keep commits focused
 and use conventional commit messages such as `feat: add release-notes plugin` or
 `fix: repair testing-principles resource link`.
 
+## Package content
+
+Tim skills is the current package. Add shared workflows under
+`plugins/tim-skills/skills/` and keep references, examples, evaluations, and
+documentation inside that package. Group topic resources beneath their topic
+directory so common filenames do not collide. Evaluation fixture paths are
+relative to the plugin root; keep IDs unique across the combined case inventory.
+
 ## Add a plugin
 
 1. Create `plugins/<name>/`, where `<name>` uses lowercase ASCII letters, digits,
@@ -56,11 +64,11 @@ every generated entry on both platforms, regenerate both files, and run the full
 check set. Native platform validators should supplement these repository checks
 when available.
 
-For the current first plugin, the supplemental Claude packaging checks are:
+For Tim skills, the supplemental Claude packaging checks are:
 
 ```bash
 claude plugin validate --strict .
-claude plugin validate --strict plugins/testing-principles
+claude plugin validate --strict plugins/tim-skills
 ```
 
 The Codex plugin-creator validator is an environment-provided development tool,

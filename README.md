@@ -1,41 +1,30 @@
 # AI Plugins
 
-This repository contains independently installable agent plugins for Codex and
-Claude Code. Available packages are:
+[Tim skills](plugins/tim-skills/README.md) is one shared plugin for Codex and
+Claude Code. It contains 14 workflows covering testing, time modeling,
+observability, domain-driven design, Rust patterns, and GraphQL contracts.
 
-- [Testing Principles](plugins/testing-principles/README.md): design testable code, classify tests, and audit tests.
-- [Time Modeling](plugins/time-modeling/README.md): design and audit temporal data models.
-- [Design Observability](plugins/design-observability/README.md): design, implement, and audit structured observability, including OpenTelemetry metrics and traces.
-- [Domain-Driven Design](plugins/domain-driven-design/README.md): design and audit business models, rules, boundaries, and event-driven integrations.
-- [Rust Patterns](plugins/rust-patterns/README.md): choose and audit practical Rust patterns, code boundaries, and library usage.
-- [GraphQL Design](plugins/graphql-design/README.md): design and audit object refetching and cursor pagination.
-
-Each plugin keeps its manifests, skills, references, examples, and documentation
-together under `plugins/<name>/`.
-
-The platform-neutral inventory is `catalogs/plugins.json`. The inventory drives
-the committed Codex and Claude marketplace catalogs; `scripts/catalogs.py`
-renders both files deterministically. Plugin code and curriculum remain shared
-between platforms.
+The package lives in `plugins/tim-skills/`. Skills, references, examples,
+evaluations, and documentation are shared between platforms. The inventory in
+`catalogs/plugins.json` drives both committed marketplace catalogs.
 
 ## Install or load locally
 
-Before publication, use an absolute path to a local checkout. Claude Code can
-load the plugin for one session without installing it:
+Use an absolute path to your checkout. Claude Code can load the complete plugin
+for one session without installing it:
 
 ```bash
-claude --plugin-dir /absolute/path/to/ai-plugins/plugins/testing-principles
+claude --plugin-dir /absolute/path/to/ai-plugins/plugins/tim-skills
 ```
 
-The session-only loader was verified with Claude Code 2.1.267. To inspect what it
-loaded without starting a model turn:
+Inspect that session's package without starting a model turn:
 
 ```bash
-claude --plugin-dir /absolute/path/to/ai-plugins/plugins/testing-principles \
-  plugin details testing-principles@inline
+claude --plugin-dir /absolute/path/to/ai-plugins/plugins/tim-skills \
+  plugin details tim-skills@inline
 ```
 
-Codex 0.154.0 can inspect the local catalog without installing it:
+Codex can inspect the local catalog without installing it:
 
 ```bash
 codex \
@@ -43,75 +32,64 @@ codex \
   plugin list --json --marketplace tacascer-ai-plugins --available
 ```
 
-Codex does not expose a session-only raw plugin-directory loader in that version.
-Local activation therefore uses the normal marketplace and installation commands,
-which update Codex's user plugin configuration and cache:
+For local installation, these commands update user plugin configuration and
+caches:
 
 ```bash
 codex plugin marketplace add /absolute/path/to/ai-plugins
-codex plugin add testing-principles@tacascer-ai-plugins
+codex plugin add tim-skills@tacascer-ai-plugins
+
+claude plugin marketplace add /absolute/path/to/ai-plugins
+claude plugin install tim-skills@tacascer-ai-plugins
 ```
 
-These remote commands are for use only after this repository has been published
-at `tacascer/ai-plugins`:
+After a revision containing Tim skills is published at `tacascer/ai-plugins`,
+the remote installation commands are:
 
 ```bash
 codex plugin marketplace add tacascer/ai-plugins
-codex plugin add testing-principles@tacascer-ai-plugins
+codex plugin add tim-skills@tacascer-ai-plugins
 
 claude plugin marketplace add tacascer/ai-plugins
-claude plugin install testing-principles@tacascer-ai-plugins
+claude plugin install tim-skills@tacascer-ai-plugins
 ```
-
-The commands above document the supported flows. This repository's verification
-did not install or publish the plugin.
 
 ## Use a workflow
 
-The platforms use each installed or session-loaded skill's description for
-automatic selection when a request matches. Live automatic-selection behavior is
-still awaiting the model checks recorded below. To request a specific workflow
-explicitly, use the platform-qualified name:
+All workflows use the `tim-skills` namespace:
 
 ```text
 # Codex
-$testing-principles:classify-tests classify these tests
+$tim-skills:audit-tests review these tests
 
 # Claude Code
-/testing-principles:classify-tests classify these tests
+/tim-skills:audit-tests review these tests
 ```
 
-Replace `classify-tests` with `audit-tests` or `design-for-testing` as needed. For Time
-Modeling, use `$time-modeling:design-time-models` or
-`$time-modeling:audit-time-models` in Codex, and the corresponding `/` forms in
-Claude Code. For Design Observability, use `$design-observability:design-observability` or
-`$design-observability:audit-observability` in Codex, and
-`/design-observability:design-observability` or `/design-observability:audit-observability` in
-Claude Code. For OpenTelemetry implementation, use
-`$design-observability:implement-observability` in Codex or
-`/design-observability:implement-observability` in Claude Code. Load or install the
-selected plugin using its own directory or package name in the commands above.
+See the [workflow list](plugins/tim-skills/README.md#workflows) for all 14 skill
+names. Descriptions support automatic selection for matching requests; packaging
+checks alone do not establish live selection or semantic correctness.
 
-For Domain-Driven Design, use `$domain-driven-design:design-domain-model` or
-`$domain-driven-design:audit-domain-model` in Codex, and the corresponding `/`
-forms in Claude Code.
+## Migrate existing installations
 
-For Rust Patterns, use `$rust-patterns:design-rust` or
-`$rust-patterns:audit-rust` in Codex, and `/rust-patterns:design-rust` or
-`/rust-patterns:audit-rust` in Claude Code.
+Tim skills replaces `testing-principles`, `time-modeling`,
+`design-observability`, `domain-driven-design`, `rust-patterns`, and
+`graphql-design`. Update the marketplace to a revision containing Tim skills,
+install `tim-skills`, and remove or disable the six old packages to avoid loading
+duplicate guidance. Use the installation commands above for the new package.
 
-For GraphQL Design, use `$graphql-design:design-graphql` or
-`$graphql-design:audit-graphql` in Codex, and the corresponding `/` forms in
-Claude Code.
+Skill names stay the same; only the plugin prefix changes. For example,
+`$testing-principles:audit-tests` becomes `$tim-skills:audit-tests`, and
+`/graphql-design:design-graphql` becomes `/tim-skills:design-graphql`.
+The old package names and invocation aliases are no longer shipped.
 
-Start a fresh session after installing or updating a plugin so the platform
-reloads its skills. See the [Testing Principles verification record](docs/verification/2026-09-11-initial.md)
-and [Time Modeling verification record](plugins/time-modeling/docs/verification/2026-09-17-initial.md)
-for the exact checks, versions, and outstanding model-behavior validation.
+For declarative installations, update the plugin selection and package paths in
+the consuming configuration. This repository does not modify NixOS or user
+configuration. Start a fresh session after changing installed plugins.
 
 ## Local development
 
-Use Python 3.11 or newer and work on a dedicated Git worktree branch. Create a
+Use Python 3.11 or newer in a dedicated pooled worktree and task branch. Create a
 virtual environment and install the development dependency:
 
 ```bash
@@ -119,7 +97,13 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-dev.txt
 ```
 
-Run the complete local structural check set from the repository root:
+After inventory or manifest changes, regenerate both catalogs:
+
+```bash
+.venv/bin/python -m scripts.catalogs
+```
+
+Run the complete local structural check set:
 
 ```bash
 .venv/bin/python -m unittest discover -s tests -v
@@ -127,11 +111,7 @@ Run the complete local structural check set from the repository root:
 .venv/bin/python -m scripts.validate
 ```
 
-The Python validator checks the repository's supported manifest fields, skill
-frontmatter, authored local Markdown links, plugin containment, and generated
-catalog drift. It is deliberately narrower than each platform's complete schema.
-Use native platform validation as an additional packaging check when that tooling
-is available.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the plugin layout, catalog regeneration,
-versioning, and authored-content rules.
+The Python validator checks supported manifest fields, skill frontmatter, local
+Markdown links, plugin containment, and catalog drift. It is narrower than each
+platform's complete schema. Use native platform checks as supplemental evidence.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for authoring and versioning rules.

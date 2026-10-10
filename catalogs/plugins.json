@@ -1,26 +1,6 @@
 [
   {
-    "name": "testing-principles",
-    "path": "plugins/testing-principles"
-  },
-  {
-    "name": "time-modeling",
-    "path": "plugins/time-modeling"
-  },
-  {
-    "name": "design-observability",
-    "path": "plugins/design-observability"
-  },
-  {
-    "name": "domain-driven-design",
-    "path": "plugins/domain-driven-design"
-  },
-  {
-    "name": "rust-patterns",
-    "path": "plugins/rust-patterns"
-  },
-  {
-    "name": "graphql-design",
-    "path": "plugins/graphql-design"
+    "name": "tim-skills",
+    "path": "plugins/tim-skills"
   }
 ]
