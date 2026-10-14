@@ -3155,5 +3155,457 @@
       "Apply fixes to the fixture during an audit-only request",
       "Claim a GraphQL server was run"
     ]
+  },
+  {
+    "id": "ask-tim-route-design-for-testing",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to decide whether this production boundary needs an interface for testing.",
+    "context": "The checkout service constructs a network sender internally. We need to choose the smallest test seam and dependency treatment before any implementation.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:design-for-testing as the next skill",
+      "Read skills/design-for-testing/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-audit-tests",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to review these existing tests for brittleness and useful coverage.",
+    "context": "Tests verify exact calls to an internal price query as well as the customer-visible total. The user wants a read-only assessment.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:audit-tests as the next skill",
+      "Read skills/audit-tests/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-classify-tests",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to explain whether these tests are unit or integration tests and what their doubles do.",
+    "context": "The request is classification of scope, assertion style, isolation, and dependency roles, without a design or improvement request.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:classify-tests as the next skill",
+      "Read skills/classify-tests/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-design-time-models",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill for designing how recurring appointments should store time.",
+    "context": "The unresolved decision is whether a recurring 09:00 appointment follows local wall time across daylight-saving changes.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:design-time-models as the next skill",
+      "Read skills/design-time-models/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-audit-time-models",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to investigate our existing scheduler firing an hour late after a daylight-saving transition.",
+    "context": "We want to review the current persistence and conversion policy against the intended local-time promise before changing code.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:audit-time-models as the next skill",
+      "Read skills/audit-time-models/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-design-observability",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to design our event contracts and listener boundaries.",
+    "context": "The task is architecture only: decide ownership of application facts, signal mappings, and telemetry delivery policy.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:design-observability as the next skill",
+      "Read skills/design-observability/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-implement-observability",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to implement OpenTelemetry metrics and tracing for this service.",
+    "context": "Application event contracts, listener ownership, and telemetry architecture are already agreed. We need code wiring and local export verification, not another design phase.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:implement-observability as the next skill",
+      "Read skills/implement-observability/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Require a design phase before the already-scoped implementation"
+    ]
+  },
+  {
+    "id": "ask-tim-route-audit-observability",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to investigate misleading retry counters and missing shutdown signals.",
+    "context": "We want a read-only assessment of existing producers, mappings, listener registration, and signal delivery.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:audit-observability as the next skill",
+      "Read skills/audit-observability/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-design-domain-model",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to decide who owns order cancellation and stock release.",
+    "context": "Business rules, invariant boundaries, and coordination between order and inventory contexts are unresolved.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:design-domain-model as the next skill",
+      "Read skills/design-domain-model/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-audit-domain-model",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to review existing order and payment models for consistency risks.",
+    "context": "The review concerns business invariants and duplicate business-event delivery, without implementation changes.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:audit-domain-model as the next skill",
+      "Read skills/audit-domain-model/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-design-rust",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to design ownership and a public Rust API for concurrent work.",
+    "context": "The business rules are settled. The specific open questions are trait shape, ownership, cancellation, and error propagation.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:design-rust as the next skill",
+      "Read skills/design-rust/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-audit-rust",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to review this existing unsafe Rust abstraction.",
+    "context": "The task is a read-only review of documented safety invariants, FFI lifetimes, and concurrent use.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:audit-rust as the next skill",
+      "Read skills/audit-rust/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-design-graphql",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to design object refetching and cursor pagination for our GraphQL server.",
+    "context": "We need Relay-compatible Node identity and connection contracts. The schema and resolvers are not designed yet.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:design-graphql as the next skill",
+      "Read skills/design-graphql/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-route-audit-graphql",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill to assess this existing GraphQL server for Relay compatibility.",
+    "context": "The schema and resolver evidence are available. The user wants a read-only contract review, not a redesign.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend tim-skills:audit-graphql as the next skill",
+      "Read skills/audit-graphql/SKILL.md before explaining its fit",
+      "Give a brief reason tied to the requested outcome",
+      "Show a qualified invocation appropriate to the platform"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing"
+    ]
+  },
+  {
+    "id": "ask-tim-overlap-time-rust",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a flow for designing a Rust scheduler.",
+    "context": "The main unresolved decision is what local-time recurrence means across time-zone rule updates. After that is settled, Rust API ownership and cancellation still need a separate design decision.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Lead with design-time-models because temporal policy blocks the rest",
+      "Suggest design-rust after temporal policy to address the separate Rust decision",
+      "Explain the ordering without running either skill"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Lead with design-rust solely because the service uses Rust"
+    ]
+  },
+  {
+    "id": "ask-tim-overlap-observability",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a flow for adding application telemetry.",
+    "context": "Event ownership, field contracts, and listener failure policy must be decided before the requested OpenTelemetry implementation.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Recommend design-observability followed by implement-observability",
+      "Explain the architecture-to-implementation dependency"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Add every design and audit workflow as a mandatory lifecycle"
+    ]
+  },
+  {
+    "id": "ask-tim-ambiguous",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Which skill should I use for tests?",
+    "context": "No tests, desired outcome, or design problem are provided.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Ask a focused question distinguishing classification, audit, or a production testability decision",
+      "Wait for the answer before choosing a definitive route"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Default to design-for-testing solely because tests were mentioned",
+      "Ask the user to provide facts already present in context"
+    ]
+  },
+  {
+    "id": "ask-tim-no-fit-copy",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill for fixing a typo in this release note.",
+    "context": "Only prose spelling changes are requested.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Say that no Tim skill is needed and suggest handling the typo directly"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Recommend a testing or time-modeling workflow for incidental words"
+    ]
+  },
+  {
+    "id": "ask-tim-no-fit-test-authoring",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill for writing one straightforward unit test.",
+    "context": "The pure function accepts explicit inputs, needs no design or seam decision, and has no existing tests to audit or classify.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Say no Tim specialist workflow is needed for ordinary test authoring alone",
+      "Suggest writing the requested test directly"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Recommend design-for-testing solely because a test must be written",
+      "Recommend an external TDD skill as an Ask Tim route"
+    ]
+  },
+  {
+    "id": "ask-tim-no-fit-dns",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill for setting the DNS records for my domain.",
+    "context": "This is infrastructure DNS administration, not a business domain-model decision.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Say no Tim skill fits this DNS task"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Recommend design-domain-model based on the word domain"
+    ]
+  },
+  {
+    "id": "ask-tim-no-fit-rust-format",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill for formatting this Rust file.",
+    "context": "Only rustfmt formatting is requested; there is no ownership, API, correctness, or architecture question.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Say no Tim specialist skill is needed for formatting alone"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Recommend audit-rust or design-rust solely because the file is Rust"
+    ]
+  },
+  {
+    "id": "ask-tim-unavailable-candidate",
+    "mode": "routing",
+    "invocation": "explicit",
+    "prompt": "Use ask-tim: Choose a skill for deciding how to represent recurring local-time appointments.",
+    "context": "The runtime copy has no readable design-time-models skill body. The router map is visible but cannot establish the missing body's current scope.",
+    "expected_activation": [
+      "tim-skills:ask-tim"
+    ],
+    "required_findings": [
+      "Report that the candidate skill body is unavailable and its fit cannot be verified",
+      "Preserve uncertainty and suggest restoring readable guidance or clarifying scope without installing it"
+    ],
+    "forbidden_findings": [
+      "Start a specialist workflow instead of returning a recommendation",
+      "Edit application code or install a skill as part of routing",
+      "Claim to have read the missing skill body",
+      "Give a verified unconditional recommendation from the map alone"
+    ],
+    "runtime_exclusions": [
+      "skills/design-time-models"
+    ]
+  },
+  {
+    "id": "ask-tim-explicit-only",
+    "mode": "routing",
+    "invocation": "implicit",
+    "prompt": "Which Tim skill should I use?",
+    "context": "No explicit skill invocation and no specialist task are supplied. Evaluate whether the router is implicitly activated, independently of the wording of the answer.",
+    "expected_activation": [],
+    "required_findings": [
+      "Record actual activation telemetry or mark it unavailable; response wording alone does not establish selection"
+    ],
+    "forbidden_findings": [
+      "Treat naming ask-tim in a response as proof of activation",
+      "Treat manually supplied router instructions as evidence of implicit selection"
+    ]
   }
 ]

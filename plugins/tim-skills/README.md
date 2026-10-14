@@ -1,16 +1,23 @@
 # Tim skills
 
-One plugin with 14 shared Codex and Claude Code workflows for designing,
+One plugin with 15 shared Codex and Claude Code workflows for designing,
 implementing, and auditing software. Topic guidance, sources, examples, and
 evaluation fixtures remain grouped inside this package.
 
 ## Workflows
 
 Use `$tim-skills:<skill-name>` in Codex or `/tim-skills:<skill-name>` in Claude
-Code. Each skill retains its existing description, scope, and procedure.
+Code. Each specialist skill retains its existing description, scope, and procedure.
+
+Start with `$tim-skills:ask-tim` in Codex or `/tim-skills:ask-tim` in Claude
+Code when you want help choosing. [Ask Tim](skills/ask-tim/SKILL.md) is an
+explicitly invoked router: it recommends a skill or short flow and waits for
+you to start it. The fourteen specialist workflows remain available directly.
+Routing terms are defined in the [glossary](GLOSSARY.md).
 
 | Topic | Skill names | Guidance |
 | --- | --- | --- |
+| Routing | `ask-tim` | [Ask Tim](skills/ask-tim/SKILL.md) |
 | Testing | `design-for-testing`, `classify-tests`, `audit-tests` | [Testing Principles](docs/topics/testing-principles.md) |
 | Time modeling | `design-time-models`, `audit-time-models` | [Time Modeling](docs/topics/time-modeling.md) |
 | Observability | `design-observability`, `implement-observability`, `audit-observability` | [Design Observability](docs/topics/design-observability.md) |
@@ -31,7 +38,7 @@ any skill's remit or authorize application edits.
 
 ## Package layout
 
-- `skills/<skill-name>/` exposes each of the 14 workflows directly.
+- `skills/<skill-name>/` exposes each of the 15 workflows directly.
 - `references/<topic>/` and `examples/<topic>/` preserve topic resources and avoid
   collisions between filenames such as `principles.md` and `sources.md`.
 - [Evaluations](evals/README.md) contain the combined case inventory, with topic

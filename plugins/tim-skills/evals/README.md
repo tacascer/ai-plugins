@@ -1,6 +1,6 @@
 # Tim skills evaluations
 
-[cases.json](cases.json) combines all 161 existing evaluation cases. Each ID has
+[cases.json](cases.json) combines 184 evaluation cases. Each ID has
 its original topic as a prefix, so cases with formerly overlapping IDs remain
 unambiguous. Workflow identities use `tim-skills:<skill-name>`; external fixture
 plugin identities remain unchanged. `fixture_paths` resolve from the Tim skills
@@ -8,12 +8,16 @@ plugin root, including the `evals/<topic>/` prefix.
 
 | Topic | ID prefix | Cases | Guide |
 | --- | --- | --- | --- |
+| Routing | `ask-tim-` | 23 | [Ask Tim guide](ask-tim/README.md) |
 | Testing | `testing-principles-` | 35 | [Testing guide](testing-principles/README.md) |
 | Time modeling | `time-modeling-` | 16 | [Time guide](time-modeling/README.md) |
 | Observability | `design-observability-` | 31 | [Observability guide](design-observability/README.md) |
 | Domain models | `domain-driven-design-` | 21 | [Domain guide](domain-driven-design/README.md) |
 | Rust | `rust-patterns-` | 38 | [Rust guide](rust-patterns/README.md) |
 | GraphQL | `graphql-design-` | 20 | [GraphQL guide](graphql-design/README.md) |
+
+The 161 existing specialist cases are preserved; 23 Ask Tim cases cover the new
+router.
 
 Select a topic's cases by ID prefix before following its guide. References to old
 unprefixed case IDs in topic prose refer to that topic's prefixed cases.

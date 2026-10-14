@@ -10,7 +10,7 @@
   "interface": {
     "displayName": "Tim skills",
     "shortDescription": "Tim's software engineering workflows.",
-    "longDescription": "Fourteen workflows for testability, testing, time modeling, structured observability, domain-driven design, Rust, and GraphQL.",
+    "longDescription": "Fifteen workflows, including Ask Tim for choosing among testability, testing, time modeling, structured observability, domain-driven design, Rust, and GraphQL skills.",
     "developerName": "tacascer",
     "category": "Productivity",
     "capabilities": [
