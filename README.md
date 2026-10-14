@@ -1,7 +1,7 @@
 # AI Plugins
 
 [Tim skills](plugins/tim-skills/README.md) is one shared plugin for Codex and
-Claude Code. It contains 14 workflows covering testing, time modeling,
+Claude Code. It contains 15 workflows covering testing, time modeling,
 observability, domain-driven design, Rust patterns, and GraphQL contracts.
 
 The package lives in `plugins/tim-skills/`. Skills, references, examples,
@@ -60,15 +60,19 @@ All workflows use the `tim-skills` namespace:
 
 ```text
 # Codex
+$tim-skills:ask-tim which skill fits my task?
 $tim-skills:audit-tests review these tests
 
 # Claude Code
+/tim-skills:ask-tim which skill fits my task?
 /tim-skills:audit-tests review these tests
 ```
 
-See the [workflow list](plugins/tim-skills/README.md#workflows) for all 14 skill
-names. Descriptions support automatic selection for matching requests; packaging
-checks alone do not establish live selection or semantic correctness.
+See the [workflow list](plugins/tim-skills/README.md#workflows) for all 15 skill
+names. `ask-tim` is explicit-only and recommends without starting another
+workflow. The fourteen specialist skills support automatic selection for matching
+requests; packaging checks alone do not establish live selection or semantic
+correctness.
 
 ## Migrate existing installations
 
